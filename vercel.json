@@ -3,9 +3,6 @@
   "framework": "astro",
   "installCommand": "npm ci",
   "buildCommand": "npm test",
-  "redirects": [
-    { "source": "/admin", "destination": "/keystatic", "permanent": false }
-  ],
   "headers": [
     {
       "source": "/admin",
