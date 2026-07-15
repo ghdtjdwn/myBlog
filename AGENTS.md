@@ -10,7 +10,7 @@ This directory is an active work-in-progress Astro portfolio and engineering blo
 - `src/layouts/BaseLayout.astro` owns global metadata, navigation, structured data, and the page shell.
 - npm is the selected package manager, `.nvmrc` selects Node 24, and `package.json` pins the Astro toolchain. Keep `package-lock.json` synchronized with it.
 - Git is initialized on `main` and tracks the public `ghdtjdwn/myBlog` repository. Keep `main` releasable and require explicit confirmation for production or DNS changes.
-- The site is linked locally to the Vercel project `seongju-engineering-notes`; `.vercel/` and downloaded environment files remain ignored.
+- The site is linked locally to the Vercel project `seongju`; `.vercel/` and downloaded environment files remain ignored.
 
 ## Implementation boundaries
 
@@ -40,3 +40,5 @@ For visual changes, inspect the affected desktop and mobile pages after a succes
 ## Documentation and delivery
 
 Use `docs/TECH_SPEC.md` for the technical contract, `docs/adr/` for material architecture or publishing decisions, `docs/PROJECT_CATALOG.md` for audited project scope, and `WORKLOG.md` for completed work and validation. Keep `docs/private/` and local source maps out of public output. Before publishing, review the rendered output, links, dates, claims, accessibility, draft isolation, and generated RSS/sitemap behavior. Require explicit confirmation before creating a remote repository, publishing the site, changing DNS, or modifying a production deployment.
+
+`seongju.vercel.app` is a manually assigned Vercel alias, not an automatically advanced project domain. After every authorized final Production deployment, bind the GitHub commit to its Vercel deployment URL, verify that deployment belongs to project `seongju`, targets Production, and is Ready, then preserve the previous alias source before assigning the new one. Verify public content and headers, and immediately reassign the previous source if any check fails. A successful Vercel Production check alone does not prove that the primary alias moved.

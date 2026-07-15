@@ -1,5 +1,22 @@
 # Work log
 
+## 2026-07-15 — 성공한 Production과 오래된 본진 alias 불일치
+
+- 목표: GitHub와 Vercel의 성공 상태뿐 아니라 실제 제출 주소가 최종 콘텐츠를 제공하는지
+  확인하고, 같은 배포 누락이 반복되지 않게 한다.
+- 실제: commit `1d21d01`의 main CI와 Vercel Production은 성공했지만
+  `seongju.vercel.app`은 약 6시간 전 배포를 계속 가리켰다. 공개 페이지에는 그늘이 운영 중,
+  Macro가 좌표 기반 구조로 남아 있었고 최신 Production 고유 URL에는 새 내용이 있었다.
+- 원인: 본진 주소가 Vercel 프로젝트 설정의 자동 production domain이 아니라
+  `vercel alias set`으로 특정 배포에 붙인 수동 `.vercel.app` alias였다.
+- 결정: 짧은 본진 주소를 유지하고, 승인된 최종 Production마다 Ready 배포를 확인한 뒤 alias를
+  명시적으로 승격하고 실제 콘텐츠를 검사한다. GitHub에 Vercel token을 추가하는 자동화는
+  비밀 관리와 운영 복잡성에 비해 배포 빈도가 낮아 선택하지 않았다.
+- 기록: 재현, 증거, 대안, 해결과 회귀 방지를
+  `docs/troubleshooting/vercel-primary-alias-stale.md`에 남겼다.
+- 검증: 최종 문서 배포와 alias 승격 후 실행한다.
+- 전달: 문서와 최종 Production 승격을 준비 중이다.
+
 ## 2026-07-15 — CI action Node 24 전환
 
 - 목표: GitHub-hosted runner의 Node 20 폐기 경고를 제거하고 포트폴리오 CI의 공급망 참조를
