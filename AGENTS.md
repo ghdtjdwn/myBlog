@@ -5,11 +5,11 @@ This directory is an active work-in-progress Astro portfolio and engineering blo
 ## Current state
 
 - The site is configured as a static Astro build in `astro.config.mjs`.
-- `src/content.config.ts` defines `projects` and `posts` collections backed by `src/content/projects/` and `src/content/posts/`.
+- `src/content.config.ts` defines the `projects`, `posts`, `decisions`, and `incidents` collections under `src/content/`.
 - `src/lib/site.ts` owns shared site metadata and base-path URL handling.
 - `src/layouts/BaseLayout.astro` owns global metadata, navigation, structured data, and the page shell.
 - npm is the selected package manager, `.nvmrc` selects Node 24, and `package.json` pins the Astro toolchain. Keep `package-lock.json` synchronized with it.
-- Git may be initialized as part of the initial implementation, but creating a remote repository and publishing still require explicit confirmation.
+- Git is initialized on `main`, and the initial implementation is committed locally. No remote is currently configured. Creating a remote repository, pushing, and publishing require explicit confirmation.
 
 ## Implementation boundaries
 
@@ -19,6 +19,7 @@ This directory is an active work-in-progress Astro portfolio and engineering blo
 - Maintain semantic HTML, keyboard navigation, the skip link, useful alternative text, canonical URLs, RSS metadata, Open Graph metadata, and JSON-LD.
 - Treat public metrics, project outcomes, dates, live URLs, and technical claims as evidence-backed portfolio content. Do not invent or silently inflate them.
 - Never place private notes, credentials, unpublished personal data, or environment values in public content.
+- Follow the nested guidance in `src/content/AGENTS.md` for publishable records and `docs/private/AGENTS.md` for local-only evidence.
 
 ## Validation
 
