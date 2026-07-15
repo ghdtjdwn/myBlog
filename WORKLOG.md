@@ -1,5 +1,19 @@
 # Work log
 
+## 2026-07-15 — CI action Node 24 전환
+
+- 목표: GitHub-hosted runner의 Node 20 폐기 경고를 제거하고 포트폴리오 CI의 공급망 참조를
+  현재 지원되는 action runtime으로 올린다.
+- 근거: PR #3 병합 뒤 main run `29401145044`는 성공했지만 checkout과 gitleaks action이
+  Node 20 강제 실행 경고를 남겼다. 각 공식 저장소의 최신 release와 `action.yml`을 확인했다.
+- 변경: `actions/checkout` 7.0.0, `actions/setup-node` 7.0.0,
+  `gitleaks/gitleaks-action` 3.0.0의 전체 commit SHA를 고정했다. 세 action 모두 Node 24를
+  사용하며 gitleaks v3는 입출력·동작 변경 없이 runtime만 이전하는 release다.
+- 검증: 세 release commit의 `action.yml`이 Node 24를 사용하는 것을 확인했다. workflow YAML
+  parsing과 `npm test`의 관계·Astro·63개 산출물 검사가 통과했다. Pull request #4의 validate,
+  secret-scan과 Vercel Preview가 성공했고 두 CI job의 annotation은 0건, Node 20 경고도 0건이었다.
+- 전달: pull request #4의 병합과 post-merge CI·Production 검증이 남았다.
+
 ## 2026-07-15 — Macro 의미 기반 자동화 완료 반영
 
 - 목표: 좌표 기반 해커톤 아카이브로 남아 있던 포트폴리오 설명을 실제 완료된 의미 기반
@@ -16,7 +30,9 @@
   오류·경고·힌트 0, 한·영 63개 생성 문서와 draft 격리가 통과했다. 공개 근거 링크와 로컬
   한·영 페이지는 200, npm audit는 취약점 0건이었다. 독립 리뷰에서 원본 커밋 21개 파일 중
   `macro_pkg/`가 20개라는 수치 오류를 찾아 교정했고 다른 P0/P1은 없었다.
-- 전달: 콘텐츠 브랜치에서 검증 중이다.
+- 전달: pull request #3을 `main`에 병합했다. GitHub Actions run `29401145044`의 validate와
+  secret-scan, Vercel Production이 성공했다. 한·영 홈·Macro·Geuneul 여섯 공개 경로와
+  canonical은 200이고 기존 보안 헤더를 유지했다.
 
 ## 2026-07-15 — 그늘 완료 상태 정정
 
@@ -27,7 +43,8 @@
   운영 중인 ssu 플랫폼과 완료된 그늘을 구분하도록 교정했다.
 - 검증: `npm test`에서 11개 카테고리와 13개 한영 프로젝트 관계, Astro 30개 파일 검사
   오류·경고·힌트 0, 한영 63개 생성 문서와 draft 격리가 통과했다.
-- 전달: 콘텐츠 브랜치는 pull request 검토와 CI를 위해 준비했다.
+- 전달: Macro 갱신과 함께 pull request #3으로 병합하고 같은 CI·Production 배포와 한·영
+  Geuneul 공개 경로 200을 확인했다.
 
 ## 2026-07-15 — GitHub·블로그 포트폴리오 본진 통합
 
