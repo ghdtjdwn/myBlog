@@ -8,7 +8,7 @@
 - 기록: 재현, 함수 로그 근거, 원인, 대안, 해결 절차와 남은 위험을 `docs/troubleshooting/keystatic-production-missing-oauth-config.md`에 기록했다. README에 Keystatic·검색엔진의 남은 수동 설정을 명시했다.
 - 검증: 로컬 `/keystatic/setup` HTTP 200과 기존 hydration 오류 제거를 확인했다. GitHub App 생성과 실제 Production 로그인은 사용자 결정에 따라 다음 세션으로 보류했다.
 - 검증: 로컬 설정 서버를 종료했다. `npm test`에서 관계 검증, Astro 30개 파일 검사 오류·경고 0, 한영 63개 생성 문서와 draft 격리가 통과했고 npm audit 취약점은 0건이었다.
-- 전달: commit, push, CI와 공개 페이지 재검증을 이어서 수행한다.
+- 전달: 구현 commit `d9cdc35`를 `main`에 push했고 GitHub Actions run `29383564060`과 Vercel Production이 성공했다. `seongju.vercel.app`을 최신 배포에 연결하고 한국어·영문 홈 200, `/admin`의 Keystatic redirect와 `noindex` 헤더를 확인했다. CMS OAuth는 위 수동 설정을 완료할 때까지 보류 상태다.
 
 ## 2026-07-15 — 영문 사이트와 검색 소유권 인증 준비
 
