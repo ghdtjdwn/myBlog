@@ -32,9 +32,11 @@
   검증과 작은 근거 label 대비를 교정했다.
 - 검수 제한: 인앱 브라우저가 연결되지 않아 실제 데스크톱·모바일 viewport와 캡처 기반 시각 검수는
   수행하지 못했다. 반응형 CSS와 생성 HTML의 semantic·keyboard 구조까지만 확인했다.
-- 전달: `feat/evidence-first-blog-refresh` 로컬 브랜치에 구현하고 독립 diff review를 반영했다.
-  commit·push·draft PR은 다음 단계이며 Production merge·배포와 본진 alias 변경은 명시적 확인 전까지
-  수행하지 않는다.
+- 원격 검증: 구현 commit `d522589`를 올린 draft PR #9에서 CI run `29413730095`의 validate와
+  secret-scan, Vercel Preview `dpl_DZpJAFSFZFs9WVmMTHgoX9GtzD6Y`가 통과했다. Ready preview에서
+  한·영 홈·글·프로젝트 7개 경로, RSS 6/6, 공개 제외 경로 404와 보안 header를 다시 확인했다.
+- 전달: `feat/evidence-first-blog-refresh`를 draft PR #9로 전달했다. Production merge·배포와 본진
+  alias 변경은 명시적 확인 전까지 수행하지 않는다.
 
 ## 2026-07-15 — 공개 연락처 이메일 동기화
 
