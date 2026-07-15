@@ -8,7 +8,13 @@
 - 프로젝트: firstStudy를 비공개 학습 아카이브로 정리하고 공개 URL을 제거했다. con-dorm 표시명을 `Cham Domi (참 도미)`로 통일하되 기존 handle과 slug는 유지했다. Macro는 2024 해커톤 산출물로 교정하고 주문 전체 사전 검증, 실행 직렬화, 긴급 중단 latch, 수동 결제 경계와 테스트·CI를 반영했다.
 - 공개 범위: 기여 귀속이 확인되지 않은 비공개 협업 프로젝트의 초안·이름·원문 링크를 현재 공개 트리에서 제거했다. 기존 Git 이력은 자동 재작성하지 않고, 기존 Pages 포트폴리오는 새 두 진입점의 전달이 끝난 뒤 비활성화·아카이브한다.
 - 검증: `npm test`에서 11개 카테고리와 13개 한영 프로젝트 관계, Astro 30개 파일 검사 오류·경고·힌트 0, 한영 63개 생성 문서와 draft 격리가 통과했다. `npm audit --omit=dev` 취약점은 0건이었다. 인앱 브라우저가 제공되지 않아 이번 변경의 시각 검증은 정적 산출물·HTML 구조 검사로 제한했다.
-- 전달: 리뷰, PR, GitHub CI, Vercel Production과 공개 URL 검증 결과는 전달 완료 후 이 항목에 갱신한다.
+- 전달: Macro PR #1·#2와 Cham Domi 팀 문서 PR #3, GitHub 프로필 PR #3, 블로그 PR #1을
+  병합했다. 블로그 `main` CI run `29385816471`의 validate·secret-scan과 Vercel Production이
+  성공했고 `seongju.vercel.app`을 해당 배포에 연결했다. 한·영 홈·소개·Macro 사례·sitemap은
+  200, firstStudy와 제거한 비공개 협업 초안 경로는 404, canonical·hreflang·구조화 데이터·보안
+  헤더를 공개 응답에서 확인했다. firstStudy는 비공개로 전환해 익명 API·웹 요청이 404임을
+  확인했다. 구 Pages 저장소는 은퇴 안내 PR #1을 병합하고 Pages 삭제 응답 204와 기존 사이트
+  404를 확인한 뒤 아카이브했다.
 
 ## 2026-07-15 — Keystatic Production 로그인 500 조사와 설정 절차 보완
 
