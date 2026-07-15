@@ -46,4 +46,5 @@
 - 검증: Vercel 원격 빌드에서 npm 감사 0 vulnerabilities, Astro 검사 0 errors/0 warnings/0 hints, 17페이지 정적 빌드가 성공했다. 공개 주소의 HTTP 200, TLS/HSTS, canonical, Open Graph 이미지, sitemap, robots 허용과 draft URL 404를 직접 확인했다.
 - CI: 최신 `c58b4aa` GitHub Actions의 build와 secret-scan이 모두 성공했다. 최초 push의 gitleaks 실패는 root commit의 존재하지 않는 부모 범위가 원인이었고 `docs/troubleshooting/initial-gitleaks-root-commit.md`에 기록했다.
 - 보안: 모든 응답에 MIME sniffing 방지, frame 차단, referrer 제한과 camera·microphone·geolocation 차단 헤더를 선언했다. CSP는 Analytics endpoint를 정확히 확정하지 않은 상태에서 임의 적용해 관측을 깨뜨리지 않도록 보류했다.
+- 최종 확인: commit `4640f73`의 Git 연결 Production 배포와 GitHub CI가 모두 성공했다. 공개 alias에서 canonical과 네 보안 헤더를 다시 확인했고 저장소에 설명, 홈페이지와 Astro·TypeScript·portfolio 토픽을 설정했다.
 - 남은 외부 작업: 개인 도메인 선택·구매와 DNS 연결, Google Search Console과 네이버 서치어드바이저의 소유권 인증은 사용자 확인이 필요하다.
