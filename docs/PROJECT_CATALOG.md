@@ -14,11 +14,10 @@
 | `axwar-kb` | 상담 로그→FAQ 플러그인 | 제출물 완성 | 개인 프로젝트 | fail-closed AI 시리즈 |
 | `axwar-refund` | 여행 환불 규정 계산 플러그인 | 제출물 완성 | 개인 프로젝트 | 자연어 해석과 결정론 계산 경계 |
 | `axwar-disclosure` | DART 공시 브리핑 플러그인 | 제출물 완성 | 개인 프로젝트 | 금융 숫자·표현 검증 |
-| `con-dorm` | 기숙사·룸메이트 매칭 | 팀 프로토타입 | FE 전체, BE roommate 도메인. 인증·기숙사 도메인은 팀원 소유 | 알고리즘·계약 테스트·팀 경계 글 |
+| `con-dorm` | Cham Domi(참 도미), 기숙사·룸메이트 매칭 | 팀 프로토타입 | FE 전체, BE roommate 도메인. 인증·기숙사 도메인은 팀원 소유 | 알고리즘·계약 테스트·팀 경계 글 |
 | `unithon-macro` | 음성 주문 키오스크 자동화 | 해커톤 구현 | Macro 저장소의 사용자 기여 확인. Backend·Frontend 구현 주장 금지 | 음성→주문→물리 UI 자동화 글 |
-| `redbean-overflow` | DOCX→HWPX 시험지 자동화 | 로컬 결과 존재 | 현재 Git 기록으로 사용자 직접 구현 입증 불가. 참여·검수 범위 확인 필요 | 역할 확인 전 초안·공개 보류 |
 | `cs-coursework` | 전공 과제 모음 | 학습 아카이브 | 사용자 저장소 | 시스템·알고리즘 학습 아카이브 |
-| `first-study` | Spring Boot CRUD 학습 | 학습 프로젝트 | 사용자 저장소 | 초기 학습 회고, 대표 배치 제외 |
+| `first-study` | Spring Boot CRUD 학습 | 비공개 학습 아카이브 | 사용자 저장소 | 초기 학습 회고, 대표 배치 제외 |
 | `osc` | 오픈소스 개발자대회 작업공간 | 문서 단계 | 구현 없음 | 실제 OSS 기여 발생 후 기록 |
 
 ## 대표 콘텐츠 축
@@ -26,13 +25,13 @@
 1. 운영 플랫폼: ssu 4서비스의 GitOps, ARM64, Kafka, 인증, 관측성
 2. 클라우드·공간 데이터: 그늘의 PostGIS, ETL, 실시간 제보, AWS IaC
 3. AI 경계 설계: DDSC와 axwar 플러그인의 결정론 검증
-4. 협업·알고리즘: con-dorm의 Stable Roommates와 FE/BE 계약
+4. 협업·알고리즘: Cham Domi의 Stable Roommates와 FE/BE 계약
 5. 제품 자동화: UNITHON Macro의 음성 주문과 좌표 기반 자동화
 
 ## 공개 규칙
 
 - 비공개 저장소는 URL을 노출하지 않고 공개 가능한 역할·화면·검증 결과만 사용한다.
-- RedbeanOverflow는 역할을 추가 확인하기 전 사용자 구현 사례로 게시하지 않는다.
+- 기여 귀속이 확인되지 않은 비공개 협업 프로젝트는 이름과 원문을 공개 저장소에 두지 않는다.
 - UNITHON Backend·Frontend는 팀 전체 맥락으로만 설명한다.
 - heungmap, yogi, osc는 계획과 구현 완료를 구분한다.
 - 과거 `hoeongj` 링크는 사용하지 않고 현재 `ghdtjdwn` 링크를 사용한다.

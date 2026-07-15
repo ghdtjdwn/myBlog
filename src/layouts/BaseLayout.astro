@@ -41,6 +41,30 @@ const verification = {
 const imagePath = (typeof image === "string" ? image : image?.src) ?? "og-blog.png";
 const resolvedImagePath = imagePath.startsWith(import.meta.env.BASE_URL) ? imagePath : withBase(imagePath);
 const imageUrl = new URL(resolvedImagePath, Astro.site);
+const person = {
+  "@type": "Person",
+  name: locale === "ko" ? site.name : "Hong Seong Ju",
+  url: new URL(withBase(locale === "ko" ? "about/" : "en/about/"), Astro.site).toString(),
+  email: `mailto:${site.email}`,
+  affiliation: {
+    "@type": "EducationalOrganization",
+    name: "Soongsil University",
+  },
+  sameAs: [site.github, site.solvedAc],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "컴퓨터활용능력 2급 (Computer Specialist in Spreadsheet & Database, Level II)",
+      credentialCategory: "certificate",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "정보처리기능사 (Craftsman Information Processing)",
+      credentialCategory: "certificate",
+    },
+  ],
+};
+const isProfilePage = /^\/?(?:en\/)?about\/?$/.test(relativePath);
 const jsonLd =
   type === "article"
     ? {
@@ -51,23 +75,22 @@ const jsonLd =
         datePublished: publishedAt?.toISOString(),
         dateModified: (updatedAt ?? publishedAt)?.toISOString(),
         mainEntityOfPage: canonical.toString(),
-        author: {
-          "@type": "Person",
-          name: locale === "ko" ? site.name : "Hong Seong Ju",
-          url: new URL(withBase("about/"), Astro.site).toString(),
-          sameAs: [site.github],
-        },
+        author: person,
       }
-    : {
+    : isProfilePage
+      ? {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
-        mainEntity: {
-          "@type": "Person",
-          name: locale === "ko" ? site.name : "Hong Seong Ju",
+        mainEntity: person,
+      }
+      : {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: title,
+          description,
           url: canonical.toString(),
-          sameAs: [site.github],
-        },
-      };
+          author: person,
+        };
 ---
 
 <!doctype html>

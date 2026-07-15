@@ -2,9 +2,9 @@
 title: "firstStudy"
 summary: "Spring Boot로 회원 관리 CRUD와 REST API 기본기를 익힌 초기 학습 프로젝트입니다."
 status: archive
-statusNote: "Spring Boot 학습 초기 기록입니다. 현재 개발은 종료됐고 공개 문서의 자격증명 형태를 정리하기 전까지 상세 홍보를 보류합니다."
+statusNote: "Spring Boot 학습 초기 기록입니다. 현재 개발은 종료됐고 저장소는 비공개 학습 아카이브로 보관합니다."
 activity: personal
-visibility: public
+visibility: private
 role: "개인 학습 프로젝트"
 contributionEvidence: ["사용자 저장소 2 commits"]
 tags: ["Spring Boot", "JPA", "Validation", "REST"]
@@ -14,8 +14,7 @@ metrics:
 order: 13
 featured: false
 draft: true
-repositories:
-  - { label: "GitHub", url: "https://github.com/ghdtjdwn/firstStudy" }
+repositories: []
 recordPlan: "원본 저장소의 보안 정리와 secret scan을 먼저 완료한 뒤, 기능 소개보다 초기 CRUD에서 운영 시스템까지 성장한 차이를 회고 글로 기록합니다."
 recordLinks: []
 ---
@@ -34,6 +33,6 @@ Spring Boot의 controller-service-repository 계층, JPA entity와 회원 관리
 
 CRUD가 동작하는 것과 운영 가능한 서비스는 다릅니다. 이후 프로젝트에서는 스키마 마이그레이션, 인증 경계, 캐시와 메시징, CI/CD, 관측성, 부하 테스트와 복구 경로까지 구현 범위로 보게 됐습니다. 이 차이를 설명하는 성장 회고의 근거로 사용합니다.
 
-## 공개 전 보안 정리
+## 비공개 보관 기준
 
-공개 README에 DB 자격증명 형태가 남아 있어 값의 실제 사용 여부 확인, 회전, 기본값 제거와 secret scan이 먼저 필요합니다. 이 작업이 끝나기 전에는 설정 예시를 인용하거나 상세 사용법을 블로그에 옮기지 않습니다. 추적된 의존성 같은 저장소 위생도 함께 정리할 예정입니다.
+초기 학습 당시의 설정과 추적된 의존성 구조를 최신 대표 작업처럼 홍보하지 않습니다. 저장소는 비공개로 전환하고, 성장 과정을 설명할 필요가 있을 때도 자격증명 형태의 설정값이나 소스 URL을 공개 글로 옮기지 않습니다.

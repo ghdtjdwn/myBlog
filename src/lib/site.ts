@@ -4,7 +4,10 @@ export const site = {
   description:
     "백엔드, 데이터, AI 시스템을 만들며 겪은 문제와 선택의 이유를 기록하는 개발자 홍성주의 기술 블로그입니다.",
   github: "https://github.com/ghdtjdwn",
-  location: "Seoul, Korea",
+  email: "akftjdwn@gmail.com",
+  solvedAc: "https://solved.ac/profile/akftjdwn",
+  education: "Soongsil University — Computer Science & Engineering",
+  location: "South Korea",
 };
 
 export function withBase(path: string) {
