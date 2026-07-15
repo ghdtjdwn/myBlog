@@ -1,46 +1,58 @@
 ---
 title: "UNITHON Voice Kiosk Macro"
-summary: "In a team project connecting voice orders to kiosk automation, I owned the launcher, configuration, packaging, and macro integration scope."
+summary: "A Windows accessibility-retrofit prototype that turns a voice order into semantic actions on a third-party kiosk and stops at a verified payment-method screen without modifying the kiosk source."
 status: complete
-statusNote: "The 2024 hackathon client is complete and is not an operating service. The public repository is maintained as a reviewable archive with safe defaults, corrected runtime paths, documentation, and CI."
+statusNote: "The 2024 hackathon client is complete with UIA-first grounding, OCR fallback, and a durable order boundary. It is not an operating service; physical Windows-kiosk and disabled-user acceptance remain unverified."
 activity: competition
 visibility: public
-role: "macro_pkg launcher, configuration, packaging, and macro integration"
-teamScope: "Backend and Frontend implementation are owned by teammates"
-contributionEvidence: ["21 macro_pkg files in the original user commit", "Launcher-path, order-safety, public-documentation, and CI renovation"]
-tags: ["Python", "WebSocket", "VAD", "UI Automation"]
-infra: ["Local Windows runtime", "HTTP/WebSocket contracts"]
+role: "Voice client, semantic UI automation, and safe order handoff"
+teamScope: "Teammates own the original Backend and Frontend; my Backend change is limited to the authentication contract required by Macro"
+contributionEvidence: ["20 macro_pkg files in the original user commit", "UIA-first grounding, OCR fallback, transitions, and postconditions", "SQLite order queue, authenticated integration, 69 safety-core tests, and cross-platform CI"]
+tags: ["Python", "Windows UIA", "EasyOCR", "SQLite"]
+infra: ["Local Windows runtime", "Authenticated HTTP/WebSocket contracts", "SQLite durable queue"]
 metrics:
-  - { label: "Safety mode", value: "Dry-run default" }
-order: 10
-featured: false
+  - { label: "Safety", value: "Dry-run default" }
+  - { label: "Validation", value: "69 tests · Linux/Windows CI" }
+order: 3
+featured: true
 repositories:
   - { label: "Macro", url: "https://github.com/UNITHON24/Macro" }
-recordPlan: "The Macro repository's code, ADR, and work log remain the source evidence for the voice, order, UI-automation, and safety boundaries. The team's Backend and Frontend implementation is excluded from my individual record."
+recordPlan: "The Macro repository's code, ADRs, work log, and troubleshooting records remain the source evidence for the voice, order, and physical-UI boundaries. I do not include the team's complete Backend or Frontend implementation in my individual record."
 recordLinks:
-  - { label: "Macro architecture and limitations", url: "https://github.com/UNITHON24/Macro/blob/main/README.md" }
-  - { label: "Safe client boundary", url: "https://github.com/UNITHON24/Macro/blob/main/docs/ARCHITECTURE.md" }
+  - { label: "Architecture and safety boundaries", url: "https://github.com/UNITHON24/Macro/blob/main/docs/ARCHITECTURE.md" }
+  - { label: "Semantic automation decision", url: "https://github.com/UNITHON24/Macro/blob/main/docs/adr/0002-black-box-semantic-automation.md" }
+  - { label: "Live order boundary audit", url: "https://github.com/UNITHON24/Macro/blob/main/docs/troubleshooting/2026-live-order-boundary-audit.md" }
   - { label: "Macro work log", url: "https://github.com/UNITHON24/Macro/blob/main/WORKLOG.md" }
 ---
 
 ## Problem and role
 
-This hackathon project lets a user who has difficulty operating a kiosk by touch place an order by voice, then carries the structured backend result through to actual kiosk UI actions. The direct contribution visible in the original commit is the launcher, configuration tools, packaging, and integration with the existing `kioskMacro` under `macro_pkg/`. The later public renovation corrected that path's launcher and safety boundary and added documentation and CI. I do not claim the earlier kiosk implementation or the Backend and Frontend as my individual work.
+A structured voice order still cannot operate a legacy kiosk that exposes no voice interface. Macro closes that gap as a separate Windows process, without replacing the kiosk hardware or modifying its frontend source.
 
-## Execution flow
+Korean accessibility rules require kiosk operators to provide measures for equal access and, in defined cases, recognize software compatible with existing terminals as an alternative measure. Macro evaluates the technical feasibility of that software-retrofit path; it is not an accessibility certification or a guarantee of legal compliance. The [English repository README](https://github.com/UNITHON24/Macro/blob/main/README.en.md#problem) separates the legal scope and primary sources from the engineering claim.
 
-The client sends microphone PCM over WebSocket and receives structured order items from the backend over HTTP. It looks up each item's category, page, and coordinates in the menu index, then clicks through the kiosk to add it to the cart.
+My original contribution is evidenced by the launcher, configuration tools, packaging, voice client, and macro integration under `macro_pkg/`. The public completion added semantic grounding and execution, a durable order queue, safety boundaries, tests, and documentation. I do not claim the team's complete Backend, Frontend, or earlier `kioskMacro` implementation; my Backend change is limited to the authenticated header contract used by Macro.
 
-16 kHz PCM recording and VAD distinguish speech from silence, while the WebSocket connection carries the audio stream. After receiving an order result, the client finds the category, page, and coordinates in the menu index, and pyautogui navigates the actual screen sequence. EasyOCR assists with initial menu-position setup.
+## From demo coordinates to semantic automation
 
-## Safe testing
+Immediately before the 2024 demo, a layout change forced the client to finish with hard-coded coordinates. I retained that failure as a [troubleshooting record](https://github.com/UNITHON24/Macro/blob/main/docs/troubleshooting/2024-demo-coordinate-drift.md). I also considered training YOLO on every menu and transition, but a text-heavy kiosk would require a per-screen dataset and model while still needing a separate model of hidden state.
 
-Dry-run is the default, so the client performs no real clicks until it is explicitly disabled. Before the first click, it validates the complete order's menu names and quantities; any unknown item or default-limit violation rejects the full payload. Orders execute one at a time through the HTTP order hub, preventing a WebSocket event from racing the same order through a second path.
+The completed design re-reads the current screen. It binds every observation to one native window handle and first uses Windows UI Automation names, roles, and states. EasyOCR re-detects current text only when a canvas or legacy screen exposes an insufficient accessibility tree. Resolution-scaled coordinates are an explicit fallback only after both semantic providers fail.
 
-Dry-run records only the selected menu and intended coordinates and does not move the pointer. Live mode stops after adding validated items to the cart; an operator verifies quantities, price, and current UI state before completing checkout manually. Activating the pointer-corner failsafe blocks the remaining items and all later orders until restart. Standard-library tests verify configuration evaluation, launcher paths, menu indexing, whole-payload validation, order limits, overlapping-order rejection, emergency stop, and the manual-checkout boundary; GitHub Actions runs the same suite and syntax compilation. Microphone, OCR, and live pointer integration remain an explicitly manual desktop validation boundary.
+## Execution and verification loop
 
-## Limitations
+The microphone client sends 16 kHz PCM speech segments selected by VAD over WebSocket. The Backend's `displayName`, temperature, size, and quantity enter a SQLite queue through a per-installation-token-authenticated HTTP contract. Idempotency keys and one global claim prevent duplicate orders and concurrent pointer execution.
 
-Coordinate-based automation is vulnerable to changes in resolution and UI layout. A separate post will compare this limitation with OCR-assisted initial setup and an accessibility-API approach.
+A kiosk profile declares screen states and allowed transitions. Every action must complete `observe → resolve → act → stabilize twice → re-observe → verify the postcondition`. Equal candidates fail as ambiguous, and the client stops if it cannot prove both the screen transition and the semantic cart-quantity delta.
 
-The client also depends on Windows desktop permissions and a fixed screen structure. In a real product, a kiosk accessibility API or internal command contract would be more reliable than coordinate correction. This code is a 2024 hackathon deliverable and is not presented as an operating service.
+## Payment and customer-handoff boundary
+
+Dry-run is the default, and the client validates every menu, option, and quantity before the first action. Only a separate opt-in allows navigation to a verified payment-method screen. It never selects card or cash and never submits a payment.
+
+Any verified live cart mutation leaves the order in `awaiting_handoff`; an unverifiable result becomes `uncertain`. No later order can be claimed until an operator confirms customer handoff or cancellation and restores the kiosk. This keeps a successful message acknowledgement separate from the physical screen's state.
+
+## Validation and limitations
+
+Sixty-nine standard-library tests cover the nested controls reproduced from the team screen, UI grounding, transitions, semantic cart deltas, authentication, idempotency, recovery, and the payment boundary. The same safety core passes GitHub Actions on Ubuntu and Windows. The first Windows run exposed SQLite file-handle, console-encoding, and path-separator assumptions, which are preserved as a real [CI troubleshooting record](https://github.com/UNITHON24/Macro/blob/main/docs/troubleshooting/2026-windows-ci-portability.md).
+
+These are deterministic safety-core checks. I have not completed end-to-end acceptance of UIA quality, DPI behavior, the OCR model, microphone, and physical pointer on a real Windows kiosk. Each new kiosk still needs a reviewed profile, and disabled-user usability testing, accessibility certification, and full legal compliance remain outside the verified scope.

@@ -13,7 +13,7 @@ infra: ["H2/MySQL persistence", "Mock-to-real API adapter", "No deployment yet"]
 metrics:
   - { label: "FE screens", value: "9+" }
   - { label: "Owned BE scope", value: "roommate" }
-order: 9
+order: 10
 featured: true
 repositories: []
 recordPlan: "팀 저장소와 공용 역할·API 계약 문서를 원본으로 두고, 개인이 맡은 FE·roommate 범위만 익명화해 블로그에 기록합니다. 배포 전 문제를 운영 장애처럼 표현하지 않습니다."

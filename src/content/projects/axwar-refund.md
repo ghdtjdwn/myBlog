@@ -11,7 +11,7 @@ tags: ["Rule Parsing", "Deterministic Calculation", "Consumer Policy"]
 infra: ["Python standard library"]
 metrics:
   - { label: "Golden tests", value: "10 / 10" }
-order: 7
+order: 8
 featured: false
 repositories: []
 recordPlan: "규정 파싱과 계산 검증 원문은 제출물에 유지하고, fail-closed 계산·범위 격상 방어 같은 설계 판단을 블로그에 선별 기록합니다."

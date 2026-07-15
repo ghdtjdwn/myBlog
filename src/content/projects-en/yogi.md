@@ -11,7 +11,7 @@ tags: ["Recommendation", "Group Decision", "OCI", "Product Design"]
 infra: ["OCI Ampere planned", "ADB Vector planned"]
 metrics:
   - { label: "Current stage", value: "Awaiting result" }
-order: 5
+order: 6
 featured: false
 repositories: []
 recordPlan: "Keep the preliminary proposal and finals Day-1 checklist as the source record. If selected, document only OCI availability, recommendation experiments, and operational results that were actually verified."

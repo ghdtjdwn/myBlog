@@ -34,7 +34,7 @@ const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.dr
     </section>
 
     <section class="home-section">
-      <header class="list-heading"><h2>만들고 있는 것</h2><a href={withBase("projects/")}>전체 보기</a></header>
+      <header class="list-heading"><h2>대표 프로젝트</h2><a href={withBase("projects/")}>전체 보기</a></header>
       <div class="project-list">{featuredProjects.slice(0, 3).map((project) => <ProjectCard project={project} />)}</div>
     </section>
   </div>
