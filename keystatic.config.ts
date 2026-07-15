@@ -44,6 +44,7 @@ export default config({
         publishedAt: fields.date({ label: "발행일", validation: { isRequired: true } }),
         updatedAt: fields.date({ label: "수정일" }),
         category: fields.relationship({ label: "카테고리", collection: "categories", validation: { isRequired: true } }),
+        activity: fields.relationship({ label: "활동 분류", collection: "categories" }),
         tags: textList("태그"),
         project: fields.relationship({ label: "연결 프로젝트", collection: "projects" }),
         role: fields.text({ label: "내 역할", validation: { isRequired: true } }),
@@ -64,6 +65,9 @@ export default config({
       schema: {
         name: fields.slug({ name: { label: "이름" } }),
         description: fields.text({ label: "설명", multiline: true, validation: { isRequired: true } }),
+        kind: fields.select({ label: "분류 종류", options: [
+          { label: "직무 역량", value: "competency" }, { label: "활동 유형", value: "activity" },
+        ], defaultValue: "competency" }),
         order: fields.integer({ label: "정렬 순서", defaultValue: 10 }),
       },
     }),
@@ -81,6 +85,12 @@ export default config({
           { label: "프로토타입", value: "prototype" }, { label: "계획", value: "planned" },
           { label: "보관", value: "archive" },
         ], defaultValue: "prototype" }),
+        statusNote: fields.text({ label: "현재 상태 설명", multiline: true, validation: { isRequired: true } }),
+        activity: fields.select({ label: "활동 유형", options: [
+          { label: "개인 프로젝트", value: "personal" }, { label: "팀 프로젝트", value: "team" },
+          { label: "공모전·대회", value: "competition" }, { label: "동아리", value: "club" },
+          { label: "전공·학습", value: "coursework" }, { label: "기타", value: "other" },
+        ], defaultValue: "personal" }),
         visibility: fields.select({ label: "공개 범위", options: [
           { label: "공개", value: "public" }, { label: "비공개", value: "private" }, { label: "혼합", value: "mixed" },
         ], defaultValue: "public" }),
@@ -101,6 +111,10 @@ export default config({
         repositories: fields.array(fields.object({
           label: fields.text({ label: "표시명" }), url: fields.url({ label: "저장소 URL" }),
         }), { label: "저장소", itemLabel: (props) => props.fields.label.value || "새 저장소" }),
+        recordPlan: fields.text({ label: "작업 로그·트러블슈팅 운영 방식", multiline: true, validation: { isRequired: true } }),
+        recordLinks: fields.array(fields.object({
+          label: fields.text({ label: "표시명" }), url: fields.url({ label: "기록 URL" }),
+        }), { label: "공개 엔지니어링 기록", itemLabel: (props) => props.fields.label.value || "새 기록" }),
         content: markdown,
       },
     }),

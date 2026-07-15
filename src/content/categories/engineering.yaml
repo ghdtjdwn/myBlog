@@ -1,3 +1,4 @@
-name: 개발 기록
-description: 설계 선택, 구현 과정, 실패와 회고를 있는 그대로 남깁니다.
-order: 4
+name: 설계·개발 과정
+description: 요구사항을 구조로 바꾸고 대안을 비교해 구현한 과정을 기록합니다.
+kind: competency
+order: 5

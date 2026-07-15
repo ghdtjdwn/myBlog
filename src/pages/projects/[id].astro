@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
-import { withBase } from "../../lib/site";
+import { projectActivityLabels, projectStatusLabels, withBase } from "../../lib/site";
 
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
@@ -22,9 +22,10 @@ const posts = await getCollection("posts", ({ data }) => (showDrafts || !data.dr
     <header class="case-hero shell reading-shell">
       <div>
         <a class="back-link" href={withBase("projects/")}>← 프로젝트</a>
-        <p class="case-status">{project.data.status} · {project.data.role}</p>
+        <p class="case-status">{projectStatusLabels[project.data.status]} · {projectActivityLabels[project.data.activity]}</p>
         <h1>{project.data.title}</h1>
         <p>{project.data.summary}</p>
+        <p class="project-status-note"><strong>현재 상태</strong> {project.data.statusNote}</p>
         <div class="case-actions">
           {project.data.live && <a class="inline-link" href={project.data.live} target="_blank" rel="noreferrer">서비스 보기 ↗</a>}
           {project.data.repositories.map((repository) => <a class="inline-link" href={repository.url} target="_blank" rel="noreferrer">{repository.label} ↗</a>)}
@@ -35,7 +36,8 @@ const posts = await getCollection("posts", ({ data }) => (showDrafts || !data.dr
     <section class="case-facts">
       <div class="shell reading-shell fact-grid">
         <div><span>ROLE</span><strong>{project.data.role}</strong></div>
-        {project.data.metrics.slice(0, 3).map((metric) => <div><span>{metric.label}</span><strong>{metric.value}</strong></div>)}
+        <div><span>ACTIVITY</span><strong>{projectActivityLabels[project.data.activity]}</strong></div>
+        {project.data.metrics.slice(0, 2).map((metric) => <div><span>{metric.label}</span><strong>{metric.value}</strong></div>)}
       </div>
     </section>
     <div class="article-layout shell">
@@ -46,6 +48,18 @@ const posts = await getCollection("posts", ({ data }) => (showDrafts || !data.dr
       <div class="prose"><Content /></div>
     </div>
   </article>
+  <section class="record-section">
+    <div class="shell reading-shell">
+      <header class="record-heading">
+        <p class="intro-label">Engineering records</p>
+        <h2>작업 로그와 트러블슈팅</h2>
+        <p>{project.data.recordPlan}</p>
+      </header>
+      {project.data.recordLinks.length > 0 ? (
+        <div class="record-links">{project.data.recordLinks.map((record) => <a href={record.url} target="_blank" rel="noreferrer"><span>{record.label}</span><span>GitHub ↗</span></a>)}</div>
+      ) : <p class="empty-state">현재 공개 가능한 원문 링크는 준비 중입니다. 비공개 저장소와 팀 기록은 공개 범위를 확인한 뒤 연결합니다.</p>}
+    </div>
+  </section>
   {posts.length > 0 && (
     <section class="related-section">
       <div class="shell reading-shell">

@@ -50,13 +50,15 @@ V1은 다섯 개 컬렉션을 사용한다.
 
 ### categories
 
-- `name`, `description`, `order`
-- 글은 반드시 하나의 카테고리를 참조한다.
+- `name`, `description`, `kind`, `order`
+- `kind`는 직무 역량과 활동 유형을 구분한다.
+- 글은 직무 역량 카테고리 하나를 필수로, 활동 유형 하나를 선택적으로 참조한다.
 - 관계 검증 스크립트가 삭제·이름 변경으로 생긴 끊어진 참조를 빌드 전에 차단한다.
 
 ### projects
 
 - `title`, `summary`, `status`, `visibility`
+- `statusNote`, `activity`, `recordPlan`, `recordLinks`
 - `role`, `teamScope`, `contributionEvidence`
 - `repositories`, `liveUrl`, `liveStatus`
 - `stack`, `infra`, `metrics`
@@ -66,7 +68,7 @@ V1은 다섯 개 컬렉션을 사용한다.
 ### posts
 
 - `title`, `description`, `publishedAt`, `updatedAt`
-- `category`, `project`, `role`, `tags`
+- `category`, `activity`, `project`, `role`, `tags`
 - `evidence`, `validation`, `limitations`
 - `draft`, `featured`
 

@@ -2,9 +2,11 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import { projectActivityLabels } from "../../lib/site";
 
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const projects = (await getCollection("projects", ({ data }) => showDrafts || !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const activityOrder = ["personal", "competition", "club", "team", "coursework", "other"] as const;
 ---
 
 <BaseLayout title="Projects — 홍성주" description="운영, 데이터, AI 시스템을 실제 제품으로 연결한 홍성주의 프로젝트입니다.">
@@ -14,8 +16,15 @@ const projects = (await getCollection("projects", ({ data }) => showDrafts || !d
       <h1>프로젝트</h1>
       <p>직접 맡은 역할과 확인 가능한 결과를 중심으로 정리했습니다. 팀 작업은 기여 범위를 따로 적습니다.</p>
     </header>
-    <div class="project-list all-projects">
-      {projects.map((project) => <ProjectCard project={project} />)}
+    <div class="project-groups">
+      {activityOrder.map((activity) => {
+        const entries = projects.filter((project) => project.data.activity === activity);
+        if (entries.length === 0) return null;
+        return <section class="project-group">
+          <header class="list-heading"><h2>{projectActivityLabels[activity]}</h2><span>{entries.length}</span></header>
+          <div class="project-list all-projects">{entries.map((project) => <ProjectCard project={project} />)}</div>
+        </section>;
+      })}
     </div>
   </div>
 </BaseLayout>

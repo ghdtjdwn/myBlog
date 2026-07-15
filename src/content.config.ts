@@ -7,6 +7,7 @@ const categories = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    kind: z.enum(["competency", "activity"]),
     order: z.number().int(),
   }),
 });
@@ -17,6 +18,8 @@ const projects = defineCollection({
     title: z.string(),
     summary: z.string(),
     status: z.enum(["operating", "complete", "prototype", "planned", "archive"]),
+    statusNote: z.string(),
+    activity: z.enum(["personal", "team", "competition", "club", "coursework", "other"]),
     visibility: z.enum(["public", "private", "mixed"]),
     role: z.string(),
     teamScope: z.string().optional(),
@@ -31,6 +34,8 @@ const projects = defineCollection({
     draft: z.boolean().default(false),
     live: z.url().optional(),
     repositories: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
+    recordPlan: z.string(),
+    recordLinks: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
   }),
 });
 
@@ -42,6 +47,7 @@ const posts = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     category: reference("categories"),
+    activity: reference("categories").optional(),
     tags: z.array(z.string()),
     project: reference("projects").optional(),
     role: z.string(),

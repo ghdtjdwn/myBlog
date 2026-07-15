@@ -69,6 +69,9 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .post-taxonomy .tag-row { margin-top: 0; }
 .category-link { color: var(--accent); font-size: 11px; font-weight: 650; }
 .category-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.activity-link { color: var(--muted); font-size: 11px; }
+.activity-link::before { content: "· "; color: var(--line-strong); }
+.activity-link:hover { color: var(--text); }
 
 .project-row { grid-template-columns: 34px minmax(0, 1fr) 24px; }
 .project-index { padding-top: 4px; color: var(--line-strong); font: 11px var(--mono); }
@@ -85,17 +88,31 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .page-header h1 { margin: 0; font-size: clamp(38px, 5vw, 52px); line-height: 1.2; letter-spacing: -.045em; }
 .page-header > p:last-child { max-width: 620px; margin: 20px 0 0; color: var(--muted); font-size: 16px; }
 .category-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: -12px 0 38px; }
+.category-groups { margin: -12px 0 42px; padding: 22px 0; border-block: 1px solid var(--line); }
+.category-groups .category-nav { margin: 0; }
+.category-groups .category-nav + .category-nav { margin-top: 14px; }
+.category-nav strong { min-width: 68px; padding: 7px 0; color: var(--faint); font: 10px/1.5 var(--mono); text-transform: uppercase; }
 .category-nav a { padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 12px; }
 .category-nav a:hover, .category-nav a[aria-current="page"] { border-color: var(--line-strong); background: var(--surface); color: var(--text); }
 .category-nav span { margin-left: 3px; color: var(--faint); font-family: var(--mono); font-size: 10px; }
 .category-header h1 { margin-top: 24px; }
 .all-projects { margin-top: 4px; }
+.project-group + .project-group { margin-top: 58px; }
+.project-group .list-heading > span { color: var(--faint); font: 11px var(--mono); }
 
 .about-intro { max-width: 670px; padding: 6px 0 54px; border-bottom: 1px solid var(--line); }
 .about-intro > p { margin: 0 0 22px; color: #383838; font-size: 18px; line-height: 1.9; }
-.about-principles article { padding: 30px 0; border-bottom: 1px solid var(--line); }
-.about-principles h2 { margin: 0; font-size: 18px; }
+.about-section { padding: 62px 0; border-bottom: 1px solid var(--line); }
+.about-section > h2 { margin: 0 0 28px; font-size: 27px; line-height: 1.4; letter-spacing: -.03em; }
+.capability-list { border-top: 1px solid var(--line); }
+.capability-list article { padding: 28px 0; border-bottom: 1px solid var(--line); }
+.capability-list h3, .about-principles h3 { margin: 0; font-size: 18px; }
+.capability-list p { margin: 9px 0 12px; color: var(--muted); font-size: 15px; }
+.capability-list a { color: var(--accent); font-size: 12px; }
+.about-principles article { padding: 26px 0; border-top: 1px solid var(--line); }
 .about-principles p { margin: 8px 0 0; color: var(--muted); }
+.opportunity-note { border-bottom: 0; }
+.opportunity-note > p:last-child { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.9; }
 
 .case-hero { padding-block: 72px 48px; }
 .back-link { color: var(--muted); font-size: 13px; }
@@ -103,6 +120,8 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .case-status { margin: 34px 0 12px !important; color: var(--accent) !important; font: 12px var(--mono) !important; }
 .case-hero h1, .article-hero h1 { margin: 0; font-size: clamp(38px, 5.5vw, 56px); line-height: 1.2; letter-spacing: -.045em; }
 .case-hero > div > p:not(.case-status) { margin: 20px 0 0; color: var(--muted); font-size: 17px; }
+.case-hero .project-status-note { margin-top: 24px !important; padding: 14px 16px; border-left: 2px solid var(--accent); background: var(--surface); font-size: 14px !important; }
+.project-status-note strong { margin-right: 8px; color: var(--text); font-size: 12px; }
 .case-actions { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; font-size: 14px; }
 .case-hero figure { margin: 44px 0 0; }
 .case-hero figure img { width: 100%; height: auto; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
@@ -118,6 +137,9 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .article-hero h1 { margin-top: 25px; }
 .article-hero > p { max-width: 680px; margin: 18px 0 0; color: var(--muted); font-size: 17px; }
 .post-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; color: var(--faint); font: 11px var(--mono); }
+.article-categories { display: flex; gap: 8px; margin-top: 18px; }
+.article-categories a { padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 11px; }
+.article-categories a:hover { border-color: var(--line-strong); color: var(--text); }
 .article-layout { display: grid; grid-template-columns: 150px minmax(0, 720px); justify-content: center; gap: 58px; padding-block: 64px 110px; }
 .article-aside { position: sticky; top: 28px; align-self: start; }
 .article-aside > p { margin: 0 0 12px; color: var(--faint); font: 10px var(--mono); }
@@ -140,6 +162,13 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .prose pre { overflow-x: auto; margin: 30px 0; padding: 20px; border: 1px solid #292929; border-radius: 7px; font-size: 13px; }
 .prose code:not(pre code) { padding: 2px 5px; border-radius: 4px; background: var(--code); font-family: var(--mono); font-size: .88em; }
 .related-section { padding-block: 58px 100px; border-top: 1px solid var(--line); }
+.record-section { padding-block: 64px 76px; border-top: 1px solid var(--line); background: var(--surface); }
+.record-heading h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }
+.record-heading > p:last-child { margin: 14px 0 0; color: var(--muted); font-size: 14px; }
+.record-links { margin-top: 28px; border-top: 1px solid var(--line); }
+.record-links a { display: flex; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.record-links a span:last-child { color: var(--faint); font: 10px var(--mono); }
+.record-links a:hover span:first-child { color: var(--accent); }
 
 .site-footer { width: min(calc(100% - 48px), var(--max)); margin: auto; display: flex; justify-content: space-between; gap: 28px; padding-block: 32px; border-top: 1px solid var(--line); color: var(--muted); }
 .site-footer p { margin: 0; font-size: 12px; }

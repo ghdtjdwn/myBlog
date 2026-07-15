@@ -6,6 +6,8 @@ import { withBase } from "../../lib/site";
 
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const categories = (await getCollection("categories")).sort((a, b) => a.data.order - b.data.order);
+const competencyCategories = categories.filter((category) => category.data.kind === "competency");
+const activityCategories = categories.filter((category) => category.data.kind === "activity");
 const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
@@ -18,13 +20,23 @@ const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.dr
       <h1>기술 글</h1>
       <p>직접 겪은 문제와 실패한 가설, 측정 결과, 선택의 이유를 씁니다.</p>
     </header>
-    <nav class="category-nav" aria-label="글 카테고리">
-      <a aria-current="page" href={Astro.url.pathname}>전체 <span>{posts.length}</span></a>
-      {categories.map((category) => {
-        const count = posts.filter((post) => post.data.category.id === category.id).length;
-        return <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>;
-      })}
-    </nav>
+    <div class="category-groups">
+      <nav class="category-nav" aria-label="직무 역량별 글">
+        <strong>직무 역량</strong>
+        <a aria-current="page" href={Astro.url.pathname}>전체 <span>{posts.length}</span></a>
+        {competencyCategories.map((category) => {
+          const count = posts.filter((post) => post.data.category.id === category.id).length;
+          return <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>;
+        })}
+      </nav>
+      <nav class="category-nav" aria-label="활동 유형별 글">
+        <strong>활동 유형</strong>
+        {activityCategories.map((category) => {
+          const count = posts.filter((post) => post.data.activity?.id === category.id).length;
+          return <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>;
+        })}
+      </nav>
+    </div>
     {posts.length > 0 ? <div class="post-list">{posts.map((post) => <PostCard post={post} />)}</div> : <p class="empty-state">검증을 마친 글부터 공개합니다.</p>}
   </div>
 </BaseLayout>

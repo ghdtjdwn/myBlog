@@ -37,6 +37,8 @@ npm run dev
 
 정식 산출물은 `npm test`로 타입·콘텐츠·빌드·draft 격리를 함께 검사합니다. 검증 전 초안을 로컬에서 보려면 `SHOW_DRAFTS=true npm run dev`를 사용합니다.
 
+프로젝트별 작업 로그·ADR·트러블슈팅 원문과 블로그를 연결하는 기준은 [엔지니어링 기록 운영 방식](docs/ENGINEERING_RECORDS.md)을 따릅니다. 진행 중 작업은 GitHub Issues/Projects에서 추적하고, 완료 사실은 저장소 문서에, 면접에서 설명할 가치가 있는 사례는 블로그 글로 다시 구성합니다.
+
 새 기록은 항상 비공개 초안으로 생성됩니다.
 
 ```sh

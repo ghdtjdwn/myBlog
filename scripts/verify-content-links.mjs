@@ -14,7 +14,15 @@ function frontmatterValue(source, key) {
   return frontmatter.match(new RegExp(`^${key}:\\s*["']?([^"'\\s#]+)`, "m"))?.[1];
 }
 
-const categoryIds = await ids("categories", /\.(?:yaml|yml)$/);
+const categoryKinds = new Map();
+for (const name of await readdir(path.join(contentRoot, "categories"))) {
+  if (!/\.(?:yaml|yml)$/.test(name)) continue;
+  const source = await readFile(path.join(contentRoot, "categories", name), "utf8");
+  const id = name.replace(/\.(?:yaml|yml)$/, "");
+  const kind = source.match(/^kind:\s*(competency|activity)\s*$/m)?.[1];
+  if (kind) categoryKinds.set(id, kind);
+}
+const categoryIds = new Set(categoryKinds.keys());
 const projectIds = await ids("projects");
 const failures = [];
 
@@ -24,10 +32,20 @@ for (const collection of ["posts", "decisions", "incidents"]) {
     if (!/\.(?:md|mdx)$/.test(name)) continue;
     const source = await readFile(path.join(directory, name), "utf8");
     const category = frontmatterValue(source, "category");
+    const activity = frontmatterValue(source, "activity");
     const project = frontmatterValue(source, "project");
 
     if (collection === "posts" && (!category || !categoryIds.has(category))) {
       failures.push(`${collection}/${name}: unknown or missing category '${category ?? ""}'`);
+    }
+    if (collection === "posts" && category && categoryKinds.get(category) !== "competency") {
+      failures.push(`${collection}/${name}: primary category '${category}' must be a competency`);
+    }
+    if (collection === "posts" && activity && !categoryIds.has(activity)) {
+      failures.push(`${collection}/${name}: unknown activity '${activity}'`);
+    }
+    if (collection === "posts" && activity && categoryKinds.get(activity) !== "activity") {
+      failures.push(`${collection}/${name}: activity '${activity}' must be an activity category`);
     }
     if (project && !project.startsWith("TODO-") && !projectIds.has(project)) {
       failures.push(`${collection}/${name}: unknown project '${project}'`);

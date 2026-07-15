@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, withBase } from "../../lib/site";
 
@@ -11,6 +11,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
+const category = await getEntry(post.data.category);
+const activity = post.data.activity ? await getEntry(post.data.activity) : undefined;
 ---
 
 <BaseLayout
@@ -26,6 +28,10 @@ const { Content, headings } = await render(post);
       <div class="post-meta">
         <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
         {post.data.updatedAt && <span>수정 {formatDate(post.data.updatedAt)}</span>}
+      </div>
+      <div class="article-categories">
+        {category && <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name}</a>}
+        {activity && <a href={withBase(`writing/category/${activity.id}/`)}>{activity.data.name}</a>}
       </div>
       <h1>{post.data.title}</h1>
       <p>{post.data.description}</p>

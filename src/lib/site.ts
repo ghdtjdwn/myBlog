@@ -19,3 +19,20 @@ export function formatDate(date: Date) {
     day: "numeric",
   }).format(date);
 }
+
+export const projectStatusLabels = {
+  operating: "운영·개선 중",
+  complete: "완료",
+  prototype: "프로토타입·작업 중",
+  planned: "기획·준비 중",
+  archive: "학습 아카이브",
+} as const;
+
+export const projectActivityLabels = {
+  personal: "개인 프로젝트",
+  team: "팀 프로젝트",
+  competition: "공모전·대회",
+  club: "동아리·연합활동",
+  coursework: "전공·학습",
+  other: "기타",
+} as const;

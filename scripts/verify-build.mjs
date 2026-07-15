@@ -13,6 +13,13 @@ const required = [
   "writing/category/data/index.html",
   "writing/category/ai-systems/index.html",
   "writing/category/engineering/index.html",
+  "writing/category/backend/index.html",
+  "writing/category/troubleshooting/index.html",
+  "writing/category/personal-project/index.html",
+  "writing/category/competition/index.html",
+  "writing/category/club/index.html",
+  "writing/category/team-project/index.html",
+  "writing/category/other/index.html",
   "robots.txt",
   "rss.xml",
   "sitemap-index.xml",
@@ -20,6 +27,7 @@ const required = [
 
 const draftRoutes = [
   "projects/redbean-overflow/index.html",
+  "projects/first-study/index.html",
   "writing/postgis-expiry-index/index.html",
   "writing/arm64-gitops-image-drift/index.html",
   "writing/deterministic-ai-grader/index.html",

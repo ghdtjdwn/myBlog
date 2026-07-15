@@ -8,6 +8,7 @@ interface Props {
 
 const { post } = Astro.props;
 const category = await getEntry(post.data.category);
+const activity = post.data.activity ? await getEntry(post.data.activity) : undefined;
 ---
 
 <article class="post-row">
@@ -17,6 +18,7 @@ const category = await getEntry(post.data.category);
     <p>{post.data.description}</p>
     <div class="post-taxonomy">
       {category && <a class="category-link" href={withBase(`writing/category/${category.id}/`)}>{category.data.name}</a>}
+      {activity && <a class="activity-link" href={withBase(`writing/category/${activity.id}/`)}>{activity.data.name}</a>}
       <div class="tag-row" aria-label="글 태그">{post.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}</div>
     </div>
   </div>

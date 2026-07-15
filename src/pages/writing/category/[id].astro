@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 const { category } = Astro.props;
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const posts = (await getCollection("posts", ({ data }) =>
-  (showDrafts || !data.draft) && data.category.id === category.id
+  (showDrafts || !data.draft) && (data.category.id === category.id || data.activity?.id === category.id)
 )).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
