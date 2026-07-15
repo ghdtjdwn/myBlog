@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
-import { projectActivityLabels, projectStatusLabels, withBase } from "../../lib/site";
+import { projectActivityLabels, projectStatusLabels, projectVisibilityLabels, withBase } from "../../lib/site";
 
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
@@ -14,7 +14,8 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
-const posts = await getCollection("posts", ({ data }) => (showDrafts || !data.draft) && data.project?.id === project.id);
+const posts = (await getCollection("posts", ({ data }) => (showDrafts || !data.draft) && data.project?.id === project.id))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
 <BaseLayout title={`${project.data.title} — 홍성주`} description={project.data.summary} image={project.data.image}>
@@ -38,6 +39,25 @@ const posts = await getCollection("posts", ({ data }) => (showDrafts || !data.dr
         <div><span>ROLE</span><strong>{project.data.role}</strong></div>
         <div><span>ACTIVITY</span><strong>{projectActivityLabels[project.data.activity]}</strong></div>
         {project.data.metrics.slice(0, 2).map((metric) => <div><span>{metric.label}</span><strong>{metric.value}</strong></div>)}
+      </div>
+    </section>
+    <section class="claim-section">
+      <div class="shell reading-shell">
+        <header class="claim-heading">
+          <p class="intro-label">Verified scope</p>
+          <h2>기여 범위와 확인 근거</h2>
+        </header>
+        <dl class="claim-list">
+          <div><dt>직접 역할</dt><dd>{project.data.role}</dd></div>
+          {project.data.teamScope && <div><dt>팀 경계</dt><dd>{project.data.teamScope}</dd></div>}
+          <div><dt>근거 공개 범위</dt><dd>{projectVisibilityLabels[project.data.visibility]}</dd></div>
+          {project.data.contributionEvidence.length > 0 && (
+            <div>
+              <dt>기여 근거</dt>
+              <dd><ul>{project.data.contributionEvidence.map((evidence) => <li>{evidence}</li>)}</ul></dd>
+            </div>
+          )}
+        </dl>
       </div>
     </section>
     <div class="article-layout shell">

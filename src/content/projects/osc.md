@@ -11,7 +11,7 @@ tags: ["Open Source", "Planning"]
 infra: []
 metrics:
   - { label: "Current stage", value: "Documentation" }
-order: 14
+order: 12
 featured: false
 repositories: []
 recordPlan: "실제 upstream Issue와 maintainer 협의, PR, review 반영이 생기면 해당 GitHub 원문을 작업 로그로 사용합니다. 현재 준비 문서만으로 기술 기여 글을 만들지 않습니다."

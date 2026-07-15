@@ -1,6 +1,6 @@
 ---
-title: "ssuAI · ssuMCP · ssuAgent"
-summary: "숭실대 데이터를 웹, 자연어 에이전트, 표준 MCP 도구로 연결하고 실제 k3s 환경에서 운영하는 캠퍼스 AI 플랫폼입니다."
+title: "ssu 캠퍼스 AI 플랫폼"
+summary: "ssuAI·ssuMCP·ssuAgent·ssu-ai-service가 숭실대 데이터를 웹, 자연어 에이전트와 표준 MCP 도구로 연결하는 운영형 플랫폼입니다."
 status: operating
 statusNote: "웹·챗·MCP·임베딩 서비스가 운영 중이며, 외부 학교 시스템 변화와 단일 노드 제약을 관측하면서 계속 개선하고 있습니다."
 activity: personal
@@ -27,10 +27,12 @@ repositories:
   - { label: "ssu-ai-service", url: "https://github.com/ghdtjdwn/ssu-ai-service" }
 recordPlan: "각 저장소에는 ADR과 장애 원문을 남기고, 여러 서비스의 경계를 이해해야 하는 사례만 블로그 글로 다시 구성합니다. 운영 중인 프로젝트이므로 새로운 장애와 결정은 계속 추가됩니다."
 recordLinks:
-  - { label: "ssuMCP ADR", url: "https://github.com/ghdtjdwn/ssuMCP/tree/main/docs/adr" }
+  - { label: "명시 MCP 세션 인증 경계 ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0098-authoritative-mcp-session-resolution.md" }
+  - { label: "서버 검증 principal 프록시 ADR", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/adr/0086-server-side-principal.md" }
+  - { label: "안정 principal thread 소유권 ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0011-thread-stable-principal-binding.md" }
+  - { label: "MCP content block와 HITL resume ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0016-mcp-content-block-hitl-unwrap.md" }
+  - { label: "일회용 SSO code exchange ADR", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/adr/0089-sso-code-exchange.md" }
   - { label: "ssuMCP 트러블슈팅 하이라이트", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/troubleshooting-highlights.md" }
-  - { label: "ssuAI ADR", url: "https://github.com/ghdtjdwn/ssuAI/tree/main/docs/adr" }
-  - { label: "ssuAgent ADR", url: "https://github.com/ghdtjdwn/ssuAgent/tree/main/docs/adr" }
 ---
 
 ## 문제

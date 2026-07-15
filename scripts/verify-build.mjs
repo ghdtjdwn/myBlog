@@ -2,12 +2,11 @@ import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const root = path.resolve("dist", "client");
+const contentRoot = path.resolve("src", "content");
 const required = [
   "index.html",
   "about/index.html",
   "projects/index.html",
-  "projects/ssu-platform/index.html",
-  "projects/geuneul/index.html",
   "writing/index.html",
   "writing/category/infrastructure/index.html",
   "writing/category/data/index.html",
@@ -25,23 +24,33 @@ const required = [
   "en/index.html",
   "en/about/index.html",
   "en/projects/index.html",
-  "en/projects/ssu-platform/index.html",
-  "en/projects/geuneul/index.html",
   "en/writing/index.html",
-  "en/writing/git-backed-blog-architecture/index.html",
-  "en/writing/github-worklog-and-blog/index.html",
   "en/writing/category/infrastructure/index.html",
   "en/rss.xml",
   "sitemap-index.xml",
 ];
 
-const draftRoutes = [
-  "projects/first-study/index.html",
-  "writing/postgis-expiry-index/index.html",
-  "writing/arm64-gitops-image-drift/index.html",
-  "writing/deterministic-ai-grader/index.html",
-  "en/projects/first-study/index.html",
+const draftRoutes = [];
+
+const contentRoutes = [
+  { collection: "projects", prefix: "projects/" },
+  { collection: "projects-en", prefix: "en/projects/" },
+  { collection: "posts", prefix: "writing/" },
+  { collection: "posts-en", prefix: "en/writing/" },
 ];
+
+for (const { collection, prefix } of contentRoutes) {
+  const directory = path.join(contentRoot, collection);
+  for (const name of await readdir(directory)) {
+    if (!/\.(?:md|mdx)$/.test(name)) continue;
+    const source = await readFile(path.join(directory, name), "utf8");
+    const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "";
+    const id = name.replace(/\.(?:md|mdx)$/, "");
+    const route = `${prefix}${id}/index.html`;
+    if (/^draft:\s*true\s*$/m.test(frontmatter)) draftRoutes.push(route);
+    else required.push(route);
+  }
+}
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });

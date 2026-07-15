@@ -11,7 +11,7 @@ evidence:
   - "ADR and troubleshooting practices in the ssuMCP and Geuneul repositories"
   - "myBlog ADR-0003 and per-project record links"
 validation:
-  - "Documented current status and record-management policy for 14 projects"
+  - "Documented current status and record-management policy for every project in the reviewed public scope"
   - "Confirmed HTTP 200 for public GitHub record links"
   - "Passed category and project relationship validation"
 limitations:

@@ -24,6 +24,8 @@ repositories:
 recordPlan: "The public repository's README, architecture, DEPLOY, ADRs, and work log are the sources of truth for the completed result. The blog links selected performance, data, and operations cases centered on the problem and its validation."
 recordLinks:
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
+  - { label: "PostGIS load and plan-tuning ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0012-k6-load-explain-index-tuning.md" }
+  - { label: "Captured PostGIS EXPLAIN results", url: "https://github.com/ghdtjdwn/geuneul/blob/main/perf/explain/RESULTS.md" }
 ---
 
 ## Problem

@@ -13,6 +13,7 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const category = await getEntry(post.data.category);
 const activity = post.data.activity ? await getEntry(post.data.activity) : undefined;
+const project = post.data.project ? await getEntry(post.data.project) : undefined;
 ---
 
 <BaseLayout
@@ -44,5 +45,20 @@ const activity = post.data.activity ? await getEntry(post.data.activity) : undef
       </aside>
       <div class="prose"><Content /></div>
     </div>
+    <section class="claim-section article-claims">
+      <div class="shell reading-shell">
+        <header class="claim-heading">
+          <p class="intro-label">Evidence note</p>
+          <h2>이 글의 역할, 검증과 한계</h2>
+        </header>
+        <dl class="claim-list">
+          <div><dt>직접 역할</dt><dd>{post.data.role}</dd></div>
+          {project && <div><dt>연결 프로젝트</dt><dd><a href={withBase(`projects/${project.id}/`)}>{project.data.title} →</a></dd></div>}
+          <div><dt>근거</dt><dd><ul>{post.data.evidence.map((item) => <li>{item}</li>)}</ul></dd></div>
+          <div><dt>검증</dt><dd><ul>{post.data.validation.map((item) => <li>{item}</li>)}</ul></dd></div>
+          <div><dt>일반화하지 않는 범위</dt><dd><ul>{post.data.limitations.map((item) => <li>{item}</li>)}</ul></dd></div>
+        </dl>
+      </div>
+    </section>
   </article>
 </BaseLayout>

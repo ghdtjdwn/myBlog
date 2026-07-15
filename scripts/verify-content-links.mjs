@@ -14,6 +14,18 @@ function frontmatterValue(source, key) {
   return frontmatter.match(new RegExp(`^${key}:\\s*["']?([^"'\\s#]+)`, "m"))?.[1];
 }
 
+async function publicationStates(collection) {
+  const states = new Map();
+  const directory = path.join(contentRoot, collection);
+  for (const name of await readdir(directory)) {
+    if (!/\.(?:md|mdx)$/.test(name)) continue;
+    const source = await readFile(path.join(directory, name), "utf8");
+    const id = name.replace(/\.(?:md|mdx)$/, "");
+    states.set(id, frontmatterValue(source, "draft") === "true");
+  }
+  return states;
+}
+
 const categoryKinds = new Map();
 for (const name of await readdir(path.join(contentRoot, "categories"))) {
   if (!/\.(?:yaml|yml)$/.test(name)) continue;
@@ -25,10 +37,28 @@ for (const name of await readdir(path.join(contentRoot, "categories"))) {
 const categoryIds = new Set(categoryKinds.keys());
 const projectIds = await ids("projects");
 const projectIdsEn = await ids("projects-en");
+const projectStates = await publicationStates("projects");
+const projectStatesEn = await publicationStates("projects-en");
 const failures = [];
 
-for (const id of projectIds) if (!projectIdsEn.has(id)) failures.push(`projects-en: missing translation for '${id}'`);
+for (const id of projectIds) {
+  if (!projectIdsEn.has(id)) failures.push(`projects-en: missing translation for '${id}'`);
+  else if (projectStates.get(id) !== projectStatesEn.get(id)) failures.push(`projects: draft state differs between Korean and English '${id}'`);
+}
 for (const id of projectIdsEn) if (!projectIds.has(id)) failures.push(`projects-en: no Korean source for '${id}'`);
+
+const postStates = await publicationStates("posts");
+const postStatesEn = await publicationStates("posts-en");
+for (const [id, draft] of postStates) {
+  if (draft) continue;
+  if (!postStatesEn.has(id)) failures.push(`posts-en: missing published translation for '${id}'`);
+  else if (postStatesEn.get(id)) failures.push(`posts-en: translation for published '${id}' is still a draft`);
+}
+for (const [id, draft] of postStatesEn) {
+  if (draft) continue;
+  if (!postStates.has(id)) failures.push(`posts-en: no Korean source for published '${id}'`);
+  else if (postStates.get(id)) failures.push(`posts: Korean source for published '${id}' is still a draft`);
+}
 
 for (const collection of ["posts", "posts-en", "decisions", "incidents"]) {
   const directory = path.join(contentRoot, collection);

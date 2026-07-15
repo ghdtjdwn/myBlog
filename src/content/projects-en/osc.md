@@ -11,7 +11,7 @@ tags: ["Open Source", "Planning"]
 infra: []
 metrics:
   - { label: "Current stage", value: "Documentation" }
-order: 14
+order: 12
 featured: false
 repositories: []
 recordPlan: "When upstream Issues, maintainer discussion, PRs, and review changes exist, use those GitHub records as the worklog source. Do not turn the current preparation documents into a technical-contribution post."

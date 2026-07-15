@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PostCard from "../../../components/PostCard.astro";
-import { projectActivityLabelsEn, projectStatusLabelsEn } from "../../../lib/i18n";
+import { projectActivityLabelsEn, projectStatusLabelsEn, projectVisibilityLabelsEn } from "../../../lib/i18n";
 import { withBase } from "../../../lib/site";
 export async function getStaticPaths() {
   const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
@@ -13,7 +13,8 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
-const posts = await getCollection("postsEn", ({ data }) => (showDrafts || !data.draft) && data.project?.id === project.id);
+const posts = (await getCollection("postsEn", ({ data }) => (showDrafts || !data.draft) && data.project?.id === project.id))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 <BaseLayout locale="en" title={`${project.data.title} — Hong Seong Ju`} description={project.data.summary} image={project.data.image}>
   <article class="case-page">
@@ -21,6 +22,12 @@ const posts = await getCollection("postsEn", ({ data }) => (showDrafts || !data.
       {project.data.image && <figure><Image src={project.data.image} alt={project.data.imageAlt ?? `${project.data.title} project screen`} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 860px" /><figcaption>{project.data.imageAlt}</figcaption></figure>}
     </header>
     <section class="case-facts"><div class="shell reading-shell fact-grid"><div><span>ROLE</span><strong>{project.data.role}</strong></div><div><span>ACTIVITY</span><strong>{projectActivityLabelsEn[project.data.activity]}</strong></div>{project.data.metrics.slice(0, 2).map((metric) => <div><span>{metric.label}</span><strong>{metric.value}</strong></div>)}</div></section>
+    <section class="claim-section"><div class="shell reading-shell"><header class="claim-heading"><p class="intro-label">Verified scope</p><h2>Contribution boundaries and evidence</h2></header><dl class="claim-list">
+      <div><dt>Direct role</dt><dd>{project.data.role}</dd></div>
+      {project.data.teamScope && <div><dt>Team boundary</dt><dd>{project.data.teamScope}</dd></div>}
+      <div><dt>Evidence visibility</dt><dd>{projectVisibilityLabelsEn[project.data.visibility]}</dd></div>
+      {project.data.contributionEvidence.length > 0 && <div><dt>Contribution evidence</dt><dd><ul>{project.data.contributionEvidence.map((evidence) => <li>{evidence}</li>)}</ul></dd></div>}
+    </dl></div></section>
     <div class="article-layout shell"><aside class="article-aside"><p>STACK & FOCUS</p><div class="tag-row">{[...project.data.tags, ...project.data.infra].map((tag) => <span>{tag}</span>)}</div></aside><div class="prose"><Content /></div></div>
   </article>
   <section class="record-section"><div class="shell reading-shell"><header class="record-heading"><p class="intro-label">Engineering records</p><h2>Work logs and troubleshooting</h2><p>{project.data.recordPlan}</p></header>{project.data.recordLinks.length ? <div class="record-links">{project.data.recordLinks.map((record) => <a href={record.url} target="_blank" rel="noreferrer"><span>{record.label}</span><span>GitHub ↗</span></a>)}</div> : <p class="empty-state">Public source links are still being prepared. Private and team records will be linked only after their publication scope is confirmed.</p>}</div></section>

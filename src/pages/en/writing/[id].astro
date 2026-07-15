@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { categoryEnglish } from "../../../lib/i18n";
 import { formatDateEn, withBase } from "../../../lib/site";
@@ -7,7 +7,16 @@ export async function getStaticPaths() { const showDrafts = import.meta.env.DEV 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const name = (id: string) => categoryEnglish[id as keyof typeof categoryEnglish]?.name ?? id;
+const project = post.data.project ? await getEntry(post.data.project) : undefined;
 ---
 <BaseLayout locale="en" title={`${post.data.title} — Hong Seong Ju`} description={post.data.description} type="article" publishedAt={post.data.publishedAt} updatedAt={post.data.updatedAt}>
-  <article><header class="article-hero shell reading-shell"><a class="back-link" href={withBase("en/writing/")}>← Writing</a><div class="post-meta"><time datetime={post.data.publishedAt.toISOString()}>{formatDateEn(post.data.publishedAt)}</time>{post.data.updatedAt && <span>Updated {formatDateEn(post.data.updatedAt)}</span>}</div><div class="article-categories"><a href={withBase(`en/writing/category/${post.data.category.id}/`)}>{name(post.data.category.id)}</a>{post.data.activity && <a href={withBase(`en/writing/category/${post.data.activity.id}/`)}>{name(post.data.activity.id)}</a>}</div><h1>{post.data.title}</h1><p>{post.data.description}</p><div class="tag-row">{post.data.tags.map((tag) => <span>{tag}</span>)}</div></header><div class="article-layout shell article-body"><aside class="article-aside toc"><p>IN THIS NOTE</p><ol>{headings.filter(h => h.depth === 2).map(h => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></aside><div class="prose"><Content /></div></div></article>
+  <article><header class="article-hero shell reading-shell"><a class="back-link" href={withBase("en/writing/")}>← Writing</a><div class="post-meta"><time datetime={post.data.publishedAt.toISOString()}>{formatDateEn(post.data.publishedAt)}</time>{post.data.updatedAt && <span>Updated {formatDateEn(post.data.updatedAt)}</span>}</div><div class="article-categories"><a href={withBase(`en/writing/category/${post.data.category.id}/`)}>{name(post.data.category.id)}</a>{post.data.activity && <a href={withBase(`en/writing/category/${post.data.activity.id}/`)}>{name(post.data.activity.id)}</a>}</div><h1>{post.data.title}</h1><p>{post.data.description}</p><div class="tag-row">{post.data.tags.map((tag) => <span>{tag}</span>)}</div></header><div class="article-layout shell article-body"><aside class="article-aside toc"><p>IN THIS NOTE</p><ol>{headings.filter(h => h.depth === 2).map(h => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></aside><div class="prose"><Content /></div></div>
+    <section class="claim-section article-claims"><div class="shell reading-shell"><header class="claim-heading"><p class="intro-label">Evidence note</p><h2>Role, validation, and limits</h2></header><dl class="claim-list">
+      <div><dt>Direct role</dt><dd>{post.data.role}</dd></div>
+      {project && <div><dt>Related project</dt><dd><a href={withBase(`en/projects/${project.id}/`)}>{project.data.title} →</a></dd></div>}
+      <div><dt>Evidence</dt><dd><ul>{post.data.evidence.map((item) => <li>{item}</li>)}</ul></dd></div>
+      <div><dt>Validation</dt><dd><ul>{post.data.validation.map((item) => <li>{item}</li>)}</ul></dd></div>
+      <div><dt>Limits</dt><dd><ul>{post.data.limitations.map((item) => <li>{item}</li>)}</ul></dd></div>
+    </dl></div></section>
+  </article>
 </BaseLayout>

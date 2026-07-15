@@ -138,6 +138,17 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .fact-grid span { display: block; color: var(--faint); font: 10px var(--mono); text-transform: uppercase; }
 .fact-grid strong { display: block; margin-top: 6px; font-size: 13px; font-weight: 600; }
 
+.claim-section { padding-block: 58px 66px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.claim-heading h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }
+.claim-list { margin: 28px 0 0; border-top: 1px solid var(--line); }
+.claim-list > div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 22px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.claim-list dt { color: var(--muted); font: 12px/1.6 var(--mono); text-transform: uppercase; }
+.claim-list dd { margin: 0; color: var(--muted); font-size: 14px; }
+.claim-list ul { margin: 0; padding-left: 19px; }
+.claim-list li + li { margin-top: 5px; }
+.claim-list a { color: var(--accent); text-decoration: underline; text-decoration-color: #b9c6f6; text-underline-offset: 4px; }
+.article-claims { border-top: 1px solid var(--line); border-bottom: 0; }
+
 .article-hero { padding-block: 72px 52px; border-bottom: 1px solid var(--line); }
 .article-hero h1 { margin-top: 25px; }
 .article-hero > p { max-width: 680px; margin: 18px 0 0; color: var(--muted); font-size: 17px; }
@@ -161,7 +172,7 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .prose blockquote { margin: 30px 0; padding: 2px 0 2px 20px; border-left: 3px solid #b9c6f6; }
 .prose blockquote p { margin: 0; color: var(--muted); }
-.prose table { width: 100%; border-collapse: collapse; margin: 30px 0; font-size: 13px; }
+.prose table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 30px 0; font-size: 13px; -webkit-overflow-scrolling: touch; }
 .prose th, .prose td { padding: 11px; border: 1px solid var(--line); text-align: left; }
 .prose th { background: var(--code); }
 .prose pre { overflow-x: auto; margin: 30px 0; padding: 20px; border: 1px solid #292929; border-radius: 7px; font-size: 13px; }
@@ -203,6 +214,7 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
   .fact-grid { grid-template-columns: 1fr; }
   .fact-grid div, .fact-grid div:nth-last-child(-n + 2) { padding-right: 0; border-bottom: 1px solid var(--line); }
   .fact-grid div:last-child { border-bottom: 0; }
+  .claim-list > div { grid-template-columns: 1fr; gap: 5px; }
   .article-layout { grid-template-columns: 1fr; gap: 0; padding-block: 48px 84px; }
   .article-aside { position: static; }
   .toc { display: none; }

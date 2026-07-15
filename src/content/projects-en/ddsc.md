@@ -1,17 +1,17 @@
 ---
 title: "Doki Doki Data Structures"
-summary: "An interactive visual novel for learning data structures in which AI only grades free-form answers against human-authored criteria."
+summary: "An interactive visual novel for learning data structures where AI grades answers and produces bounded reactions while a deterministic engine owns every state transition."
 status: prototype
 statusNote: "The stack-learning route and deterministic engine demo are complete, while the queue and tree expansions, real AI grading calibration, and public deployment are still in progress."
 activity: team
 visibility: private
-role: "Authored the story and answer anchors; designed the UI, dialogue box, and artwork"
+role: "Designed the UI, dialogue box, and art direction"
 teamScope: "A team project whose overall results are not presented as individual contributions"
-contributionEvidence: ["Public deployment deferred", "Record of 23 engine tests", "Record of a complete Playwright playthrough"]
+contributionEvidence: ["UI and art role confirmed in project records", "The team's 25 engine tests and Playwright playthrough are cited only as project validation"]
 tags: ["AI Grading", "Vanilla JS", "Education", "Game Engine"]
 infra: ["Static fallback", "Optional Node proxy"]
 metrics:
-  - { label: "Engine tests", value: "23" }
+  - { label: "Engine tests", value: "25" }
   - { label: "Scenario beats", value: "8" }
 order: 4
 featured: true
@@ -22,9 +22,9 @@ recordLinks: []
 
 ## Core decision
 
-If AI freely generates explanations and dialogue in educational content, it can teach incorrect material. The questions, answer keys, and dialogue are written by people, while AI only compares the learner's response with the answer anchor and returns a verdict.
+If AI freely generates the questions and answer criteria in educational content, it can teach incorrect material. People author the questions and answer anchors, while AI grades the learner's response through a constrained verdict. The real provider also generates a one-line reaction and expression that must stay within the anchor, so this page does not claim that AI only grades.
 
-Even when learners answer in free form, the model cannot change the game's rules. The grader returns only a constrained verdict contract, while `engine.js` owns affection scores, problem order, retries, and endings. Responsibilities are separated so that missing or malformed model responses do not corrupt state transitions.
+Even when learners answer in free form, the model cannot change the game's rules. The provider contract requires `verdict` and optionally permits `reaction` and `expr`. The state engine uses only `verdict` for transitions and treats any optional fields as presentation. `engine.js` owns affection scores, problem order, retries, and endings, so missing or malformed model responses do not corrupt state transitions.
 
 ## Failure isolation
 
@@ -34,11 +34,11 @@ The static fallback is not merely a fake demonstration screen; it implements the
 
 ## Implementation and validation
 
-The publishable records include 23 engine tests, one complete pass through the 8 beats in `stack.json`, re-explanation and retry after an incorrect answer, affection and ending invariants, and a Playwright playthrough. These results verify that the game engine can be completed; they do not measure the educational effectiveness of the full content.
+The publishable records include 25 engine tests, one complete pass through the 8 beats in `stack.json`, re-explanation and retry after an incorrect answer, affection and ending invariants, and a Playwright playthrough. These results verify that the game engine can be completed; they do not measure the educational effectiveness of the full content.
 
 ## Current state
 
-The stack data-structure route and original UI and art demo are complete. The queue and tree routes, deeper cameo content, real-grader edge-case calibration, and public deployment are still in progress. My role covers the story and answer anchors, UI and dialogue-box design, and artwork; I do not present the entire engine and server as my individual implementation. The overall product therefore remains labeled as a prototype rather than complete.
+The stack data-structure route and original UI and art demo are complete. The queue and tree routes, deeper cameo content, real-grader edge-case calibration, and public deployment are still in progress. The current public evidence confirms my UI, dialogue-box, and art-direction role. I do not present the story, anchors, engine, or server implementation as my individual work until ownership is verified. The overall product therefore remains labeled as a prototype rather than complete.
 
 ## Contribution boundary
 

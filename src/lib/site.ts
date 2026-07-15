@@ -47,3 +47,9 @@ export const projectActivityLabels = {
   coursework: "전공·학습",
   other: "기타",
 } as const;
+
+export const projectVisibilityLabels = {
+  public: "공개 저장소·공개 근거",
+  private: "비공개 원문·공개 가능한 범위만 요약",
+  mixed: "공개·비공개 근거 혼합",
+} as const;

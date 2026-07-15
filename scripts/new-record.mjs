@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, open, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
@@ -16,19 +16,14 @@ if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
   process.exit(1);
 }
 
-const collection = `${kind}s`;
-const destination = path.resolve("src", "content", collection, `${slug}.md`);
-if (existsSync(destination)) {
-  console.error(`Refusing to overwrite ${path.relative(process.cwd(), destination)}.`);
-  process.exit(1);
-}
-
 const today = new Date().toISOString().slice(0, 10);
 const templates = {
   project: `---
 title: ${JSON.stringify(title)}
 summary: "TODO: 검증 가능한 한 문장 요약"
 status: planned
+statusNote: "TODO: 현재 완료·검증 상태"
+activity: personal
 visibility: private
 role: "TODO: 직접 맡은 범위"
 teamScope: "TODO: 팀 범위와 기여 경계"
@@ -41,6 +36,8 @@ order: 999
 featured: false
 draft: true
 repositories: []
+recordPlan: "TODO: 원본 작업 로그·ADR·트러블슈팅과 블로그 기록의 연결 방식"
+recordLinks: []
 ---
 
 ## 문제
@@ -52,6 +49,40 @@ TODO
 TODO
 
 ## 검증과 한계
+
+TODO
+`,
+  projectEn: `---
+title: ${JSON.stringify(title)}
+summary: "TODO: One-sentence verified English summary"
+status: planned
+statusNote: "TODO: Current completion and validation status"
+activity: personal
+visibility: private
+role: "TODO: Directly owned scope"
+teamScope: "TODO: Team scope and contribution boundary"
+contributionEvidence:
+  - "TODO: Commit, pull request, document, or validation record"
+tags: ["TODO"]
+infra: []
+metrics: []
+order: 999
+featured: false
+draft: true
+repositories: []
+recordPlan: "TODO: How source work logs, ADRs, and troubleshooting records connect to the blog"
+recordLinks: []
+---
+
+## Problem
+
+TODO
+
+## Direct contribution
+
+TODO
+
+## Validation and limits
 
 TODO
 `,
@@ -82,6 +113,36 @@ TODO
 TODO
 
 ## 검증과 한계
+
+TODO
+`,
+  postEn: `---
+title: ${JSON.stringify(title)}
+description: "TODO: The question this article answers"
+publishedAt: ${today}
+category: engineering
+activity: personal-project
+tags: ["TODO"]
+role: "TODO: Direct role in this work"
+evidence:
+  - "TODO: Source document or code"
+validation:
+  - "TODO: Validation actually performed"
+limitations:
+  - "TODO: Scope this article does not claim"
+featured: false
+draft: true
+---
+
+## Context
+
+TODO
+
+## Decision and implementation
+
+TODO
+
+## Validation and limits
 
 TODO
 `,
@@ -128,6 +189,43 @@ TODO
 `,
 };
 
-await mkdir(path.dirname(destination), { recursive: true });
-await writeFile(destination, templates[kind], { flag: "wx" });
-console.log(`Created draft: ${path.relative(process.cwd(), destination)}`);
+const targets = kind === "project"
+  ? [
+      { collection: "projects", template: templates.project },
+      { collection: "projects-en", template: templates.projectEn },
+    ]
+  : kind === "post"
+    ? [
+        { collection: "posts", template: templates.post },
+        { collection: "posts-en", template: templates.postEn },
+      ]
+    : [{ collection: `${kind}s`, template: templates[kind] }];
+
+const destinations = targets.map(({ collection, template }) => ({
+  destination: path.resolve("src", "content", collection, `${slug}.md`),
+  template,
+}));
+
+const existing = destinations.find(({ destination }) => existsSync(destination));
+if (existing) {
+  console.error(`Refusing to overwrite ${path.relative(process.cwd(), existing.destination)}.`);
+  process.exit(1);
+}
+
+const created = [];
+try {
+  for (const { destination, template } of destinations) {
+    await mkdir(path.dirname(destination), { recursive: true });
+    const handle = await open(destination, "wx");
+    created.push(destination);
+    try {
+      await handle.writeFile(template);
+    } finally {
+      await handle.close();
+    }
+    console.log(`Created draft: ${path.relative(process.cwd(), destination)}`);
+  }
+} catch (error) {
+  await Promise.allSettled(created.map((destination) => rm(destination, { force: true })));
+  throw error;
+}

@@ -11,7 +11,7 @@ tags: ["C", "C++", "Java", "Python"]
 infra: []
 metrics:
   - { label: "Courses", value: "12" }
-order: 12
+order: 11
 featured: false
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/cs-coursework" }

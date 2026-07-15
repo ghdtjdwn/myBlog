@@ -28,3 +28,9 @@ export const projectActivityLabelsEn = {
   coursework: "Coursework & study",
   other: "Other",
 } as const;
+
+export const projectVisibilityLabelsEn = {
+  public: "Public repositories and evidence",
+  private: "Private sources, public-safe summary only",
+  mixed: "Mixed public and private evidence",
+} as const;

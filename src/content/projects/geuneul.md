@@ -24,6 +24,8 @@ repositories:
 recordPlan: "공개 저장소의 README, architecture, DEPLOY, ADR와 worklog를 완료 산출물의 원본으로 사용합니다. 블로그에는 성능·데이터·운영 사례를 문제와 검증 중심으로 선별해 연결합니다."
 recordLinks:
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
+  - { label: "PostGIS 부하·실행계획 튜닝 ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0012-k6-load-explain-index-tuning.md" }
+  - { label: "PostGIS EXPLAIN 결과", url: "https://github.com/ghdtjdwn/geuneul/blob/main/perf/explain/RESULTS.md" }
 ---
 
 ## 문제

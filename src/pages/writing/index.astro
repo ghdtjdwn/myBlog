@@ -11,6 +11,12 @@ const activityCategories = categories.filter((category) => category.data.kind ==
 const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
+const visibleCompetencies = competencyCategories
+  .map((category) => ({ category, count: posts.filter((post) => post.data.category.id === category.id).length }))
+  .filter(({ count }) => count > 0);
+const visibleActivities = activityCategories
+  .map((category) => ({ category, count: posts.filter((post) => post.data.activity?.id === category.id).length }))
+  .filter(({ count }) => count > 0);
 ---
 
 <BaseLayout title="Writing — 홍성주" description="성능, 데이터, AI 안전성과 운영 과정에서 내린 판단을 재현 가능한 근거와 함께 기록합니다.">
@@ -24,17 +30,11 @@ const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.dr
       <nav class="category-nav" aria-label="직무 역량별 글">
         <strong>직무 역량</strong>
         <a aria-current="page" href={Astro.url.pathname}>전체 <span>{posts.length}</span></a>
-        {competencyCategories.map((category) => {
-          const count = posts.filter((post) => post.data.category.id === category.id).length;
-          return <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>;
-        })}
+        {visibleCompetencies.map(({ category, count }) => <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>)}
       </nav>
       <nav class="category-nav" aria-label="활동 유형별 글">
         <strong>활동 유형</strong>
-        {activityCategories.map((category) => {
-          const count = posts.filter((post) => post.data.activity?.id === category.id).length;
-          return <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>;
-        })}
+        {visibleActivities.map(({ category, count }) => <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>)}
       </nav>
     </div>
     {posts.length > 0 ? <div class="post-list">{posts.map((post) => <PostCard post={post} />)}</div> : <p class="empty-state">검증을 마친 글부터 공개합니다.</p>}
