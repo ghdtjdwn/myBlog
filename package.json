@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "dev:cms-setup": "PUBLIC_KEYSTATIC_GITHUB_MODE=true astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",

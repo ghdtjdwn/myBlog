@@ -1,5 +1,15 @@
 # Work log
 
+## 2026-07-15 — Keystatic Production 로그인 500 조사와 설정 절차 보완
+
+- 목표: `/admin`의 `Login with GitHub`가 HTTP 500을 반환한 원인을 확인하고 재현 가능한 초기 설정 경로를 만든다.
+- 원인: Production에 `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`이 등록되기 전에 로그인 API가 실행됐다. 공개 정적 페이지에는 영향이 없고 관리자 함수만 실패했다.
+- 추가 실패와 수정: 일회성 로컬 GitHub mode 플래그를 `process.env`로 읽어 설정 화면 hydration이 `process is not defined`로 중단됐다. 비밀이 아닌 플래그만 `PUBLIC_KEYSTATIC_GITHUB_MODE`와 `import.meta.env`로 옮기고 `npm run dev:cms-setup` 명령을 추가했다.
+- 기록: 재현, 함수 로그 근거, 원인, 대안, 해결 절차와 남은 위험을 `docs/troubleshooting/keystatic-production-missing-oauth-config.md`에 기록했다. README에 Keystatic·검색엔진의 남은 수동 설정을 명시했다.
+- 검증: 로컬 `/keystatic/setup` HTTP 200과 기존 hydration 오류 제거를 확인했다. GitHub App 생성과 실제 Production 로그인은 사용자 결정에 따라 다음 세션으로 보류했다.
+- 검증: 로컬 설정 서버를 종료했다. `npm test`에서 관계 검증, Astro 30개 파일 검사 오류·경고 0, 한영 63개 생성 문서와 draft 격리가 통과했고 npm audit 취약점은 0건이었다.
+- 전달: commit, push, CI와 공개 페이지 재검증을 이어서 수행한다.
+
 ## 2026-07-15 — 영문 사이트와 검색 소유권 인증 준비
 
 - 목표: 해외 독자와 채용 담당자가 같은 프로젝트 근거를 읽을 수 있게 하고 Google·네이버 검색 등록을 안전하게 준비한다.

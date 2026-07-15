@@ -55,6 +55,17 @@ npm run new:record -- post post-slug "글 제목"
 
 배포 관리자 최초 설정에는 Keystatic용 GitHub App 생성과 저장소 설치, Vercel 환경 변수 등록이 한 번 필요합니다. 비밀값은 저장소나 문서에 기록하지 않습니다.
 
+GitHub App을 아직 만들지 않았다면 Production의 `Login with GitHub`를 먼저 누르지 않습니다. `npm run dev:cms-setup`을 실행하고 `http://127.0.0.1:4321/keystatic/setup`에서 Production URL을 입력해 앱을 만든 뒤, 로컬 `.env`에 생성된 네 값을 Vercel에 등록하고 재배포합니다.
+
+### 남은 수동 설정
+
+- Keystatic GitHub App 생성과 `ghdtjdwn/myBlog` 한정 설치
+- Keystatic 환경 변수 4개를 Vercel Production·Preview에 등록하고 재배포
+- `/admin` GitHub 로그인, 글 작성과 저장 커밋 확인
+- Google Search Console과 네이버 서치어드바이저 소유권 인증·사이트맵 제출
+
+이 설정 전까지 공개 블로그와 영문 페이지는 정상 동작하지만 Production CMS 로그인은 사용할 수 없습니다.
+
 영문은 자동 번역 API가 아니라 `/en/` 아래의 별도 원문으로 관리합니다. 같은 slug의 한국어·영어 프로젝트를 함께 유지하며 모든 공개 페이지는 canonical과 `hreflang` 한국어·영어·기본 URL을 제공합니다.
 
 Google Search Console과 네이버 서치어드바이저의 HTML 태그 소유권 인증값은 각각 Vercel의 `GOOGLE_SITE_VERIFICATION`, `NAVER_SITE_VERIFICATION` 환경 변수로 설정합니다.

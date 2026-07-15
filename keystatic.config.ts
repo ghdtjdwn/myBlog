@@ -1,6 +1,6 @@
 import { collection, config, fields } from "@keystatic/core";
 
-const storage = process.env.NODE_ENV === "production"
+const storage = import.meta.env.PROD || import.meta.env.PUBLIC_KEYSTATIC_GITHUB_MODE === "true"
   ? { kind: "github" as const, repo: "ghdtjdwn/myBlog" as const }
   : { kind: "local" as const };
 
