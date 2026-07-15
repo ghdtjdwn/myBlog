@@ -14,8 +14,13 @@
   비밀 관리와 운영 복잡성에 비해 배포 빈도가 낮아 선택하지 않았다.
 - 기록: 재현, 증거, 대안, 해결과 회귀 방지를
   `docs/troubleshooting/vercel-primary-alias-stale.md`에 남겼다.
-- 검증: 최종 문서 배포와 alias 승격 후 실행한다.
-- 전달: 문서와 최종 Production 승격을 준비 중이다.
+- 검증: PR #6의 validate·secret-scan·Vercel Preview와 main CI run
+  `29403084393`이 성공했다. merge commit `346cfff`의 Vercel Production
+  `dpl_2TNKJhzXKHqMPwkik8YmbAtEQT9C`가 Ready임을 확인하고 alias를 승격한 뒤,
+  한·영 홈·Macro·Geuneul 6개 경로의 HTTP 200, 최신 완료 상태, canonical과 HSTS·MIME
+  sniffing 방지·frame 차단·referrer 정책을 실제 본진에서 확인했다.
+- 전달: 운영 절차를 PR #6으로 main에 병합하고 `seongju.vercel.app`을 검증한 Production으로
+  승격했다. 실패 시 되돌릴 이전 deployment URL과 ID도 보존했다.
 
 ## 2026-07-15 — CI action Node 24 전환
 
