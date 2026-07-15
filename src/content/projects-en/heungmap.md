@@ -12,7 +12,7 @@ tags: ["TourAPI", "Data Spike", "Forecasting", "Product Discovery"]
 infra: []
 metrics:
   - { label: "Current stage", value: "Data validation" }
-order: 4
+order: 5
 featured: false
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/heungmap" }

@@ -13,7 +13,7 @@ infra: ["Static fallback", "Optional Node proxy"]
 metrics:
   - { label: "Engine tests", value: "23" }
   - { label: "Scenario beats", value: "8" }
-order: 3
+order: 4
 featured: true
 repositories: []
 recordPlan: "The team repository retains the original validation records. Blog posts cover only my publishable contributions and the AI responsibility boundary. Team assets and private URLs are not disclosed."

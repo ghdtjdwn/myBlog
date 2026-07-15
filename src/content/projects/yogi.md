@@ -11,7 +11,7 @@ tags: ["Recommendation", "Group Decision", "OCI", "Product Design"]
 infra: ["OCI Ampere planned", "ADB Vector planned"]
 metrics:
   - { label: "Current stage", value: "Awaiting result" }
-order: 5
+order: 6
 featured: false
 repositories: []
 recordPlan: "예선 문서와 본선 Day-1 검증표를 원본으로 두고, 진출 후 실제로 확인한 OCI 가용성·추천 실험·운영 결과만 작업 로그와 블로그에 기록합니다."

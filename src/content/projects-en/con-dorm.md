@@ -13,7 +13,7 @@ infra: ["H2/MySQL persistence", "Mock-to-real API adapter", "No deployment yet"]
 metrics:
   - { label: "FE screens", value: "9+" }
   - { label: "Owned BE scope", value: "roommate" }
-order: 9
+order: 10
 featured: true
 repositories: []
 recordPlan: "The team repositories and shared role and API contract documents remain the sources of truth. Blog posts anonymize and cover only the FE and roommate scope I owned. Pre-deployment problems are not presented as production incidents."

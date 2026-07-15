@@ -12,7 +12,7 @@ infra: ["Offline Python pipeline"]
 metrics:
   - { label: "Adversarial", value: "9 / 9" }
   - { label: "Validation", value: "FAIL 0" }
-order: 6
+order: 7
 featured: false
 repositories: []
 recordPlan: "Keep the submission's test results as the source of truth, and publish only reusable decisions such as privacy and evidence validation and precision-first clustering as blog posts."

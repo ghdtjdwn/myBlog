@@ -1,8 +1,8 @@
 ---
 title: "그늘 — 여름 생존 지도"
 summary: "폭염과 비 오는 날 주변 쉼터를 찾도록 15만여 공공 POI, PostGIS 공간 검색, 실시간 제보를 연결한 지도 서비스입니다."
-status: operating
-statusNote: "웹·API·PWA와 AWS 인프라를 운영 중이며, 데이터 품질과 검색 성능, 비용을 계속 관측하고 개선하고 있습니다."
+status: complete
+statusNote: "웹·API·PWA와 AWS 인프라 구현·검증까지 마치고 개발을 종료했습니다. 공개 URL과 저장소는 완료 결과를 확인할 수 있게 유지합니다."
 activity: personal
 visibility: public
 role: "제품·데이터·백엔드·인프라 전체"
@@ -21,7 +21,7 @@ featured: true
 live: "https://geuneul.vercel.app"
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/geuneul" }
-recordPlan: "현재 공개 저장소의 README, docs/adr, architecture와 DEPLOY 문서를 원본으로 사용합니다. 새 작업부터 worklog·troubleshooting 구조를 적용하고 성능·데이터·운영 사례는 블로그에서 문제와 검증 중심으로 선별합니다."
+recordPlan: "공개 저장소의 README, architecture, DEPLOY, ADR와 worklog를 완료 산출물의 원본으로 사용합니다. 블로그에는 성능·데이터·운영 사례를 문제와 검증 중심으로 선별해 연결합니다."
 recordLinks:
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
 ---
@@ -50,9 +50,9 @@ Terraform으로 VPC, public/private subnet, ECS Fargate, ECR, RDS/PostGIS, Elast
 
 ECS 서비스는 최소 1개에서 최대 3개까지 CPU 60% 기준으로 확장하도록 구성했습니다. GitHub Actions는 장기 AWS key 대신 OIDC로 배포 역할을 얻습니다. CloudFront와 ALB 사이의 origin 접근, RDS 암호화·백업·복원, 관측성 비용을 ADR로 남겨 단순 구성도가 아니라 운영 결정을 설명할 수 있게 했습니다.
 
-## 현재 상태와 다음 작업
+## 완료 상태
 
-웹, API health, PWA 설치 경로와 서명 APK를 공개하고 실제 응답을 확인했습니다. 현재도 운영 중이며 데이터 최신성, comfort signal의 품질과 인프라 비용을 확인하고 있습니다. 다음 개선은 Production 부하 자료를 더 축적하고, 외부 API와 사용자 제보 품질이 추천 결과에 미치는 영향을 관측 가능한 지표로 만드는 것입니다.
+웹, API health, PWA 설치 경로와 서명 APK를 공개하고 실제 응답을 확인한 뒤 계획한 개발 범위를 완료했습니다. 공개 데모와 코드·설계·성능 기록은 결과 확인용으로 유지하지만, 현재 진행 중인 기능 개발이나 개선 로드맵은 없습니다. 완료 이후에는 공공데이터 최신성이나 인프라의 상시 가용성을 보장하지 않습니다.
 
 ## 한계
 

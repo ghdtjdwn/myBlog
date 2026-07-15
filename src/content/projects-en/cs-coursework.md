@@ -34,7 +34,7 @@ The AI assignments use PyTorch to implement and experiment with CNNs, ViT, BERT,
 
 ## Position in the hiring portfolio
 
-The flagship projects are operating, data-intensive user products such as the ssu platform and Geuneul. This archive serves as supporting evidence when an interview calls for code-level discussion of data structures, execution models, networking, or ML fundamentals. Rather than turning all 12 courses into posts, I plan to expand only two or three topics that connect to current work, such as the interpreter, RISC-V, and Transformer.
+The flagship projects include the operating ssu platform and the completed Geuneul service, both of which address operations, data, and user problems. This archive serves as supporting evidence when an interview calls for code-level discussion of data structures, execution models, networking, or ML fundamentals. Rather than turning all 12 courses into posts, I plan to expand only two or three topics that connect to current work, such as the interpreter, RISC-V, and Transformer.
 
 ## Limitations
 

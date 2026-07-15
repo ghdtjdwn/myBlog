@@ -13,7 +13,7 @@ infra: ["Static fallback", "Optional Node proxy"]
 metrics:
   - { label: "Engine tests", value: "23" }
   - { label: "Scenario beats", value: "8" }
-order: 3
+order: 4
 featured: true
 repositories: []
 recordPlan: "팀 저장소의 검증 기록을 원본으로 유지하고, 공개 가능한 개인 기여와 AI 책임 경계만 블로그 글로 정리합니다. 팀 자산과 비공개 URL은 공개하지 않습니다."

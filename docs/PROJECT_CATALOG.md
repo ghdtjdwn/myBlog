@@ -15,7 +15,7 @@
 | `axwar-refund` | 여행 환불 규정 계산 플러그인 | 제출물 완성 | 개인 프로젝트 | 자연어 해석과 결정론 계산 경계 |
 | `axwar-disclosure` | DART 공시 브리핑 플러그인 | 제출물 완성 | 개인 프로젝트 | 금융 숫자·표현 검증 |
 | `con-dorm` | Cham Domi(참 도미), 기숙사·룸메이트 매칭 | 팀 프로토타입 | FE 전체, BE roommate 도메인. 인증·기숙사 도메인은 팀원 소유 | 알고리즘·계약 테스트·팀 경계 글 |
-| `unithon-macro` | 음성 주문 키오스크 자동화 | 해커톤 구현 | Macro 저장소의 사용자 기여 확인. Backend·Frontend 구현 주장 금지 | 음성→주문→물리 UI 자동화 글 |
+| `unithon-macro` | 음성 주문 키오스크 자동화 | 의미 기반 안전 코어 완료 | 음성 클라이언트·UIA/OCR 자동화·영속 주문 경계. Backend·Frontend 원구현은 팀원 소유 | 음성→주문→검증된 물리 UI 자동화 글 |
 | `cs-coursework` | 전공 과제 모음 | 학습 아카이브 | 사용자 저장소 | 시스템·알고리즘 학습 아카이브 |
 | `first-study` | Spring Boot CRUD 학습 | 비공개 학습 아카이브 | 사용자 저장소 | 초기 학습 회고, 대표 배치 제외 |
 | `osc` | 오픈소스 개발자대회 작업공간 | 문서 단계 | 구현 없음 | 실제 OSS 기여 발생 후 기록 |
@@ -26,7 +26,7 @@
 2. 클라우드·공간 데이터: 그늘의 PostGIS, ETL, 실시간 제보, AWS IaC
 3. AI 경계 설계: DDSC와 axwar 플러그인의 결정론 검증
 4. 협업·알고리즘: Cham Domi의 Stable Roommates와 FE/BE 계약
-5. 제품 자동화: UNITHON Macro의 음성 주문과 좌표 기반 자동화
+5. 제품 자동화: UNITHON Macro의 음성 주문과 UIA 우선 의미 기반 자동화
 
 ## 공개 규칙
 

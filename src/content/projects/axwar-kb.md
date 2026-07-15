@@ -12,7 +12,7 @@ infra: ["Offline Python pipeline"]
 metrics:
   - { label: "Adversarial", value: "9 / 9" }
   - { label: "Validation", value: "FAIL 0" }
-order: 6
+order: 7
 featured: false
 repositories: []
 recordPlan: "제출물의 테스트 결과를 원본으로 유지하고, 개인정보·근거 검증과 precision-first 클러스터링처럼 재사용 가능한 판단만 블로그 글로 정리합니다."

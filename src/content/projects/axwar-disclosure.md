@@ -11,7 +11,7 @@ tags: ["DART", "Compliance", "LLM Guardrail", "Financial Data"]
 infra: ["Offline mock", "OPEN DART optional"]
 metrics:
   - { label: "Adversarial", value: "8 / 8" }
-order: 8
+order: 9
 featured: false
 repositories: []
 recordPlan: "공시 fixture와 적대 테스트를 검증 원본으로 두고, 금융 LLM에서 숫자·고지·투자권유를 통제한 판단을 블로그 사례로 정리합니다."
