@@ -70,4 +70,15 @@ GitHub App을 아직 만들지 않았다면 Production의 `Login with GitHub`를
 
 Google Search Console과 네이버 서치어드바이저의 HTML 태그 소유권 인증값은 각각 Vercel의 `GOOGLE_SITE_VERIFICATION`, `NAVER_SITE_VERIFICATION` 환경 변수로 설정합니다.
 
-배포 canonical은 기본적으로 현재 Vercel Production URL을 사용합니다. 개인 도메인을 연결하면 Vercel의 Production·Preview `SITE_URL`과 `astro.config.mjs` 기본값을 함께 변경합니다. 하위 경로 배포가 필요할 때만 `BASE_PATH`를 설정합니다.
+배포 canonical은 `https://seongju.vercel.app`을 사용합니다. 이 주소는 Vercel의 자동 프로젝트 도메인이 아니라 수동 alias입니다. 최종 commit의 GitHub Vercel deployment status에서 고유 URL을 얻고, 그 URL이 project `seongju`의 Production·Ready 배포인지 확인합니다. 변경 전 본진이 가리키는 기존 URL과 ID도 rollback 값으로 보존합니다.
+
+```sh
+gh api "repos/ghdtjdwn/myBlog/deployments?sha=<main-commit-sha>"
+gh api "repos/ghdtjdwn/myBlog/deployments/<github-deployment-id>/statuses"
+vercel inspect seongju.vercel.app
+vercel inspect <verified-production-deployment-url>
+vercel alias set <production-deployment-url> seongju.vercel.app
+vercel inspect seongju.vercel.app
+```
+
+그다음 한·영 홈과 변경한 페이지의 내용·canonical·보안 헤더를 실제 주소에서 확인합니다. 하나라도 실패하면 `vercel alias set <previous-deployment-url> seongju.vercel.app`으로 즉시 되돌립니다. 개인 도메인을 연결하면 Vercel의 Production·Preview `SITE_URL`과 `astro.config.mjs` 기본값을 함께 변경합니다. 하위 경로 배포가 필요할 때만 `BASE_PATH`를 설정합니다.
