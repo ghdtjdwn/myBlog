@@ -2,6 +2,8 @@
 
 홍성주의 포트폴리오와 기술 기록을 한 곳에서 제공하는 정적 사이트입니다.
 
+공개 사이트: [seongju-engineering-notes.vercel.app](https://seongju-engineering-notes.vercel.app)
+
 ## 원칙
 
 - 결과보다 문제, 판단, 대안, 검증 근거를 함께 기록한다.
@@ -40,4 +42,4 @@ npm run dev
 npm run new:record -- post post-slug "글 제목"
 ```
 
-배포 URL이 정해지면 `SITE_URL`을 origin으로, 하위 경로가 있으면 `BASE_PATH`를 함께 설정합니다. 현재 기본 URL은 원격 저장소가 아직 없는 상태의 안전한 빌드 기본값이며 실제 배포를 의미하지 않습니다.
+배포 canonical은 기본적으로 현재 Vercel Production URL을 사용합니다. 개인 도메인을 연결하면 Vercel의 Production·Preview `SITE_URL`과 `astro.config.mjs` 기본값을 함께 변경합니다. 하위 경로 배포가 필요할 때만 `BASE_PATH`를 설정합니다.

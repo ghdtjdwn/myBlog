@@ -3,7 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? "https://ghdtjdwn.github.io/myBlog",
+  site: process.env.SITE_URL ?? "https://seongju-engineering-notes.vercel.app",
   base: (process.env.BASE_PATH ?? "/").replace(/\/?$/, "/"),
   output: "static",
   integrations: [mdx(), sitemap()],

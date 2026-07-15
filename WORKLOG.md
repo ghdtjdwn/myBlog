@@ -38,3 +38,12 @@
 - 변경: Astro 프레임워크, `npm ci`, 정적 `dist` 출력을 `vercel.json`에 명시했다. Preview에는 `noindex, nofollow`와 `robots.txt` 전체 차단을 적용했다.
 - 검증: 프로덕션 빌드와 Preview 빌드를 각각 실행해 Preview 검색 차단, 프로덕션 draft 격리와 21개 정적 문서 검사를 확인했다.
 - 다음: 변경을 commit/push하고 GitHub CI를 확인한 뒤 실제 Production 배포, canonical URL, analytics와 공개 응답을 검증한다.
+
+## 2026-07-15 — Production 배포와 공개 검증
+
+- 목표: Git 기반 자동 배포와 실제 공개 사이트를 연결하고 운영 기준을 확인한다.
+- 전달: Vercel 프로젝트를 `ghdtjdwn/myBlog`에 연결하고 Production을 `https://seongju-engineering-notes.vercel.app`에 배포했다. Web Analytics와 Speed Insights를 실제 프로젝트에서 활성화하고 Production·Preview의 `SITE_URL`을 등록했다.
+- 검증: Vercel 원격 빌드에서 npm 감사 0 vulnerabilities, Astro 검사 0 errors/0 warnings/0 hints, 17페이지 정적 빌드가 성공했다. 공개 주소의 HTTP 200, TLS/HSTS, canonical, Open Graph 이미지, sitemap, robots 허용과 draft URL 404를 직접 확인했다.
+- CI: 최신 `c58b4aa` GitHub Actions의 build와 secret-scan이 모두 성공했다. 최초 push의 gitleaks 실패는 root commit의 존재하지 않는 부모 범위가 원인이었고 `docs/troubleshooting/initial-gitleaks-root-commit.md`에 기록했다.
+- 보안: 모든 응답에 MIME sniffing 방지, frame 차단, referrer 제한과 camera·microphone·geolocation 차단 헤더를 선언했다. CSP는 Analytics endpoint를 정확히 확정하지 않은 상태에서 임의 적용해 관측을 깨뜨리지 않도록 보류했다.
+- 남은 외부 작업: 개인 도메인 선택·구매와 DNS 연결, Google Search Console과 네이버 서치어드바이저의 소유권 인증은 사용자 확인이 필요하다.
