@@ -30,3 +30,11 @@
 - 실제 실패: TypeScript 7 peer 충돌은 6.0.3 고정으로 해결했다. 하위 경로 빌드의 URL 결합 오류는 base 정규화로 해결하고 `docs/troubleshooting/base-path-url-join.md`에 재현과 예방을 남겼다.
 - 검증: npm 설치 감사 0 vulnerabilities. `astro check` 0 errors/0 warnings/0 hints. 프로덕션 17페이지 빌드와 21개 텍스트 산출물 검사, 초안 미리보기 21페이지, `/myBlog` 하위 경로의 링크·canonical·소셜 이미지 검사를 완료했다.
 - 전달: 독립 Git 저장소를 초기화하고 GitHub 로그인 `ghdtjdwn`, 프로필 이름과 계정 ID 기반 noreply 이메일을 저장소 로컬 커밋 신원으로 설정했다. staged diff 검사와 gitleaks에서 노출 0건을 확인한 뒤 초기 로컬 커밋으로 전달한다. 원격 저장소 생성, push, Preview와 Production은 외부 변경이므로 수행하지 않았다.
+
+## 2026-07-15 — GitHub 공개와 Vercel 배포 준비
+
+- 목표: 검증된 사이트를 공개 저장소와 관리형 정적 호스팅에 안전하게 연결한다.
+- 전달: `ghdtjdwn/myBlog` 공개 저장소를 생성하고 `main`을 push했다. Vercel 계정에 `seongju-engineering-notes` 프로젝트를 생성하고 로컬 프로젝트를 연결했다.
+- 변경: Astro 프레임워크, `npm ci`, 정적 `dist` 출력을 `vercel.json`에 명시했다. Preview에는 `noindex, nofollow`와 `robots.txt` 전체 차단을 적용했다.
+- 검증: 프로덕션 빌드와 Preview 빌드를 각각 실행해 Preview 검색 차단, 프로덕션 draft 격리와 21개 정적 문서 검사를 확인했다.
+- 다음: 변경을 commit/push하고 GitHub CI를 확인한 뒤 실제 Production 배포, canonical URL, analytics와 공개 응답을 검증한다.

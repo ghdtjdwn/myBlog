@@ -22,6 +22,7 @@ const {
   updatedAt,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const isPreview = process.env.VERCEL_ENV === "preview";
 const imagePath = (typeof image === "string" ? image : image?.src) ?? "og-card.png";
 const resolvedImagePath = imagePath.startsWith(import.meta.env.BASE_URL) ? imagePath : withBase(imagePath);
 const imageUrl = new URL(resolvedImagePath, Astro.site);
@@ -62,6 +63,7 @@ const jsonLd =
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f4f0e8" />
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
     <Analytics />
     <SpeedInsights />
     <link rel="canonical" href={canonical} />

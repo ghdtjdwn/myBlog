@@ -9,7 +9,8 @@ This directory is an active work-in-progress Astro portfolio and engineering blo
 - `src/lib/site.ts` owns shared site metadata and base-path URL handling.
 - `src/layouts/BaseLayout.astro` owns global metadata, navigation, structured data, and the page shell.
 - npm is the selected package manager, `.nvmrc` selects Node 24, and `package.json` pins the Astro toolchain. Keep `package-lock.json` synchronized with it.
-- Git is initialized on `main`, and the initial implementation is committed locally. No remote is currently configured. Creating a remote repository, pushing, and publishing require explicit confirmation.
+- Git is initialized on `main` and tracks the public `ghdtjdwn/myBlog` repository. Keep `main` releasable and require explicit confirmation for production or DNS changes.
+- The site is linked locally to the Vercel project `seongju-engineering-notes`; `.vercel/` and downloaded environment files remain ignored.
 
 ## Implementation boundaries
 
