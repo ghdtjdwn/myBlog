@@ -1,0 +1,13 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { categoryEnglish } from "../../../lib/i18n";
+import { formatDateEn, withBase } from "../../../lib/site";
+export async function getStaticPaths() { const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true"; const posts = await getCollection("postsEn", ({ data }) => showDrafts || !data.draft); return posts.map((post) => ({ params: { id: post.id }, props: { post } })); }
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const name = (id: string) => categoryEnglish[id as keyof typeof categoryEnglish]?.name ?? id;
+---
+<BaseLayout locale="en" title={`${post.data.title} — Hong Seong Ju`} description={post.data.description} type="article" publishedAt={post.data.publishedAt} updatedAt={post.data.updatedAt}>
+  <article><header class="article-hero shell reading-shell"><a class="back-link" href={withBase("en/writing/")}>← Writing</a><div class="post-meta"><time datetime={post.data.publishedAt.toISOString()}>{formatDateEn(post.data.publishedAt)}</time>{post.data.updatedAt && <span>Updated {formatDateEn(post.data.updatedAt)}</span>}</div><div class="article-categories"><a href={withBase(`en/writing/category/${post.data.category.id}/`)}>{name(post.data.category.id)}</a>{post.data.activity && <a href={withBase(`en/writing/category/${post.data.activity.id}/`)}>{name(post.data.activity.id)}</a>}</div><h1>{post.data.title}</h1><p>{post.data.description}</p><div class="tag-row">{post.data.tags.map((tag) => <span>{tag}</span>)}</div></header><div class="article-layout shell article-body"><aside class="article-aside toc"><p>IN THIS NOTE</p><ol>{headings.filter(h => h.depth === 2).map(h => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></aside><div class="prose"><Content /></div></div></article>
+</BaseLayout>

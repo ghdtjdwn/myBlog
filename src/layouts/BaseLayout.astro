@@ -11,6 +11,7 @@ interface Props {
   type?: "website" | "article";
   publishedAt?: Date;
   updatedAt?: Date;
+  locale?: "ko" | "en";
 }
 
 const {
@@ -20,10 +21,23 @@ const {
   type = "website",
   publishedAt,
   updatedAt,
+  locale = "ko",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const isPreview = process.env.VERCEL_ENV === "preview";
 const pathname = Astro.url.pathname;
+const relativePath = pathname.startsWith(import.meta.env.BASE_URL)
+  ? pathname.slice(import.meta.env.BASE_URL.length)
+  : pathname.replace(/^\//, "");
+const koPath = locale === "en" ? relativePath.replace(/^en\/?/, "") : relativePath;
+const enPath = locale === "en" ? relativePath : `en/${relativePath}`;
+const koUrl = new URL(withBase(koPath), Astro.site);
+const enUrl = new URL(withBase(enPath), Astro.site);
+const languageHref = locale === "ko" ? withBase(enPath) : withBase(koPath);
+const verification = {
+  google: import.meta.env.GOOGLE_SITE_VERIFICATION,
+  naver: import.meta.env.NAVER_SITE_VERIFICATION,
+};
 const imagePath = (typeof image === "string" ? image : image?.src) ?? "og-blog.png";
 const resolvedImagePath = imagePath.startsWith(import.meta.env.BASE_URL) ? imagePath : withBase(imagePath);
 const imageUrl = new URL(resolvedImagePath, Astro.site);
@@ -39,7 +53,7 @@ const jsonLd =
         mainEntityOfPage: canonical.toString(),
         author: {
           "@type": "Person",
-          name: site.name,
+          name: locale === "ko" ? site.name : "Hong Seong Ju",
           url: new URL(withBase("about/"), Astro.site).toString(),
           sameAs: [site.github],
         },
@@ -49,7 +63,7 @@ const jsonLd =
         "@type": "ProfilePage",
         mainEntity: {
           "@type": "Person",
-          name: site.name,
+          name: locale === "ko" ? site.name : "Hong Seong Ju",
           url: canonical.toString(),
           sameAs: [site.github],
         },
@@ -57,17 +71,22 @@ const jsonLd =
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f4f0e8" />
+    {verification.google && <meta name="google-site-verification" content={verification.google} />}
+    {verification.naver && <meta name="naver-site-verification" content={verification.naver} />}
     {isPreview && <meta name="robots" content="noindex, nofollow" />}
     <Analytics />
     <SpeedInsights />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ko" href={koUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={koUrl} />
     <link rel="alternate" type="application/rss+xml" title={site.title} href={withBase("rss.xml")} />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
@@ -81,16 +100,17 @@ const jsonLd =
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   </head>
   <body>
-    <a class="skip-link" href="#content">본문으로 바로가기</a>
+    <a class="skip-link" href="#content">{locale === "ko" ? "본문으로 바로가기" : "Skip to content"}</a>
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href={withBase("")} aria-label="홍성주 홈">
-          <strong>홍성주</strong><span>개발 노트</span>
+        <a class="brand" href={withBase(locale === "ko" ? "" : "en/")} aria-label={locale === "ko" ? "홍성주 홈" : "Hong Seong Ju home"}>
+          <strong>{locale === "ko" ? "홍성주" : "Hong Seong Ju"}</strong><span>{locale === "ko" ? "개발 노트" : "Engineering Notes"}</span>
         </a>
-        <nav aria-label="주요 메뉴">
-          <a href={withBase("writing/")} aria-current={pathname.includes("/writing") ? "page" : undefined}>글</a>
-          <a href={withBase("projects/")} aria-current={pathname.includes("/projects") ? "page" : undefined}>프로젝트</a>
-          <a href={withBase("about/")} aria-current={pathname.includes("/about") ? "page" : undefined}>소개</a>
+        <nav aria-label={locale === "ko" ? "주요 메뉴" : "Main navigation"}>
+          <a href={withBase(locale === "ko" ? "writing/" : "en/writing/")} aria-current={pathname.includes("/writing") ? "page" : undefined}>{locale === "ko" ? "글" : "Writing"}</a>
+          <a href={withBase(locale === "ko" ? "projects/" : "en/projects/")} aria-current={pathname.includes("/projects") ? "page" : undefined}>{locale === "ko" ? "프로젝트" : "Projects"}</a>
+          <a href={withBase(locale === "ko" ? "about/" : "en/about/")} aria-current={pathname.includes("/about") ? "page" : undefined}>{locale === "ko" ? "소개" : "About"}</a>
+          <a class="language-link" href={languageHref} hreflang={locale === "ko" ? "en" : "ko"}>{locale === "ko" ? "EN" : "KO"}</a>
           <a href={site.github} target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
@@ -100,11 +120,11 @@ const jsonLd =
     </main>
     <footer class="site-footer">
       <div>
-        <p>백엔드, 데이터, AI 시스템을 만들며 배운 것을 씁니다.</p>
-        <p class="footer-meta">© {new Date().getFullYear()} 홍성주</p>
+        <p>{locale === "ko" ? "백엔드, 데이터, AI 시스템을 만들며 배운 것을 씁니다." : "Notes from building backend, data, and AI systems."}</p>
+        <p class="footer-meta">© {new Date().getFullYear()} {locale === "ko" ? "홍성주" : "Hong Seong Ju"}</p>
       </div>
       <div class="footer-links">
-        <a href={withBase("rss.xml")}>RSS</a>
+        <a href={withBase(locale === "ko" ? "rss.xml" : "en/rss.xml")}>RSS</a>
         <a href={site.github} target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </footer>

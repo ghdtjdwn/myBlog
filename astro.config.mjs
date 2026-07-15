@@ -10,6 +10,11 @@ export default defineConfig({
   base: (process.env.BASE_PATH ?? "/").replace(/\/?$/, "/"),
   output: "static",
   adapter: vercel(),
+  i18n: {
+    defaultLocale: "ko",
+    locales: ["ko", "en"],
+    routing: { prefixDefaultLocale: false },
+  },
   integrations: [react(), mdx(), sitemap(), keystatic()],
   markdown: {
     shikiConfig: {

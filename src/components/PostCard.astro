@@ -1,26 +1,32 @@
 ---
 import { getEntry, type CollectionEntry } from "astro:content";
-import { formatDate, withBase } from "../lib/site";
+import { formatDate, formatDateEn, withBase } from "../lib/site";
+import { categoryEnglish } from "../lib/i18n";
 
 interface Props {
-  post: CollectionEntry<"posts">;
+  post: CollectionEntry<"posts"> | CollectionEntry<"postsEn">;
+  locale?: "ko" | "en";
 }
 
-const { post } = Astro.props;
+const { post, locale = "ko" } = Astro.props;
 const category = await getEntry(post.data.category);
 const activity = post.data.activity ? await getEntry(post.data.activity) : undefined;
+const prefix = locale === "en" ? "en/" : "";
+const categoryName = (id: string, fallback?: string) => locale === "en"
+  ? categoryEnglish[id as keyof typeof categoryEnglish]?.name ?? fallback ?? id
+  : fallback ?? id;
 ---
 
 <article class="post-row">
-  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+  <time datetime={post.data.publishedAt.toISOString()}>{locale === "en" ? formatDateEn(post.data.publishedAt) : formatDate(post.data.publishedAt)}</time>
   <div>
-    <h3><a href={withBase(`writing/${post.id}/`)}>{post.data.title}</a></h3>
+    <h3><a href={withBase(`${prefix}writing/${post.id}/`)}>{post.data.title}</a></h3>
     <p>{post.data.description}</p>
     <div class="post-taxonomy">
-      {category && <a class="category-link" href={withBase(`writing/category/${category.id}/`)}>{category.data.name}</a>}
-      {activity && <a class="activity-link" href={withBase(`writing/category/${activity.id}/`)}>{activity.data.name}</a>}
+      {category && <a class="category-link" href={withBase(`${prefix}writing/category/${category.id}/`)}>{categoryName(category.id, category.data.name)}</a>}
+      {activity && <a class="activity-link" href={withBase(`${prefix}writing/category/${activity.id}/`)}>{categoryName(activity.id, activity.data.name)}</a>}
       <div class="tag-row" aria-label="글 태그">{post.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}</div>
     </div>
   </div>
-  <a class="row-arrow" href={withBase(`writing/${post.id}/`)} aria-label={`${post.data.title} 읽기`}>↗</a>
+  <a class="row-arrow" href={withBase(`${prefix}writing/${post.id}/`)} aria-label={`${post.data.title} ${locale === "ko" ? "읽기" : "read"}`}>↗</a>
 </article>

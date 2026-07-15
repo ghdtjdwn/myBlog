@@ -22,6 +22,16 @@ const required = [
   "writing/category/other/index.html",
   "robots.txt",
   "rss.xml",
+  "en/index.html",
+  "en/about/index.html",
+  "en/projects/index.html",
+  "en/projects/ssu-platform/index.html",
+  "en/projects/geuneul/index.html",
+  "en/writing/index.html",
+  "en/writing/git-backed-blog-architecture/index.html",
+  "en/writing/github-worklog-and-blog/index.html",
+  "en/writing/category/infrastructure/index.html",
+  "en/rss.xml",
   "sitemap-index.xml",
 ];
 
@@ -31,6 +41,8 @@ const draftRoutes = [
   "writing/postgis-expiry-index/index.html",
   "writing/arm64-gitops-image-drift/index.html",
   "writing/deterministic-ai-grader/index.html",
+  "en/projects/redbean-overflow/index.html",
+  "en/projects/first-study/index.html",
 ];
 
 async function walk(directory) {
@@ -66,8 +78,11 @@ for (const file of files) {
   const body = await readFile(file, "utf8");
   const relative = path.relative(root, file);
   if (/(?:[="'>]|&quot;)(?:undefined|null)(?:["'<]|&quot;)/.test(body)) failures.push(`unresolved rendered value in ${relative}`);
-  if (file.endsWith(".html") && !body.includes('<html lang="ko">')) failures.push(`missing Korean document language in ${relative}`);
+  const expectedLanguage = relative.startsWith(`en${path.sep}`) ? "en" : "ko";
+  if (file.endsWith(".html") && !body.includes(`<html lang="${expectedLanguage}">`)) failures.push(`missing ${expectedLanguage} document language in ${relative}`);
   if (file.endsWith(".html") && !body.includes('rel="canonical"')) failures.push(`missing canonical URL in ${relative}`);
+  if (file.endsWith(".html") && !body.includes('hreflang="en"')) failures.push(`missing English alternate in ${relative}`);
+  if (file.endsWith(".html") && !body.includes('hreflang="ko"')) failures.push(`missing Korean alternate in ${relative}`);
 }
 
 if (failures.length > 0) {

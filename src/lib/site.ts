@@ -20,6 +20,14 @@ export function formatDate(date: Date) {
   }).format(date);
 }
 
+export function formatDateEn(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
+
 export const projectStatusLabels = {
   operating: "운영·개선 중",
   complete: "완료",

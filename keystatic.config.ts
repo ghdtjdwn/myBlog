@@ -25,12 +25,30 @@ export default config({
   ui: {
     brand: { name: "홍성주의 개발 노트" },
     navigation: {
-      "블로그": ["posts", "categories"],
-      "포트폴리오": ["projects"],
+      "블로그": ["posts", "postsEn", "categories"],
+      "포트폴리오": ["projects", "projectsEn"],
       "엔지니어링 기록": ["decisions", "incidents"],
     },
   },
   collections: {
+    postsEn: collection({
+      label: "글 (English)", slugField: "title", path: "src/content/posts-en/*",
+      format: { data: "yaml", contentField: "content" }, entryLayout: "content", columns: ["title", "publishedAt", "draft"],
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Summary", multiline: true, validation: { isRequired: true } }),
+        publishedAt: fields.date({ label: "Published", validation: { isRequired: true } }),
+        updatedAt: fields.date({ label: "Updated" }),
+        category: fields.relationship({ label: "Category", collection: "categories", validation: { isRequired: true } }),
+        activity: fields.relationship({ label: "Activity", collection: "categories" }),
+        tags: textList("Tags"),
+        project: fields.relationship({ label: "Project", collection: "projectsEn" }),
+        role: fields.text({ label: "My role", validation: { isRequired: true } }),
+        evidence: textList("Evidence"), validation: textList("Validation"), limitations: textList("Limitations"),
+        featured: fields.checkbox({ label: "Featured", defaultValue: false }),
+        draft: fields.checkbox({ label: "Private draft", defaultValue: true }), content: markdown,
+      },
+    }),
     posts: collection({
       label: "글",
       slugField: "title",
@@ -115,6 +133,37 @@ export default config({
         recordLinks: fields.array(fields.object({
           label: fields.text({ label: "표시명" }), url: fields.url({ label: "기록 URL" }),
         }), { label: "공개 엔지니어링 기록", itemLabel: (props) => props.fields.label.value || "새 기록" }),
+        content: markdown,
+      },
+    }),
+    projectsEn: collection({
+      label: "프로젝트 (English)", slugField: "title", path: "src/content/projects-en/*",
+      format: { data: "yaml", contentField: "content" }, entryLayout: "content",
+      schema: {
+        title: fields.slug({ name: { label: "Project name" } }),
+        summary: fields.text({ label: "Summary", multiline: true, validation: { isRequired: true } }),
+        status: fields.select({ label: "Status", options: [
+          { label: "Operating", value: "operating" }, { label: "Complete", value: "complete" },
+          { label: "Prototype", value: "prototype" }, { label: "Planned", value: "planned" }, { label: "Archive", value: "archive" },
+        ], defaultValue: "prototype" }),
+        statusNote: fields.text({ label: "Current status", multiline: true, validation: { isRequired: true } }),
+        activity: fields.select({ label: "Activity", options: [
+          { label: "Personal", value: "personal" }, { label: "Team", value: "team" }, { label: "Competition", value: "competition" },
+          { label: "Club", value: "club" }, { label: "Coursework", value: "coursework" }, { label: "Other", value: "other" },
+        ], defaultValue: "personal" }),
+        visibility: fields.select({ label: "Visibility", options: [
+          { label: "Public", value: "public" }, { label: "Private", value: "private" }, { label: "Mixed", value: "mixed" },
+        ], defaultValue: "public" }),
+        role: fields.text({ label: "My role", validation: { isRequired: true } }), teamScope: fields.text({ label: "Team scope" }),
+        contributionEvidence: textList("Contribution evidence"),
+        image: fields.image({ label: "Cover image", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
+        imageAlt: fields.text({ label: "Image alt text" }), tags: textList("Tags"), infra: textList("Infrastructure"),
+        metrics: fields.array(fields.object({ label: fields.text({ label: "Metric" }), value: fields.text({ label: "Value" }) }), { label: "Verified metrics", itemLabel: (props) => props.fields.label.value || "New metric" }),
+        order: fields.integer({ label: "Order", defaultValue: 10 }), featured: fields.checkbox({ label: "Featured", defaultValue: false }),
+        draft: fields.checkbox({ label: "Private draft", defaultValue: true }), live: fields.url({ label: "Live URL" }),
+        repositories: fields.array(fields.object({ label: fields.text({ label: "Label" }), url: fields.url({ label: "Repository URL" }) }), { label: "Repositories", itemLabel: (props) => props.fields.label.value || "Repository" }),
+        recordPlan: fields.text({ label: "Work log and troubleshooting policy", multiline: true, validation: { isRequired: true } }),
+        recordLinks: fields.array(fields.object({ label: fields.text({ label: "Label" }), url: fields.url({ label: "Record URL" }) }), { label: "Engineering records", itemLabel: (props) => props.fields.label.value || "Record" }),
         content: markdown,
       },
     }),

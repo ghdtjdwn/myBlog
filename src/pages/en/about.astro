@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site, withBase } from "../../lib/site";
+---
+
+<BaseLayout locale="en" title="About — Hong Seong Ju" description="Hong Seong Ju builds operable backend, data, AI, and infrastructure systems and documents decisions with evidence.">
+  <div class="shell reading-shell page-wrap about-page">
+    <header class="page-header"><p class="intro-label">About</p><h1>I connect ideas to operable services<br />and document the reasoning.</h1></header>
+    <div class="about-intro">
+      <p>I study Computer Science at Soongsil University and build backend, data, and AI systems. My implementation boundary includes where data comes from, how a service is deployed, and how failures are observed and recovered.</p>
+      <p>I prefer defining the problem and constraints before choosing technology. I preserve decisions, rejected alternatives, failed hypotheses, and verified results in code, ADRs, work logs, and troubleshooting records.</p>
+      <div class="inline-links"><a href={withBase("en/projects/")}>Projects</a><a href={withBase("en/writing/")}>Writing</a><a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
+    </div>
+    <section class="about-section">
+      <p class="intro-label">What I can demonstrate</p><h2>Capabilities backed by projects</h2>
+      <div class="capability-list">
+        <article><h3>Backend and system design</h3><p>I design APIs and shared business rules with Spring Boot, Kotlin, Java, PostgreSQL, Redis, and Kafka, separating authentication, state ownership, and external failure boundaries.</p><a href={withBase("en/projects/ssu-platform/")}>See the ssu platform evidence →</a></article>
+        <article><h3>Deployment and observability</h3><p>I operate ARM64 k3s, ArgoCD, Prometheus, Grafana, Tempo, and Loki, and provision AWS infrastructure with Terraform. Verification follows the request into the runtime.</p><a href={withBase("en/projects/ssu-platform/")}>See the operating model →</a></article>
+        <article><h3>Data and performance</h3><p>I built idempotent ETL for more than 150,000 public POIs and PostGIS spatial search, validating plans, buffers, tail latency, and result equivalence.</p><a href={withBase("en/projects/geuneul/")}>See the Geuneul evidence →</a></article>
+        <article><h3>Operable AI systems</h3><p>I connect RAG, agents, and LLMs to products while keeping money, permissions, state transitions, and publication decisions in deterministic code.</p><a href={withBase("en/projects/axwar-kb/")}>See an AI validation boundary →</a></article>
+      </div>
+    </section>
+    <section class="about-section about-principles"><p class="intro-label">How I work</p><h2>Working principles</h2>
+      <article><h3>Start with the user and failure cost.</h3><p>I define the decision a user needs to make and validate the riskiest assumption with the smallest useful experiment.</p></article>
+      <article><h3>Treat operations as implementation.</h3><p>Deployment, observability, security boundaries, and recovery paths are part of done. Work in progress remains labeled as such.</p></article>
+      <article><h3>Separate contribution from evidence.</h3><p>I state my role in team work and publish performance or incident claims with reproduction conditions and limitations.</p></article>
+      <article><h3>Make decisions reviewable.</h3><p>Small changes, API contracts, ADRs, and tests preserve context so a team can understand why a decision changed.</p></article>
+    </section>
+    <section class="about-section opportunity-note"><p class="intro-label">What I am looking for</p><h2>Backend, platform, or AI backend opportunities</h2><p>I am looking for an entry-level or junior role where I can turn product problems into server and data structures, own deployment and observability, and convert operational learning into team knowledge.</p></section>
+  </div>
+</BaseLayout>

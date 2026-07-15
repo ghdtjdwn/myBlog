@@ -12,8 +12,8 @@ const categories = defineCollection({
   }),
 });
 
-const projects = defineCollection({
-  loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
+const projectCollection = (base: string) => defineCollection({
+  loader: glob({ base, pattern: "**/*.{md,mdx}" }),
   schema: ({ image }) => z.object({
     title: z.string(),
     summary: z.string(),
@@ -39,8 +39,11 @@ const projects = defineCollection({
   }),
 });
 
-const posts = defineCollection({
-  loader: glob({ base: "./src/content/posts", pattern: "**/*.{md,mdx}" }),
+const projects = projectCollection("./src/content/projects");
+const projectsEn = projectCollection("./src/content/projects-en");
+
+const postCollection = (base: string, projectCollectionName: "projects" | "projectsEn") => defineCollection({
+  loader: glob({ base, pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -49,7 +52,7 @@ const posts = defineCollection({
     category: reference("categories"),
     activity: reference("categories").optional(),
     tags: z.array(z.string()),
-    project: reference("projects").optional(),
+    project: reference(projectCollectionName).optional(),
     role: z.string(),
     evidence: z.array(z.string()).min(1),
     validation: z.array(z.string()).min(1),
@@ -58,6 +61,9 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
   }),
 });
+
+const posts = postCollection("./src/content/posts", "projects");
+const postsEn = postCollection("./src/content/posts-en", "projectsEn");
 
 const decisions = defineCollection({
   loader: glob({ base: "./src/content/decisions", pattern: "**/*.{md,mdx}" }),
@@ -82,4 +88,4 @@ const incidents = defineCollection({
   }),
 });
 
-export const collections = { categories, decisions, incidents, posts, projects };
+export const collections = { categories, decisions, incidents, posts, postsEn, projects, projectsEn };

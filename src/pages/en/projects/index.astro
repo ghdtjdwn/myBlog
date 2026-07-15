@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import { projectActivityLabelsEn } from "../../../lib/i18n";
+const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
+const projects = (await getCollection("projectsEn", ({ data }) => showDrafts || !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const activityOrder = ["personal", "competition", "club", "team", "coursework", "other"] as const;
+---
+<BaseLayout locale="en" title="Projects — Hong Seong Ju" description="Projects connecting backend, data, AI, and infrastructure to usable systems.">
+  <div class="shell reading-shell page-wrap"><header class="page-header"><p class="intro-label">Projects</p><h1>Projects</h1><p>Each project states my role, current status, contribution boundary, and verifiable evidence.</p></header>
+    <div class="project-groups">{activityOrder.map((activity) => { const entries = projects.filter((project) => project.data.activity === activity); if (!entries.length) return null; return <section class="project-group"><header class="list-heading"><h2>{projectActivityLabelsEn[activity]}</h2><span>{entries.length}</span></header><div class="project-list all-projects">{entries.map((project) => <ProjectCard project={project} locale="en" />)}</div></section>; })}</div>
+  </div>
+</BaseLayout>

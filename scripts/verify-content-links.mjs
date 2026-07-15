@@ -24,9 +24,13 @@ for (const name of await readdir(path.join(contentRoot, "categories"))) {
 }
 const categoryIds = new Set(categoryKinds.keys());
 const projectIds = await ids("projects");
+const projectIdsEn = await ids("projects-en");
 const failures = [];
 
-for (const collection of ["posts", "decisions", "incidents"]) {
+for (const id of projectIds) if (!projectIdsEn.has(id)) failures.push(`projects-en: missing translation for '${id}'`);
+for (const id of projectIdsEn) if (!projectIds.has(id)) failures.push(`projects-en: no Korean source for '${id}'`);
+
+for (const collection of ["posts", "posts-en", "decisions", "incidents"]) {
   const directory = path.join(contentRoot, collection);
   for (const name of await readdir(directory)) {
     if (!/\.(?:md|mdx)$/.test(name)) continue;
@@ -35,19 +39,20 @@ for (const collection of ["posts", "decisions", "incidents"]) {
     const activity = frontmatterValue(source, "activity");
     const project = frontmatterValue(source, "project");
 
-    if (collection === "posts" && (!category || !categoryIds.has(category))) {
+    if ((collection === "posts" || collection === "posts-en") && (!category || !categoryIds.has(category))) {
       failures.push(`${collection}/${name}: unknown or missing category '${category ?? ""}'`);
     }
-    if (collection === "posts" && category && categoryKinds.get(category) !== "competency") {
+    if ((collection === "posts" || collection === "posts-en") && category && categoryKinds.get(category) !== "competency") {
       failures.push(`${collection}/${name}: primary category '${category}' must be a competency`);
     }
-    if (collection === "posts" && activity && !categoryIds.has(activity)) {
+    if ((collection === "posts" || collection === "posts-en") && activity && !categoryIds.has(activity)) {
       failures.push(`${collection}/${name}: unknown activity '${activity}'`);
     }
-    if (collection === "posts" && activity && categoryKinds.get(activity) !== "activity") {
+    if ((collection === "posts" || collection === "posts-en") && activity && categoryKinds.get(activity) !== "activity") {
       failures.push(`${collection}/${name}: activity '${activity}' must be an activity category`);
     }
-    if (project && !project.startsWith("TODO-") && !projectIds.has(project)) {
+    const validProjects = collection === "posts-en" ? projectIdsEn : projectIds;
+    if (project && !project.startsWith("TODO-") && !validProjects.has(project)) {
       failures.push(`${collection}/${name}: unknown project '${project}'`);
     }
   }
@@ -58,4 +63,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Verified content relationships across ${categoryIds.size} categories and ${projectIds.size} projects.`);
+console.log(`Verified content relationships across ${categoryIds.size} categories and ${projectIds.size} bilingual projects.`);

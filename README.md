@@ -4,6 +4,8 @@
 
 공개 사이트: [seongju.vercel.app](https://seongju.vercel.app)
 
+영문 사이트: [seongju.vercel.app/en](https://seongju.vercel.app/en/)
+
 ## 원칙
 
 - 결과보다 문제, 판단, 대안, 검증 근거를 함께 기록한다.
@@ -15,7 +17,7 @@
 
 - Astro 7 정적 빌드
 - TypeScript strict
-- Markdown/MDX Content Collections
+- 한국어·영어 Markdown/MDX Content Collections
 - Keystatic GitHub CMS
 - GitHub Actions CI
 - Vercel Preview/Production
@@ -47,10 +49,14 @@ npm run new:record -- post post-slug "글 제목"
 
 ## 글 관리
 
-로컬 개발 서버에서는 [`/keystatic`](http://127.0.0.1:4321/keystatic)을 열면 별도 로그인 없이 관리 화면을 사용할 수 있습니다. 글·프로젝트·카테고리·ADR·트러블슈팅을 만들고 수정하거나 삭제할 수 있습니다.
+로컬 개발 서버에서는 [`/keystatic`](http://127.0.0.1:4321/keystatic)을 열면 별도 로그인 없이 관리 화면을 사용할 수 있습니다. 한국어·영어 글과 프로젝트, 카테고리·ADR·트러블슈팅을 만들고 수정하거나 삭제할 수 있습니다.
 
 공개 사이트에서는 [`/admin`](https://seongju.vercel.app/admin)이 관리 화면으로 연결됩니다. GitHub 인증을 완료하면 편집 내용이 저장소에 커밋되고 Vercel이 새 버전을 배포합니다. 새 글과 프로젝트는 기본적으로 `비공개 초안`이며, 이 항목을 해제해야 공개됩니다.
 
 배포 관리자 최초 설정에는 Keystatic용 GitHub App 생성과 저장소 설치, Vercel 환경 변수 등록이 한 번 필요합니다. 비밀값은 저장소나 문서에 기록하지 않습니다.
+
+영문은 자동 번역 API가 아니라 `/en/` 아래의 별도 원문으로 관리합니다. 같은 slug의 한국어·영어 프로젝트를 함께 유지하며 모든 공개 페이지는 canonical과 `hreflang` 한국어·영어·기본 URL을 제공합니다.
+
+Google Search Console과 네이버 서치어드바이저의 HTML 태그 소유권 인증값은 각각 Vercel의 `GOOGLE_SITE_VERIFICATION`, `NAVER_SITE_VERIFICATION` 환경 변수로 설정합니다.
 
 배포 canonical은 기본적으로 현재 Vercel Production URL을 사용합니다. 개인 도메인을 연결하면 Vercel의 Production·Preview `SITE_URL`과 `astro.config.mjs` 기본값을 함께 변경합니다. 하위 경로 배포가 필요할 때만 `BASE_PATH`를 설정합니다.
