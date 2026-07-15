@@ -10,8 +10,9 @@
   `gitleaks/gitleaks-action` 3.0.0의 전체 commit SHA를 고정했다. 세 action 모두 Node 24를
   사용하며 gitleaks v3는 입출력·동작 변경 없이 runtime만 이전하는 release다.
 - 검증: 세 release commit의 `action.yml`이 Node 24를 사용하는 것을 확인했다. workflow YAML
-  parsing과 `npm test`의 관계·Astro·63개 산출물 검사가 통과했고 원격 CI 재실행이 남았다.
-- 전달: CI 유지보수 브랜치에서 검증 중이다.
+  parsing과 `npm test`의 관계·Astro·63개 산출물 검사가 통과했다. Pull request #4의 validate,
+  secret-scan과 Vercel Preview가 성공했고 두 CI job의 annotation은 0건, Node 20 경고도 0건이었다.
+- 전달: pull request #4의 병합과 post-merge CI·Production 검증이 남았다.
 
 ## 2026-07-15 — Macro 의미 기반 자동화 완료 반영
 
