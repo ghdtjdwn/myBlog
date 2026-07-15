@@ -8,7 +8,7 @@
 - 기능: 영문 홈·소개·프로젝트·글·카테고리·RSS, 언어 전환, 영어 날짜·분류·상태 문자열을 구현했다. Keystatic에 영어 글·프로젝트 CRUD를 추가했다.
 - 검색: Google과 네이버의 HTML 태그 값을 Vercel 환경 변수로 주입하는 메타 태그를 추가했다. 실제 검색엔진 계정 등록은 인앱 브라우저가 제공되지 않아 소유자 로그인과 확인이 남았다.
 - 검증: 11개 카테고리와 14개 한영 프로젝트 쌍의 관계를 검사했다. `npm test`에서 Astro 30개 파일 검사 오류·경고 0, 한영 63개 생성 문서, canonical·hreflang·문서 언어와 draft 격리가 통과했다.
-- 전달: 로컬 구현과 검증 완료. commit, push, CI, Production 배포와 공개 URL 확인은 이어서 수행한다.
+- 전달: commit `a7cefb2`를 `main`에 push했고 GitHub Actions CI와 Vercel Production이 성공했다. `seongju.vercel.app` alias를 최신 배포에 연결하고 영문 홈·대표 글·사이트맵 200, 영문 draft 404, canonical·hreflang·보안 헤더를 공개 응답에서 확인했다.
 
 ## 2026-07-15 — 기술 블로그 사전 감사와 전체 스펙
 
