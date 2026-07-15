@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+
+export async function getStaticPaths() {
+  const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
+  const projects = await getCollection("projects", ({ data }) => showDrafts || !data.draft);
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
+const posts = await getCollection("posts", ({ data }) => (showDrafts || !data.draft) && data.project?.id === project.id);
+---
+
+<BaseLayout title={`${project.data.title} — 홍성주`} description={project.data.summary} image={project.data.image}>
+  <article>
+    <header class="case-hero shell">
+      <div>
+        <p class="eyebrow"><span></span> Case study · {project.data.status}</p>
+        <h1>{project.data.title}</h1>
+        <p>{project.data.summary}</p>
+        <div class="case-actions">
+          {project.data.live && <a class="button primary" href={project.data.live} target="_blank" rel="noreferrer">Live service ↗</a>}
+          {project.data.repositories.map((repository) => <a class="button secondary" href={repository.url} target="_blank" rel="noreferrer">{repository.label} ↗</a>)}
+        </div>
+      </div>
+      {project.data.image ? <Image src={project.data.image} alt={project.data.imageAlt ?? `${project.data.title} 프로젝트 화면`} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 50vw" /> : <div class="case-placeholder"><span>CASE STUDY</span><strong>{project.data.title}</strong></div>}
+    </header>
+    <section class="case-facts">
+      <div class="shell fact-grid">
+        <div><span>ROLE</span><strong>{project.data.role}</strong></div>
+        {project.data.metrics.slice(0, 3).map((metric) => <div><span>{metric.label}</span><strong>{metric.value}</strong></div>)}
+      </div>
+    </section>
+    <div class="article-layout shell">
+      <aside class="article-aside">
+        <p>STACK & FOCUS</p>
+        <div class="tag-row">{[...project.data.tags, ...project.data.infra].map((tag) => <span>{tag}</span>)}</div>
+      </aside>
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+  {posts.length > 0 && (
+    <section class="section section-ink">
+      <div class="shell">
+        <header class="section-header inverse"><div><p class="eyebrow"><span></span> Related writing</p><h2>이 프로젝트의 기술 기록</h2></div></header>
+        <div class="post-grid">{posts.map((post) => <PostCard post={post} />)}</div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "project-id": {
+      "root": "/absolute/path/to/project",
+      "evidence": ["README.md", "WORKLOG.md", "docs/adr", "TROUBLESHOOTING.md"]
+    }
+  }
+}

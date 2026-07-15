@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, withBase } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
+  const posts = await getCollection("posts", ({ data }) => showDrafts || !data.draft);
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<BaseLayout
+  title={`${post.data.title} — 홍성주`}
+  description={post.data.description}
+  type="article"
+  publishedAt={post.data.publishedAt}
+  updatedAt={post.data.updatedAt}
+>
+  <article>
+    <header class="article-hero shell narrow">
+      <a class="back-link" href={withBase("writing/")}>← Writing</a>
+      <div class="post-meta">
+        <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+        {post.data.updatedAt && <span>수정 {formatDate(post.data.updatedAt)}</span>}
+      </div>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+      <div class="tag-row">{post.data.tags.map((tag) => <span>{tag}</span>)}</div>
+    </header>
+    <div class="article-layout shell narrow article-body">
+      <aside class="article-aside toc">
+        <p>IN THIS NOTE</p>
+        <ol>{headings.filter((heading) => heading.depth === 2).map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol>
+      </aside>
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>
