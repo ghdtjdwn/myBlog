@@ -10,7 +10,7 @@ contributionEvidence:
   - "ssuMCP 388 commits / 193 PRs"
   - "ssuAgent 92 commits / 48 PRs"
 image: "../../assets/projects/ssuai-live-home.png"
-imageAlt: "ssuAI 캠퍼스 어시스턴트 홈 화면"
+imageAlt: "ssuAI 캠퍼스 어시스턴트 채팅 화면"
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:

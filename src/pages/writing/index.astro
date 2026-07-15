@@ -2,20 +2,29 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
+import { withBase } from "../../lib/site";
 
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
+const categories = (await getCollection("categories")).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
 ---
 
 <BaseLayout title="Writing — 홍성주" description="성능, 데이터, AI 안전성과 운영 과정에서 내린 판단을 재현 가능한 근거와 함께 기록합니다.">
-  <header class="page-header shell">
-    <p class="eyebrow"><span></span> Writing</p>
-    <h1>결과보다 오래 남는 것은<br /><em>판단의 과정</em>입니다.</h1>
-    <p>직접 겪은 문제, 실패한 가설, 측정 결과와 선택의 이유를 기록합니다.</p>
-  </header>
-  <section class="section shell no-top">
+  <div class="shell reading-shell page-wrap">
+    <header class="page-header">
+      <p class="intro-label">Writing</p>
+      <h1>기술 글</h1>
+      <p>직접 겪은 문제와 실패한 가설, 측정 결과, 선택의 이유를 씁니다.</p>
+    </header>
+    <nav class="category-nav" aria-label="글 카테고리">
+      <a aria-current="page" href={Astro.url.pathname}>전체 <span>{posts.length}</span></a>
+      {categories.map((category) => {
+        const count = posts.filter((post) => post.data.category.id === category.id).length;
+        return <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>;
+      })}
+    </nav>
     {posts.length > 0 ? <div class="post-list">{posts.map((post) => <PostCard post={post} />)}</div> : <p class="empty-state">검증을 마친 글부터 공개합니다.</p>}
-  </section>
+  </div>
 </BaseLayout>

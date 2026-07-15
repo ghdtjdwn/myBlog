@@ -2,9 +2,29 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
   "installCommand": "npm ci",
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "npm test",
+  "redirects": [
+    { "source": "/admin", "destination": "/keystatic", "permanent": false }
+  ],
   "headers": [
+    {
+      "source": "/admin",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/keystatic(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/api/keystatic(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

@@ -7,7 +7,7 @@ role: "제품·데이터·백엔드·인프라 전체"
 teamScope: "개인 프로젝트"
 contributionEvidence: ["168 commits", "117 PRs", "Terraform과 성능 자료 공개"]
 image: "../../assets/projects/geuneul-prototype.png"
-imageAlt: "그늘 모바일 지도 화면"
+imageAlt: "그늘 장소 목록과 지도를 함께 보여주는 데스크톱 화면"
 tags: ["Spring Boot", "PostGIS", "Next.js", "PWA"]
 infra: ["AWS ECS", "RDS", "ElastiCache", "CloudFront", "Terraform"]
 metrics:

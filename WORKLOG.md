@@ -48,3 +48,16 @@
 - 보안: 모든 응답에 MIME sniffing 방지, frame 차단, referrer 제한과 camera·microphone·geolocation 차단 헤더를 선언했다. CSP는 Analytics endpoint를 정확히 확정하지 않은 상태에서 임의 적용해 관측을 깨뜨리지 않도록 보류했다.
 - 최종 확인: commit `4640f73`의 Git 연결 Production 배포와 GitHub CI가 모두 성공했다. 공개 alias에서 canonical과 네 보안 헤더를 다시 확인했고 저장소에 설명, 홈페이지와 Astro·TypeScript·portfolio 토픽을 설정했다.
 - 남은 외부 작업: 개인 도메인 선택·구매와 DNS 연결, Google Search Console과 네이버 서치어드바이저의 소유권 인증은 사용자 확인이 필요하다.
+
+## 2026-07-15 — 글 중심 재설계와 Git 기반 관리자
+
+- 목표: 홍보형 포트폴리오 화면을 실제 기술 블로그로 바꾸고, 브라우저에서 글·카테고리·공개 상태를 지속적으로 관리할 수 있게 한다.
+- 조사: 현재 개발 블로그의 글 중심 정보 구조와 Keystatic·Astro·Vercel 공식 문서를 대조했다. 별도 에이전트가 CMS 배포 구성을 검토하고, 다른 에이전트가 로컬 프로젝트 미디어의 무결성·공개 가능성·개인정보를 감사했다.
+- 디자인: 대형 랜딩 문구, 수치 강조, CTA와 카드형 마케팅 구성을 제거했다. 날짜·제목·요약 중심 글 목록, 카테고리 탐색, 좁은 읽기 폭, 단순 프로젝트 목록과 시스템 다크 모드로 재구성했다. 대표 프로젝트는 홈에서 세 개만 보인다.
+- 콘텐츠 관리: Keystatic GitHub mode를 추가해 `/admin`에서 글·프로젝트·카테고리·ADR·트러블슈팅 CRUD와 초안 전환이 가능하게 했다. 공개 페이지는 정적 생성하고 관리자와 OAuth API만 Vercel Function으로 분리했다.
+- 데이터 모델: `categories` 컬렉션과 네 개의 초기 카테고리를 추가하고 모든 글에 필수 관계를 연결했다. `verify-content-links.mjs`가 카테고리·프로젝트의 끊어진 참조를 CI 전에 차단한다.
+- 이미지: 기존 프로젝트 PNG 네 개가 모두 CRC 손상임을 확인했다. 공개 저장소와 사용자 기여가 확인된 그늘·ssuAI 원본만 교체하고, 팀 자산 권리나 공개 승인이 불명확한 DDSC·con-dorm 이미지는 노출에서 제외했다. 상세 이미지 강제 크롭도 제거했다. 새 1200×630 소셜 카드를 현재 주소와 블로그 제목으로 연결했다.
+- 인프라: `seongju.vercel.app` alias를 확보하고 canonical·환경 설정 기본값을 이 주소로 변경했다. Astro Vercel 어댑터와 관리자 전용 React를 추가했다. `path-to-regexp` 보안 권고는 호환되는 6.3.0 override로 해결해 npm audit 0건을 확인했다.
+- 실제 실패: Vercel 어댑터가 정적 산출물을 `dist/client`로 옮기면서 기존 검증기가 실패했다. 검증 루트를 실제 배포 레이아웃으로 변경하고 `docs/troubleshooting/vercel-adapter-output-layout.md`에 원인과 회귀 방지를 기록했다.
+- 문서: 기술 스펙, README, ADR-0001을 현재 구조와 맞추고 Keystatic 선택 및 대안을 ADR-0002로 기록했다.
+- 검증: 콘텐츠 관계 검증, `astro check`, 정적 페이지·초안 격리 검증과 npm audit가 통과했다. 로컬 `/keystatic`, 홈, 글 목록은 HTTP 200을 확인했다. 독립 CMS 리뷰에서 배포 게이트와 검색 차단 누락을 찾아 Vercel도 `npm test`를 실행하고 관리자·API 응답에 `X-Robots-Tag: noindex, nofollow`를 적용했다. 실제 `vercel build`에서도 재설치, 전체 테스트, 함수 번들링과 정적 자산 복사가 성공했다. 원격 CI, Production 배포와 GitHub App 최초 인증은 다음 전달 단계에서 완료한다.

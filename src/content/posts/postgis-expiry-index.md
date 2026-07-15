@@ -2,6 +2,7 @@
 title: "PostGIS 공간 검색에서 만료 조건이 인덱스를 무력화할 때"
 description: "15만여 장소를 다루는 반경 검색에서 실행계획을 읽고, 공간 조건과 만료 조건의 인덱스를 분리해 검증한 과정입니다."
 publishedAt: 2026-07-15
+category: data
 tags: ["PostGIS", "PostgreSQL", "Performance", "EXPLAIN ANALYZE"]
 project: geuneul
 role: "데이터 모델, 쿼리, 인덱스와 부하 검증"

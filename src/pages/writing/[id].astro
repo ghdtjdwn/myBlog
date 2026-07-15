@@ -21,8 +21,8 @@ const { Content, headings } = await render(post);
   updatedAt={post.data.updatedAt}
 >
   <article>
-    <header class="article-hero shell narrow">
-      <a class="back-link" href={withBase("writing/")}>← Writing</a>
+    <header class="article-hero shell reading-shell">
+      <a class="back-link" href={withBase("writing/")}>← 기술 글</a>
       <div class="post-meta">
         <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
         {post.data.updatedAt && <span>수정 {formatDate(post.data.updatedAt)}</span>}
@@ -31,7 +31,7 @@ const { Content, headings } = await render(post);
       <p>{post.data.description}</p>
       <div class="tag-row">{post.data.tags.map((tag) => <span>{tag}</span>)}</div>
     </header>
-    <div class="article-layout shell narrow article-body">
+    <div class="article-layout shell article-body">
       <aside class="article-aside toc">
         <p>IN THIS NOTE</p>
         <ol>{headings.filter((heading) => heading.depth === 2).map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol>

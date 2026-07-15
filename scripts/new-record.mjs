@@ -59,6 +59,7 @@ TODO
 title: ${JSON.stringify(title)}
 description: "TODO: 글이 답하는 질문"
 publishedAt: ${today}
+category: engineering
 tags: ["TODO"]
 role: "TODO: 이 작업에서 직접 맡은 역할"
 evidence:

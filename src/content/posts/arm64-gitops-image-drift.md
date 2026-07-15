@@ -2,6 +2,7 @@
 title: "CI는 성공했는데 ARM64 k3s에는 새 이미지가 배포되지 않았다"
 description: "멀티 아키텍처 이미지와 GitOps 설정 drift가 겹친 배포 실패를 manifest, controller metric, 실제 Pod 상태로 좁힌 기록입니다."
 publishedAt: 2026-07-15
+category: infrastructure
 tags: ["k3s", "ArgoCD", "OCI", "ARM64"]
 project: ssu-platform
 role: "CI/CD, GitOps와 ARM64 클러스터 운영"

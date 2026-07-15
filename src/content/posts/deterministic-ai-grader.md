@@ -2,6 +2,7 @@
 title: "교육 게임에서 생성 AI에게 정답과 상태 전이를 맡기지 않은 이유"
 description: "사람이 쓴 문제와 정답 기준, 결정론 엔진, 제한된 AI 채점을 분리해 콘텐츠 정확성과 완주 가능성을 지킨 설계입니다."
 publishedAt: 2026-07-15
+category: ai-systems
 tags: ["AI Safety", "Game Engine", "Testing", "Education"]
 project: ddsc
 role: "UI·아트 방향과 제품 구현 참여"

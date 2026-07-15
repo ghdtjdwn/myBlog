@@ -8,8 +8,9 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "verify:content": "node scripts/verify-content-links.mjs",
     "verify": "node scripts/verify-build.mjs",
-    "test": "npm run build && npm run verify",
+    "test": "npm run verify:content && npm run build && npm run verify",
     "new:record": "node scripts/new-record.mjs"
   },
   "engines": {
@@ -17,15 +18,26 @@
   },
   "dependencies": {
     "@astrojs/mdx": "7.0.3",
+    "@astrojs/react": "6.0.1",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.3",
+    "@astrojs/vercel": "11.0.3",
+    "@keystatic/astro": "5.2.0",
+    "@keystatic/core": "0.5.51",
     "@vercel/analytics": "2.0.1",
     "@vercel/speed-insights": "2.0.0",
     "astro": "7.0.9",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "sharp": "0.35.3"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
     "typescript": "6.0.3"
+  },
+  "overrides": {
+    "path-to-regexp": "6.3.0"
   }
 }

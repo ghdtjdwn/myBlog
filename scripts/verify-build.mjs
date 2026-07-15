@@ -1,7 +1,7 @@
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
-const root = path.resolve("dist");
+const root = path.resolve("dist", "client");
 const required = [
   "index.html",
   "about/index.html",
@@ -9,6 +9,10 @@ const required = [
   "projects/ssu-platform/index.html",
   "projects/geuneul/index.html",
   "writing/index.html",
+  "writing/category/infrastructure/index.html",
+  "writing/category/data/index.html",
+  "writing/category/ai-systems/index.html",
+  "writing/category/engineering/index.html",
   "robots.txt",
   "rss.xml",
   "sitemap-index.xml",

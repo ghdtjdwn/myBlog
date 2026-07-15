@@ -1,8 +1,8 @@
 export const site = {
   name: "홍성주",
-  title: "홍성주 — Engineering Notes",
+  title: "홍성주의 개발 노트",
   description:
-    "실제로 운영되는 시스템을 만들고 성능, 장애, 의사결정을 증거로 기록하는 개발자 홍성주의 포트폴리오와 기술 블로그입니다.",
+    "백엔드, 데이터, AI 시스템을 만들며 겪은 문제와 선택의 이유를 기록하는 개발자 홍성주의 기술 블로그입니다.",
   github: "https://github.com/ghdtjdwn",
   location: "Seoul, Korea",
 };

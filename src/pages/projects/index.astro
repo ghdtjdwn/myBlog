@@ -8,14 +8,14 @@ const projects = (await getCollection("projects", ({ data }) => showDrafts || !d
 ---
 
 <BaseLayout title="Projects — 홍성주" description="운영, 데이터, AI 시스템을 실제 제품으로 연결한 홍성주의 프로젝트입니다.">
-  <header class="page-header shell">
-    <p class="eyebrow"><span></span> Projects</p>
-    <h1>제품은 화면이 아니라<br /><em>동작하는 전체 흐름</em>입니다.</h1>
-    <p>문제 정의부터 데이터, API, 사용자 경험, 배포와 운영까지 직접 연결한 프로젝트를 정리했습니다.</p>
-  </header>
-  <section class="section shell no-top">
-    <div class="project-grid all-projects">
+  <div class="shell reading-shell page-wrap">
+    <header class="page-header">
+      <p class="intro-label">Projects</p>
+      <h1>프로젝트</h1>
+      <p>직접 맡은 역할과 확인 가능한 결과를 중심으로 정리했습니다. 팀 작업은 기여 범위를 따로 적습니다.</p>
+    </header>
+    <div class="project-list all-projects">
       {projects.map((project) => <ProjectCard project={project} />)}
     </div>
-  </section>
+  </div>
 </BaseLayout>

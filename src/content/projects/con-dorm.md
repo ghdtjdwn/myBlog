@@ -6,8 +6,6 @@ visibility: private
 role: "프론트엔드 전체·룸메이트 매칭 백엔드"
 teamScope: "인증과 기숙사 자격 판정은 팀원 소유"
 contributionEvidence: ["FE 7 commits", "BE 5 commits including merge", "3 PRs", "공용 역할·API 계약 문서"]
-image: "../../assets/projects/condorm-match.png"
-imageAlt: "con-dorm 룸메이트 매칭 모바일 화면"
 tags: ["Next.js", "Spring Boot", "Stable Roommates", "Contract Testing"]
 infra: ["MySQL Docker Compose", "Mock-to-real adapter"]
 metrics:

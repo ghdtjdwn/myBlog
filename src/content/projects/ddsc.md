@@ -6,8 +6,6 @@ visibility: private
 role: "UI·아트 방향과 제품 구현 참여"
 teamScope: "팀 프로젝트이므로 전체 성과를 개인 기여로 표현하지 않음"
 contributionEvidence: ["공개 배포는 보류", "23 engine tests 기록", "Playwright 완주 기록"]
-image: "../../assets/projects/ddsc-game.png"
-imageAlt: "두근두근 자료구조 비주얼노벨 플레이 화면"
 tags: ["AI Grading", "Vanilla JS", "Education", "Game Engine"]
 infra: ["Static fallback", "Optional Node proxy"]
 metrics:

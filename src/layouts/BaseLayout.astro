@@ -23,7 +23,8 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const isPreview = process.env.VERCEL_ENV === "preview";
-const imagePath = (typeof image === "string" ? image : image?.src) ?? "og-card.png";
+const pathname = Astro.url.pathname;
+const imagePath = (typeof image === "string" ? image : image?.src) ?? "og-blog.png";
 const resolvedImagePath = imagePath.startsWith(import.meta.env.BASE_URL) ? imagePath : withBase(imagePath);
 const imageUrl = new URL(resolvedImagePath, Astro.site);
 const jsonLd =
@@ -84,14 +85,13 @@ const jsonLd =
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href={withBase("")} aria-label="홍성주 홈">
-          <span class="brand-mark" aria-hidden="true">HSJ</span>
-          <span class="brand-copy"><strong>홍성주</strong><small>Engineering Notes</small></span>
+          <strong>홍성주</strong><span>개발 노트</span>
         </a>
         <nav aria-label="주요 메뉴">
-          <a href={withBase("projects/")}>Projects</a>
-          <a href={withBase("writing/")}>Writing</a>
-          <a href={withBase("about/")}>About</a>
-          <a class="nav-github" href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href={withBase("writing/")} aria-current={pathname.includes("/writing") ? "page" : undefined}>글</a>
+          <a href={withBase("projects/")} aria-current={pathname.includes("/projects") ? "page" : undefined}>프로젝트</a>
+          <a href={withBase("about/")} aria-current={pathname.includes("/about") ? "page" : undefined}>소개</a>
+          <a href={site.github} target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
     </header>
@@ -100,8 +100,8 @@ const jsonLd =
     </main>
     <footer class="site-footer">
       <div>
-        <p>문제를 끝까지 구현하고, 판단의 근거를 기록합니다.</p>
-        <p class="footer-meta">© {new Date().getFullYear()} 홍성주 · Seoul, Korea</p>
+        <p>백엔드, 데이터, AI 시스템을 만들며 배운 것을 씁니다.</p>
+        <p class="footer-meta">© {new Date().getFullYear()} 홍성주</p>
       </div>
       <div class="footer-links">
         <a href={withBase("rss.xml")}>RSS</a>

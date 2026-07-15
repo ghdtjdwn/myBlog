@@ -2,6 +2,15 @@ import { defineCollection, reference } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
+const categories = defineCollection({
+  loader: glob({ base: "./src/content/categories", pattern: "**/*.{yaml,yml}" }),
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    order: z.number().int(),
+  }),
+});
+
 const projects = defineCollection({
   loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
   schema: ({ image }) => z.object({
@@ -32,6 +41,7 @@ const posts = defineCollection({
     description: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
+    category: reference("categories"),
     tags: z.array(z.string()),
     project: reference("projects").optional(),
     role: z.string(),
@@ -66,4 +76,4 @@ const incidents = defineCollection({
   }),
 });
 
-export const collections = { decisions, incidents, posts, projects };
+export const collections = { categories, decisions, incidents, posts, projects };

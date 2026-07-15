@@ -18,7 +18,9 @@
 
 Astro 7로 정적 HTML을 생성하고 GitHub에서 소스와 Markdown을 관리한다. GitHub Actions가 품질을 검사하고 Vercel Git Integration이 PR Preview와 main Production을 배포한다.
 
-서버, DB, 인증, Kubernetes, Terraform은 V1에서 사용하지 않는다. 분석은 익명·쿠키리스 Vercel Web Analytics를 사용하고 실제 성능은 Speed Insights로 확인한다.
+공개 페이지에는 서버와 DB를 사용하지 않는다. 분석은 익명·쿠키리스 Vercel Web Analytics를 사용하고 실제 성능은 Speed Insights로 확인한다.
+
+관리자 인증이 실제 요구로 추가되어 `/keystatic`과 OAuth API에 한해 Vercel Function을 사용하도록 확장했다. 콘텐츠와 공개 페이지의 정적 원칙은 유지하며 상세 결정은 ADR-0002에 기록한다.
 
 ## 대안
 

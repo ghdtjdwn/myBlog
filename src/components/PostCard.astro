@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 import { formatDate, withBase } from "../lib/site";
 
 interface Props {
@@ -7,17 +7,18 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const category = await getEntry(post.data.category);
 ---
 
-<article class="post-card">
-  <div class="post-meta">
-    <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
-    {post.data.project && <span>{post.data.project.id}</span>}
+<article class="post-row">
+  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+  <div>
+    <h3><a href={withBase(`writing/${post.id}/`)}>{post.data.title}</a></h3>
+    <p>{post.data.description}</p>
+    <div class="post-taxonomy">
+      {category && <a class="category-link" href={withBase(`writing/category/${category.id}/`)}>{category.data.name}</a>}
+      <div class="tag-row" aria-label="글 태그">{post.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}</div>
+    </div>
   </div>
-  <h3><a href={withBase(`writing/${post.id}/`)}>{post.data.title}</a></h3>
-  <p>{post.data.description}</p>
-  <div class="post-footer">
-    <div class="tag-row">{post.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}</div>
-    <a class="text-link" href={withBase(`writing/${post.id}/`)} aria-label={`${post.data.title} 읽기`}>Read <span>→</span></a>
-  </div>
+  <a class="row-arrow" href={withBase(`writing/${post.id}/`)} aria-label={`${post.data.title} 읽기`}>↗</a>
 </article>

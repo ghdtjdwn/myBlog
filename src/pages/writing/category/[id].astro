@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PostCard from "../../../components/PostCard.astro";
+import { withBase } from "../../../lib/site";
+
+export async function getStaticPaths() {
+  const categories = await getCollection("categories");
+  return categories.map((category) => ({ params: { id: category.id }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
+const posts = (await getCollection("posts", ({ data }) =>
+  (showDrafts || !data.draft) && data.category.id === category.id
+)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout title={`${category.data.name} — 홍성주의 개발 노트`} description={category.data.description}>
+  <div class="shell reading-shell page-wrap">
+    <header class="page-header category-header">
+      <a class="back-link" href={withBase("writing/")}>← 모든 글</a>
+      <h1>{category.data.name}</h1>
+      <p>{category.data.description}</p>
+    </header>
+    {posts.length > 0 ? <div class="post-list">{posts.map((post) => <PostCard post={post} />)}</div> : <p class="empty-state">이 카테고리에는 아직 공개한 글이 없습니다.</p>}
+  </div>
+</BaseLayout>
