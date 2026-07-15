@@ -63,7 +63,7 @@ The end of the post or the project page links the relevant ADR, Issue, PR, commi
 
 An unfinished competition or team project does not need to be hidden. It should instead distinguish `planning and preparation`, `prototype and implementation`, and `operation and improvement`, then state what is currently verified and what will be tested next. Planned Kubernetes infrastructure or an AI model must not be listed as though it were already in use; the portfolio should show the next decision gate, such as a data spike or a Day-1 availability check.
 
-For team and private repositories, publication scope comes before source links. Teammates' code, internal URLs, and data are not copied; only the individual's role and publicly shareable contracts and validation are summarized. A project such as RedbeanOverflow remains unpublished even if it is technically interesting because contribution attribution has not been established.
+For team and private repositories, publication scope comes before source links. Teammates' code, internal URLs, and data are not copied; only the individual's role and publicly shareable contracts and validation are summarized. A collaboration remains unpublished even if it is technically interesting when contribution attribution has not been established.
 
 ## How the structure appears on this blog
 

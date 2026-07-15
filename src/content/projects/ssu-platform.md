@@ -8,10 +8,8 @@ visibility: public
 role: "4개 서비스 설계·구현·운영"
 teamScope: "개인 주도 프로젝트"
 contributionEvidence:
-  - "ssuAI 412 commits / 202 PRs"
-  - "ssuMCP 388 commits / 193 PRs"
-  - "ssuAgent 92 commits / 48 PRs"
-  - "ssu-ai-service 13 commits / 7 PRs"
+  - "4개 서비스의 설계·구현·운영과 서비스 간 계약"
+  - "저장소별 ADR·작업 로그·트러블슈팅과 배포 검증 기록"
 image: "../../assets/projects/ssuai-live-home.png"
 imageAlt: "ssuAI 캠퍼스 어시스턴트 채팅 화면"
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
@@ -19,7 +17,6 @@ infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:
   - { label: "MCP tools", value: "52" }
   - { label: "Services", value: "4" }
-  - { label: "Owned PRs", value: "450+" }
 order: 1
 featured: true
 live: "https://ssuai.vercel.app"

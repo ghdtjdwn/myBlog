@@ -25,8 +25,32 @@ import { site, withBase } from "../lib/site";
         <a href={withBase("projects/")}>프로젝트 보기</a>
         <a href={withBase("writing/")}>기술 글 읽기</a>
         <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href={`mailto:${site.email}`}>Email</a>
       </div>
     </div>
+
+    <section class="about-section profile-section">
+      <p class="intro-label">Profile</p>
+      <h2>기본 정보와 자격</h2>
+      <dl class="profile-facts">
+        <div>
+          <dt>Education</dt>
+          <dd>{site.education}</dd>
+        </div>
+        <div>
+          <dt>Credential</dt>
+          <dd>컴퓨터활용능력 2급 (Computer Specialist in Spreadsheet &amp; Database, Level II)</dd>
+        </div>
+        <div>
+          <dt>Credential</dt>
+          <dd>정보처리기능사 (Craftsman Information Processing)</dd>
+        </div>
+        <div>
+          <dt>Contact</dt>
+          <dd><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.solvedAc} target="_blank" rel="noreferrer">solved.ac ↗</a></dd>
+        </div>
+      </dl>
+    </section>
 
     <section class="about-section">
       <p class="intro-label">What I can demonstrate</p>

@@ -2,9 +2,9 @@
 title: "firstStudy"
 summary: "An early learning project for practicing member-management CRUD and REST API fundamentals with Spring Boot."
 status: archive
-statusNote: "This records the beginning of my Spring Boot studies. Development has ended, and detailed promotion remains on hold until credential-like content in the public documentation is remediated."
+statusNote: "This records the beginning of my Spring Boot studies. Development has ended, and the repository is retained as a private learning archive."
 activity: personal
-visibility: public
+visibility: private
 role: "Independent learning project"
 contributionEvidence: ["2 commits in the user's repository"]
 tags: ["Spring Boot", "JPA", "Validation", "REST"]
@@ -14,8 +14,7 @@ metrics:
 order: 13
 featured: false
 draft: true
-repositories:
-  - { label: "GitHub", url: "https://github.com/ghdtjdwn/firstStudy" }
+repositories: []
 recordPlan: "First complete security cleanup and secret scanning in the source repository, then write a growth retrospective focused on the difference between early CRUD work and an operable system rather than promoting the feature set."
 recordLinks: []
 ---
@@ -34,6 +33,6 @@ At the time, I practiced MySQL connectivity, development and test profiles, a sm
 
 A working CRUD application is not the same as an operable service. Later projects expanded the implementation boundary to include schema migrations, authentication boundaries, caching and messaging, CI/CD, observability, load testing, and recovery paths. This repository supports a factual retrospective about that growth.
 
-## Security cleanup before publication
+## Private archive boundary
 
-The public README contains credential-shaped database configuration. I need to determine whether the values were ever active, rotate them if necessary, remove unsafe defaults, and run secret scanning before publication. Until that work is complete, I will not quote the configuration example or move detailed usage instructions to the blog. Repository hygiene issues such as tracked dependencies will be addressed at the same time.
+The early project contains configuration and tracked-dependency patterns that should not be promoted like current representative work. The repository is private, and neither credential-shaped configuration nor its source URL will be copied into public writing if I later use it to explain my learning path.

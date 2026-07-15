@@ -36,12 +36,10 @@ const required = [
 ];
 
 const draftRoutes = [
-  "projects/redbean-overflow/index.html",
   "projects/first-study/index.html",
   "writing/postgis-expiry-index/index.html",
   "writing/arm64-gitops-image-drift/index.html",
   "writing/deterministic-ai-grader/index.html",
-  "en/projects/redbean-overflow/index.html",
   "en/projects/first-study/index.html",
 ];
 

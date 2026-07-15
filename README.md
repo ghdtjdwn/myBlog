@@ -23,7 +23,7 @@
 - Vercel Preview/Production
 - Vercel Web Analytics와 Speed Insights
 
-전체 결정은 [기술 스펙](docs/TECH_SPEC.md), [ADR-0001](docs/adr/0001-stack-and-hosting.md), [ADR-0002](docs/adr/0002-git-based-cms.md)에 기록합니다.
+전체 결정은 [기술 스펙](docs/TECH_SPEC.md), [ADR-0001](docs/adr/0001-stack-and-hosting.md), [ADR-0002](docs/adr/0002-git-based-cms.md)에 기록합니다. GitHub 프로필과 블로그의 역할 분리는 [ADR-0005](docs/adr/0005-github-and-blog-portfolio-surfaces.md)를 따릅니다.
 
 ## 작업 상태
 

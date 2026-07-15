@@ -8,10 +8,8 @@ visibility: public
 role: "Designed, implemented, and operate 4 services"
 teamScope: "Independently led project"
 contributionEvidence:
-  - "ssuAI 412 commits / 202 PRs"
-  - "ssuMCP 388 commits / 193 PRs"
-  - "ssuAgent 92 commits / 48 PRs"
-  - "ssu-ai-service 13 commits / 7 PRs"
+  - "Design, implementation, operation, and cross-service contracts across four services"
+  - "Repository-level ADRs, work logs, troubleshooting records, and deployment verification"
 image: "../../assets/projects/ssuai-live-home.png"
 imageAlt: "The ssuAI campus assistant chat interface"
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
@@ -19,7 +17,6 @@ infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:
   - { label: "MCP tools", value: "52" }
   - { label: "Services", value: "4" }
-  - { label: "Owned PRs", value: "450+" }
 order: 1
 featured: true
 live: "https://ssuai.vercel.app"

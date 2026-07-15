@@ -104,6 +104,11 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .about-intro > p { margin: 0 0 22px; color: #383838; font-size: 18px; line-height: 1.9; }
 .about-section { padding: 62px 0; border-bottom: 1px solid var(--line); }
 .about-section > h2 { margin: 0 0 28px; font-size: 27px; line-height: 1.4; letter-spacing: -.03em; }
+.profile-facts { margin: 0; border-top: 1px solid var(--line); }
+.profile-facts div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.profile-facts dt { color: var(--faint); font: 10px/1.7 var(--mono); text-transform: uppercase; }
+.profile-facts dd { margin: 0; color: var(--muted); font-size: 14px; }
+.profile-facts a { color: var(--accent); text-decoration: underline; text-decoration-color: #b9c6f6; text-underline-offset: 4px; }
 .capability-list { border-top: 1px solid var(--line); }
 .capability-list article { padding: 28px 0; border-bottom: 1px solid var(--line); }
 .capability-list h3, .about-principles h3 { margin: 0; font-size: 18px; }
@@ -194,6 +199,7 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
   .project-row { grid-template-columns: 24px minmax(0, 1fr) 18px; gap: 10px; }
   .page-wrap { padding-block: 58px 90px; }
   .page-header { padding-bottom: 38px; }
+  .profile-facts div { grid-template-columns: 1fr; gap: 4px; }
   .fact-grid { grid-template-columns: 1fr; }
   .fact-grid div, .fact-grid div:nth-last-child(-n + 2) { padding-right: 0; border-bottom: 1px solid var(--line); }
   .fact-grid div:last-child { border-bottom: 0; }
