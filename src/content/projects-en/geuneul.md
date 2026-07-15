@@ -1,8 +1,8 @@
 ---
 title: "Geuneul — Summer Survival Map"
 summary: "A map service that combines more than 150,000 public POIs, PostGIS spatial search, and real-time reports to help people find nearby shelter during heat waves and rain."
-status: operating
-statusNote: "The web app, API, PWA, and AWS infrastructure are in operation, while data quality, search performance, and cost continue to be monitored and improved."
+status: complete
+statusNote: "Development ended after the web app, API, PWA, and AWS infrastructure were implemented and verified. The public URL and repository remain available as completed evidence."
 activity: personal
 visibility: public
 role: "End-to-end ownership of product, data, backend, and infrastructure"
@@ -21,7 +21,7 @@ featured: true
 live: "https://geuneul.vercel.app"
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/geuneul" }
-recordPlan: "The public repository's README, docs/adr, architecture, and DEPLOY documents are the current sources of truth. New work will follow the worklog and troubleshooting structure, while performance, data, and operations cases will be selected for blog posts centered on the problem and its validation."
+recordPlan: "The public repository's README, architecture, DEPLOY, ADRs, and work log are the sources of truth for the completed result. The blog links selected performance, data, and operations cases centered on the problem and its validation."
 recordLinks:
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
 ---
@@ -50,9 +50,9 @@ Terraform declares the VPC, public and private subnets, ECS Fargate, ECR, RDS/Po
 
 The ECS service scales from a minimum of 1 task to a maximum of 3 using a 60% CPU target. GitHub Actions assumes its deployment role through OIDC instead of using a long-lived AWS key. ADRs capture CloudFront-to-ALB origin access, RDS encryption, backup and restore, and observability cost so the infrastructure can be explained as a set of operating decisions rather than only as a diagram.
 
-## Current state and next steps
+## Completed state
 
-The web app, API health endpoint, PWA installation path, and signed APK are public, and I verified their actual responses. The service remains in operation while I monitor data freshness, comfort-signal quality, and infrastructure cost. The next improvement is to collect more Production load evidence and create observable metrics for how external APIs and user-report quality affect recommendations.
+I published and verified the web app, API health endpoint, PWA installation path, and signed APK, completing the planned development scope. The public demo, code, design records, and performance evidence remain available for review, but there is no active feature roadmap. Data freshness and continuous infrastructure availability are not guaranteed after completion.
 
 ## Limitations
 
