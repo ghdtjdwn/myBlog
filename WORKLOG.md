@@ -15,8 +15,15 @@
   69개 생성 문서와 draft 격리가 통과했다. 로컬 한·영 상세는 각각 200이며 대표 이미지와 갤러리
   6개를 렌더하고, 새 반응형 WebP도 200으로 응답했다. 인앱 브라우저가 제공되지 않아 실제 viewport
   캡처 검수는 수행하지 못했다.
-- 전달: 원격 PR·CI·Preview 검증은 다음 단계에서 기록한다. 블로그 Production 병합·배포와 본진
-  alias 변경은 명시적 승인 전까지 수행하지 않는다.
+- ssuMCP 전달: commit `1c82b27`을 PR #219로 올려 GitHub Actions run `29471796612`의 Gradle
+  테스트·JaCoCo 커버리지와 Security run `29471796627`을 통과한 뒤 main에 fast-forward했다. 기본
+  README의 GFM 렌더와 공개 raw PNG 2개의 200 응답을 확인했다. 문서 경로 제외 규칙에 따라 main
+  백엔드 이미지 빌드·Production 롤아웃은 실행되지 않았고 Security run `29472032468`만 성공했다.
+- 블로그 원격 검증: commit `88674cc`를 draft PR #9에 올렸다. GitHub Actions run `29471838707`의
+  validate·secret-scan과 Vercel Preview deployment `5468013115`가 성공했다. Preview 한·영 상세는
+  각각 200이며 기존 제품 화면 5개와 ChatGPT 연동 화면 2개, `X-Robots-Tag: noindex`를 확인했다.
+- 전달: ssuMCP README는 main에 공개했고 블로그는 draft PR #9만 갱신했다. 블로그 Production
+  병합·배포와 본진 alias 변경은 명시적 승인 전까지 수행하지 않는다.
 
 ## 2026-07-16 — ssuAI 제품 화면 공개 자료 정리
 
