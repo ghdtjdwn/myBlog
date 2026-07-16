@@ -19,11 +19,15 @@
   테스트·JaCoCo 커버리지와 Security run `29471796627`을 통과한 뒤 main에 fast-forward했다. 기본
   README의 GFM 렌더와 공개 raw PNG 2개의 200 응답을 확인했다. 문서 경로 제외 규칙에 따라 main
   백엔드 이미지 빌드·Production 롤아웃은 실행되지 않았고 Security run `29472032468`만 성공했다.
-- 블로그 원격 검증: commit `88674cc`를 draft PR #9에 올렸다. GitHub Actions run `29471838707`의
-  validate·secret-scan과 Vercel Preview deployment `5468013115`가 성공했다. Preview 한·영 상세는
-  각각 200이며 기존 제품 화면 5개와 ChatGPT 연동 화면 2개, `X-Robots-Tag: noindex`를 확인했다.
-- 전달: ssuMCP README는 main에 공개했고 블로그는 draft PR #9만 갱신했다. 블로그 Production
-  병합·배포와 본진 alias 변경은 명시적 승인 전까지 수행하지 않는다.
+- 블로그 원격 검증: 최종 commit `7355fce`를 PR #9로 전달했고 GitHub Actions run
+  `29473577376`의 validate·secret-scan을 통과한 뒤 main에 fast-forward했다. Production 전
+  Preview 한·영 상세에서 제품 화면 5개와 ChatGPT 연동 화면 2개, `X-Robots-Tag: noindex`를 확인했다.
+- Production 전달: Vercel deployment `dpl_Ag9wnjt8yGXaXewchLaFQj2hEmg7`가 project `seongju`,
+  main commit `7355fce`, target Production, Ready인 것을 확인하고 `seongju.vercel.app` alias를
+  이전 deployment `dpl_BSDb8qXMWGwsFyBtZAv4CwkLKJHE`에서 새 배포로 전환했다. 공개 한·영 홈·
+  프로젝트·대표 글 경로는 모두 200이고, ssu 플랫폼 상세의 이미지 7개와 실제 이미지 응답, 제거
+  문구 부재, canonical, 검색 허용 상태와 보안 header를 확인했다. 실패 시 복구할 이전 고유 배포
+  주소는 보존했다.
 
 ## 2026-07-16 — ssuAI 제품 화면 공개 자료 정리
 
