@@ -21,8 +21,9 @@
   Preview 한·영 상세는 각각 200이며 홈·학사·도서관·캠퍼스·서비스 연결 이미지 5개와
   `X-Robots-Tag: noindex`를 확인했다.
 - GitHub 전달: ssuAI PR #242는 CI·gitleaks·Vercel Preview 통과 후 commit `d1c6e1d`로 main에
-  병합했다. 공개 raw 경로의 이미지 5개가 모두 200 `image/png`로 응답한다. 프로필 PR #8도
-  commit `7a14dd1`로 병합했으며 GitHub API의 실제 GFM 렌더에서 다섯 이미지 참조를 확인했다.
+  병합했다. 공개 raw 경로의 이미지 5개가 모두 200 `image/png`로 응답한다. 제품 화면은 프로젝트
+  README에만 두고, 프로필에 중복 추가했던 이미지 블록은 정정 PR #9의 commit `01b8163`으로 제거했다.
+  GitHub API의 실제 GFM 렌더에서 프로필 이미지 참조 0개와 프로젝트 README 참조 5개를 확인했다.
 - 전달: 블로그는 draft PR #9만 갱신했다. Production 병합·배포와 본진 alias 변경은 명시적 승인
   전까지 수행하지 않는다.
 
