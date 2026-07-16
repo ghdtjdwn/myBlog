@@ -13,8 +13,10 @@
   프로젝트 목록과 Cham Domi 상세는 200, 제거한 한·영 프로젝트 경로와 연결 글 경로는 404였다.
 - 검수 제한: 인앱 브라우저가 연결되지 않아 데스크톱·모바일 viewport 시각 검수는 수행하지 못했다.
   생성 HTML과 로컬 HTTP 응답의 링크·문구·상태까지만 확인했다.
-- 전달 범위: 기존 draft PR #9 브랜치에 반영해 CI와 Preview를 다시 확인한다. Production 병합·배포와
-  본진 alias 변경은 수행하지 않는다.
+- 원격 검증: commit `904979b`를 기존 draft PR #9 브랜치에 올렸다. GitHub Actions run
+  `29463784440`의 validate·secret-scan과 Vercel Preview deployment `5466453681`이 성공했다.
+  Ready Preview에서도 한·영 목록·Cham Domi 상세 200, 제거 경로 404와 검색 차단을 확인했다.
+- 전달: draft PR #9만 갱신했다. Production 병합·배포와 본진 alias 변경은 수행하지 않았다.
 
 ## 2026-07-15 — RTF 프로젝트 인덱스 기반 근거 중심 블로그 보완
 
