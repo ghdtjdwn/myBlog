@@ -1,6 +1,6 @@
 ---
 title: "Cham Domi"
-summary: "A team project for finding eligible dormitories and compatible roommates, where I owned the entire frontend and the roommate backend domain. The repository handle remains con-dorm."
+summary: "A team project for finding eligible dormitories and compatible roommates, where I owned the entire frontend and the roommate backend domain."
 status: prototype
 statusNote: "The frontend and roommate-domain prototypes are complete, but authentication integration, deployment, and operational validation have not yet been completed."
 activity: team
@@ -22,7 +22,7 @@ recordLinks: []
 
 ## Problem to solve
 
-Cham Domi is a team prototype connecting dormitory eligibility with roommate discovery based on compatible living habits. Users enter their circumstances and move through eligible dormitories, matching candidates, posts, and chat in one mobile flow. The GitHub organization handle remains `con-dorm` so existing repository URLs and integrations do not break.
+Cham Domi is a team prototype connecting dormitory eligibility with roommate discovery based on compatible living habits. Users enter their circumstances and move through eligible dormitories, matching candidates, posts, and chat in one mobile flow.
 
 ## Boundaries for parallel development
 
