@@ -16,8 +16,15 @@
 - 화면 확인: 로컬 한·영 ssu 플랫폼 상세는 각각 200이며 대표 이미지와 갤러리 4개를 렌더했다.
   화면이 없는 다른 프로젝트에는 빈 갤러리가 생성되지 않았다. 인앱 브라우저가 제공되지 않아 실제
   데스크톱·모바일 viewport 캡처 검수는 수행하지 못했다.
-- 전달: 원격 반영과 CI·Preview 검증은 다음 단계에서 진행한다. 블로그 Production 병합·배포와
-  본진 alias 변경은 명시적 승인 전까지 수행하지 않는다.
+- 원격 검증: 구현 commit `7119b79`를 draft PR #9에 올렸다. GitHub Actions run
+  `29466115059`의 validate·secret-scan과 Vercel Preview deployment `5466904864`가 성공했다.
+  Preview 한·영 상세는 각각 200이며 홈·학사·도서관·캠퍼스·서비스 연결 이미지 5개와
+  `X-Robots-Tag: noindex`를 확인했다.
+- GitHub 전달: ssuAI PR #242는 CI·gitleaks·Vercel Preview 통과 후 commit `d1c6e1d`로 main에
+  병합했다. 공개 raw 경로의 이미지 5개가 모두 200 `image/png`로 응답한다. 프로필 PR #8도
+  commit `7a14dd1`로 병합했으며 GitHub API의 실제 GFM 렌더에서 다섯 이미지 참조를 확인했다.
+- 전달: 블로그는 draft PR #9만 갱신했다. Production 병합·배포와 본진 alias 변경은 명시적 승인
+  전까지 수행하지 않는다.
 
 ## 2026-07-16 — 프로젝트 공개 목록 정리
 
