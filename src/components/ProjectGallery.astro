@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+
+interface Screenshot {
+  image: ImageMetadata;
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  screenshots: Screenshot[];
+  eyebrow: string;
+  title: string;
+  intro: string;
+}
+
+const { screenshots, eyebrow, title, intro } = Astro.props;
+---
+
+{screenshots.length > 0 && (
+  <section class="case-gallery-section" aria-labelledby="project-gallery-title">
+    <div class="shell reading-shell">
+      <header class="case-gallery-heading">
+        <p class="intro-label">{eyebrow}</p>
+        <h2 id="project-gallery-title">{title}</h2>
+        <p>{intro}</p>
+      </header>
+      <div class="case-gallery-grid">
+        {screenshots.map((screenshot) => (
+          <figure class="case-gallery-card">
+            <Image
+              src={screenshot.image}
+              alt={screenshot.alt}
+              widths={[480, 720, 960]}
+              sizes="(max-width: 760px) calc(100vw - 32px), 430px"
+              loading="lazy"
+            />
+            <figcaption>{screenshot.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

@@ -11,7 +11,20 @@ contributionEvidence:
   - "Design, implementation, operation, and cross-service contracts across four services"
   - "Repository-level ADRs, work logs, troubleshooting records, and deployment verification"
 image: "../../assets/projects/ssuai-live-home.png"
-imageAlt: "The ssuAI campus assistant chat interface"
+imageAlt: "The ssuAI home dashboard combining personal schedules, assignments, library seats, dining, and notices"
+screenshots:
+  - image: "../../assets/projects/ssuai-live-academics.png"
+    alt: "The ssuAI academics screen showing graduation requirements, cumulative grades, chapel, scholarships, and LMS assignments"
+    caption: "Academics — graduation progress, cumulative grades, chapel, scholarships, and LMS assignments in one context."
+  - image: "../../assets/projects/ssuai-live-library.png"
+    alt: "The ssuAI library screen showing real-time availability across six reading rooms, loans, and book search"
+    caption: "Library — periodically refreshed reading-room availability, current loans, and catalog search in one screen."
+  - image: "../../assets/projects/ssuai-live-campus.png"
+    alt: "The ssuAI campus screen showing today's dining, weekly dormitory meals, notices, academic dates, and facility search"
+    caption: "Campus — dining, notices, academic dates, and facility search organized by date and task."
+  - image: "../../assets/projects/ssuai-live-connections.png"
+    alt: "The ssuAI service-connections screen showing status and available features for u-SAINT, LMS, and the library"
+    caption: "Service connections — separates u-SAINT, LMS, and library session state from the personal-data features each connection unlocks."
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:

@@ -117,6 +117,11 @@ export default config({
         contributionEvidence: textList("기여 근거"),
         image: fields.image({ label: "대표 이미지", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
         imageAlt: fields.text({ label: "이미지 대체 텍스트" }),
+        screenshots: fields.array(fields.object({
+          image: fields.image({ label: "화면 이미지", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
+          alt: fields.text({ label: "대체 텍스트", validation: { isRequired: true } }),
+          caption: fields.text({ label: "설명", multiline: true, validation: { isRequired: true } }),
+        }), { label: "프로젝트 화면", itemLabel: (props) => props.fields.caption.value || "새 화면" }),
         tags: textList("기술 태그"),
         infra: textList("인프라"),
         metrics: fields.array(fields.object({
@@ -157,7 +162,13 @@ export default config({
         role: fields.text({ label: "My role", validation: { isRequired: true } }), teamScope: fields.text({ label: "Team scope" }),
         contributionEvidence: textList("Contribution evidence"),
         image: fields.image({ label: "Cover image", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
-        imageAlt: fields.text({ label: "Image alt text" }), tags: textList("Tags"), infra: textList("Infrastructure"),
+        imageAlt: fields.text({ label: "Image alt text" }),
+        screenshots: fields.array(fields.object({
+          image: fields.image({ label: "Screen image", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
+          alt: fields.text({ label: "Alt text", validation: { isRequired: true } }),
+          caption: fields.text({ label: "Caption", multiline: true, validation: { isRequired: true } }),
+        }), { label: "Project screens", itemLabel: (props) => props.fields.caption.value || "New screen" }),
+        tags: textList("Tags"), infra: textList("Infrastructure"),
         metrics: fields.array(fields.object({ label: fields.text({ label: "Metric" }), value: fields.text({ label: "Value" }) }), { label: "Verified metrics", itemLabel: (props) => props.fields.label.value || "New metric" }),
         order: fields.integer({ label: "Order", defaultValue: 10 }), featured: fields.checkbox({ label: "Featured", defaultValue: false }),
         draft: fields.checkbox({ label: "Private draft", defaultValue: true }), live: fields.url({ label: "Live URL" }),

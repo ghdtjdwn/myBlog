@@ -29,6 +29,7 @@ role: "TODO: 직접 맡은 범위"
 teamScope: "TODO: 팀 범위와 기여 경계"
 contributionEvidence:
   - "TODO: commit, PR, 문서 또는 검증 기록"
+screenshots: []
 tags: ["TODO"]
 infra: []
 metrics: []
@@ -63,6 +64,7 @@ role: "TODO: Directly owned scope"
 teamScope: "TODO: Team scope and contribution boundary"
 contributionEvidence:
   - "TODO: Commit, pull request, document, or validation record"
+screenshots: []
 tags: ["TODO"]
 infra: []
 metrics: []

@@ -26,6 +26,11 @@ const projectCollection = (base: string) => defineCollection({
     contributionEvidence: z.array(z.string()).default([]),
     image: image().optional(),
     imageAlt: z.string().optional(),
+    screenshots: z.array(z.object({
+      image: image(),
+      alt: z.string(),
+      caption: z.string(),
+    })).default([]),
     tags: z.array(z.string()),
     infra: z.array(z.string()).default([]),
     metrics: z.array(z.object({ label: z.string(), value: z.string() })),

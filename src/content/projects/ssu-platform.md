@@ -11,7 +11,20 @@ contributionEvidence:
   - "4개 서비스의 설계·구현·운영과 서비스 간 계약"
   - "저장소별 ADR·작업 로그·트러블슈팅과 배포 검증 기록"
 image: "../../assets/projects/ssuai-live-home.png"
-imageAlt: "ssuAI 캠퍼스 어시스턴트 채팅 화면"
+imageAlt: "개인 일정, 과제, 도서관 좌석, 학식과 공지를 한 화면에 모은 ssuAI 홈 대시보드"
+screenshots:
+  - image: "../../assets/projects/ssuai-live-academics.png"
+    alt: "졸업요건, 누적 성적, 채플, 장학금과 LMS 과제를 보여주는 ssuAI 학사 화면"
+    caption: "학사 — 졸업요건 진행률과 누적 성적, 채플, 장학금, LMS 과제를 같은 맥락에서 확인합니다."
+  - image: "../../assets/projects/ssuai-live-library.png"
+    alt: "6개 열람실의 실시간 좌석 현황과 대출·도서 검색을 보여주는 ssuAI 도서관 화면"
+    caption: "도서관 — 열람실 좌석을 주기적으로 갱신하고 대출 현황과 소장 도서 검색을 한 화면에서 제공합니다."
+  - image: "../../assets/projects/ssuai-live-campus.png"
+    alt: "오늘의 학식, 기숙사 주간 식단, 공지, 학사일정과 시설 검색을 보여주는 ssuAI 캠퍼스 화면"
+    caption: "캠퍼스 — 학식·공지·학사일정·시설 검색을 날짜와 목적별로 묶었습니다."
+  - image: "../../assets/projects/ssuai-live-connections.png"
+    alt: "u-SAINT, LMS와 도서관의 연결 상태와 제공 기능을 보여주는 ssuAI 서비스 연결 화면"
+    caption: "서비스 연결 — u-SAINT·LMS·도서관 세션의 연결 상태와 열리는 개인 데이터 기능을 명확히 구분합니다."
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:

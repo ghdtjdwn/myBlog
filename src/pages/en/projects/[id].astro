@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import PostCard from "../../../components/PostCard.astro";
+import ProjectGallery from "../../../components/ProjectGallery.astro";
 import { projectActivityLabelsEn, projectStatusLabelsEn, projectVisibilityLabelsEn } from "../../../lib/i18n";
 import { withBase } from "../../../lib/site";
 export async function getStaticPaths() {
@@ -28,6 +29,12 @@ const posts = (await getCollection("postsEn", ({ data }) => (showDrafts || !data
       <div><dt>Evidence visibility</dt><dd>{projectVisibilityLabelsEn[project.data.visibility]}</dd></div>
       {project.data.contributionEvidence.length > 0 && <div><dt>Contribution evidence</dt><dd><ul>{project.data.contributionEvidence.map((evidence) => <li>{evidence}</li>)}</ul></dd></div>}
     </dl></div></section>
+    <ProjectGallery
+      screenshots={project.data.screenshots}
+      eyebrow="Product screens"
+      title="Key operating screens"
+      intro="These are the primary screens where users review campus data and personal status."
+    />
     <div class="article-layout shell"><aside class="article-aside"><p>STACK & FOCUS</p><div class="tag-row">{[...project.data.tags, ...project.data.infra].map((tag) => <span>{tag}</span>)}</div></aside><div class="prose"><Content /></div></div>
   </article>
   <section class="record-section"><div class="shell reading-shell"><header class="record-heading"><p class="intro-label">Engineering records</p><h2>Work logs and troubleshooting</h2><p>{project.data.recordPlan}</p></header>{project.data.recordLinks.length ? <div class="record-links">{project.data.recordLinks.map((record) => <a href={record.url} target="_blank" rel="noreferrer"><span>{record.label}</span><span>GitHub ↗</span></a>)}</div> : <p class="empty-state">Public source links are still being prepared. Private and team records will be linked only after their publication scope is confirmed.</p>}</div></section>
