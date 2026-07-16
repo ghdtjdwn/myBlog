@@ -25,6 +25,12 @@ screenshots:
   - image: "../../assets/projects/ssuai-live-connections.png"
     alt: "The ssuAI service-connections screen showing status and available features for u-SAINT, LMS, and the library"
     caption: "Service connections — separates u-SAINT, LMS, and library session state from the personal-data features each connection unlocks."
+  - image: "../../assets/projects/ssumcp-chatgpt-graduation.png"
+    alt: "ChatGPT explains the remaining graduation requirements using u-SAINT graduation-evaluation data retrieved through ssuMCP"
+    caption: "ChatGPT + ssuMCP — a real integration session that turns linked u-SAINT graduation-evaluation data into a natural-language requirements summary."
+  - image: "../../assets/projects/ssumcp-chatgpt-library-reservation.png"
+    alt: "ChatGPT uses ssuMCP tools to find an available corner seat and return a completed library reservation"
+    caption: "ChatGPT + ssuMCP — a write-tool session that checks availability and candidates, passes through client confirmation, and returns the reservation result."
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:

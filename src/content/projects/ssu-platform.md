@@ -25,6 +25,12 @@ screenshots:
   - image: "../../assets/projects/ssuai-live-connections.png"
     alt: "u-SAINT, LMS와 도서관의 연결 상태와 제공 기능을 보여주는 ssuAI 서비스 연결 화면"
     caption: "서비스 연결 — u-SAINT·LMS·도서관 세션의 연결 상태와 열리는 개인 데이터 기능을 명확히 구분합니다."
+  - image: "../../assets/projects/ssumcp-chatgpt-graduation.png"
+    alt: "ChatGPT가 ssuMCP에서 조회한 u-SAINT 졸업사정 데이터를 바탕으로 남은 졸업요건을 설명하는 화면"
+    caption: "ChatGPT + ssuMCP — 연결된 u-SAINT 졸업사정 데이터를 조회해 남은 이수 조건을 자연어로 정리한 실제 연동 화면입니다."
+  - image: "../../assets/projects/ssumcp-chatgpt-library-reservation.png"
+    alt: "ChatGPT가 ssuMCP 도구로 도서관 빈 좌석을 확인하고 모서리 좌석을 예약한 결과 화면"
+    caption: "ChatGPT + ssuMCP — 좌석 가용성과 후보를 확인하고 클라이언트 확인을 거쳐 예약 결과를 반환한 write 도구 연동 화면입니다."
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:
