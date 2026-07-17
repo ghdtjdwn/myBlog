@@ -15,6 +15,14 @@
   `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 31개 파일 진단 0건, 69개
   생성 문서와 draft 격리가 통과했다. 로컬 한·영 ssu 플랫폼 상세는 각각 200이며 대표 이미지와
   갤러리 이미지 11개, 47개 반응형 이미지 응답을 확인했다.
+- ssuMCP 전달: commit `b4a43bb`을 PR #225로 전달해 JDK 21 Gradle test·JaCoCo coverage와
+  Security를 통과한 뒤 main에 fast-forward했다. 기본 README의 실제 GFM 렌더와 공개 raw PNG
+  2개의 200 응답을 확인했다. 문서 경로 제외 규칙에 따라 backend 이미지 빌드·Production 롤아웃은
+  실행되지 않았고 main Security run `29566224147`만 성공했다.
+- 블로그 원격 검증: commit `3f8af7e`를 draft PR #11에 올렸다. GitHub Actions run
+  `29565903810`의 validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 한·영
+  상세는 각각 200이며 새 ssuAI 챗봇 3장과 LMS 내보내기 2장, 48개 이미지 asset 응답과
+  `X-Robots-Tag: noindex`를 확인했다. Production 병합과 본진 alias 변경은 수행하지 않았다.
 - 검수 제한: 인앱 브라우저가 제공되지 않아 실제 데스크톱·모바일 viewport 캡처 검수는 수행하지
   못했다. 생성 HTML, 반응형 이미지 생성 결과와 로컬 HTTP 응답을 확인했다.
 
