@@ -48,12 +48,22 @@ TypeScript 7이 최신이지만 `@astrojs/check` 0.9.9의 peer 범위는 TypeScr
 
 V1은 기본 다섯 개 컬렉션과 한국어 원문에 대응하는 `projectsEn`, `postsEn` 컬렉션을 사용한다.
 
+### site settings
+
+- 작성자 한·영 이름, 사이트 한·영 제목·설명과 헤더·푸터 문구
+- 홈 소개 문구, 목록 제목과 최근 글·대표 프로젝트 표시 개수
+- 이메일·GitHub·solved.ac·학력 표시
+- 검증된 배경 테마와 강조색 preset
+- 한·영 메뉴 이름·경로, 상단/하단 노출, 새 탭 여부와 배열 순서
+- 단일 `settings/site.yaml`을 Keystatic singleton과 Astro Content Collection이 함께 검증한다.
+
 ### categories
 
-- `name`, `description`, `kind`, `order`
+- `name`, `description`, `nameEn`, `descriptionEn`, `kind`, `order`, `visible`
 - `kind`는 직무 역량과 활동 유형을 구분한다.
 - 글은 직무 역량 카테고리 하나를 필수로, 활동 유형 하나를 선택적으로 참조한다.
 - 관계 검증 스크립트가 삭제·이름 변경으로 생긴 끊어진 참조를 빌드 전에 차단한다.
+- `kind` 변경으로 두 카테고리 그룹 사이를 이동하고 `order`로 같은 그룹의 표시 순서를 바꾼다.
 
 ### projects
 

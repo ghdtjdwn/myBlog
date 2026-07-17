@@ -1,4 +1,7 @@
 name: 팀·학교 프로젝트
 description: API 계약, 역할 분담과 코드 리뷰를 통해 함께 만든 기록입니다.
+nameEn: Team Projects
+descriptionEn: Team engineering with explicit ownership, interfaces, and contribution boundaries.
 kind: activity
 order: 23
+visible: true

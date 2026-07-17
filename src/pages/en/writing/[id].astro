@@ -1,12 +1,12 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { categoryEnglish } from "../../../lib/i18n";
 import { formatDateEn, withBase } from "../../../lib/site";
 export async function getStaticPaths() { const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true"; const posts = await getCollection("postsEn", ({ data }) => showDrafts || !data.draft); return posts.map((post) => ({ params: { id: post.id }, props: { post } })); }
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
-const name = (id: string) => categoryEnglish[id as keyof typeof categoryEnglish]?.name ?? id;
+const categories = await getCollection("categories");
+const name = (id: string) => categories.find((category) => category.id === id)?.data.nameEn ?? id;
 const project = post.data.project ? await getEntry(post.data.project) : undefined;
 ---
 <BaseLayout locale="en" title={`${post.data.title} — Hong Seong Ju`} description={post.data.description} type="article" publishedAt={post.data.publishedAt} updatedAt={post.data.updatedAt}>

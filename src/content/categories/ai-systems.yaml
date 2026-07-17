@@ -1,4 +1,7 @@
 name: AI 시스템
 description: 생성 AI를 제품에 연결할 때 필요한 책임 경계와 검증을 다룹니다.
+nameEn: AI Systems
+descriptionEn: Engineering reliable AI features with explicit evaluation, safety, and operational boundaries.
 kind: competency
 order: 4
+visible: true

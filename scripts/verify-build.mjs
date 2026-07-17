@@ -86,10 +86,12 @@ for (const file of files) {
   const relative = path.relative(root, file);
   if (/(?:[="'>]|&quot;)(?:undefined|null)(?:["'<]|&quot;)/.test(body)) failures.push(`unresolved rendered value in ${relative}`);
   const expectedLanguage = relative.startsWith(`en${path.sep}`) ? "en" : "ko";
-  if (file.endsWith(".html") && !body.includes(`<html lang="${expectedLanguage}">`)) failures.push(`missing ${expectedLanguage} document language in ${relative}`);
+  if (file.endsWith(".html") && !new RegExp(`<html\\b[^>]*\\blang="${expectedLanguage}"`).test(body)) failures.push(`missing ${expectedLanguage} document language in ${relative}`);
   if (file.endsWith(".html") && !body.includes('rel="canonical"')) failures.push(`missing canonical URL in ${relative}`);
   if (file.endsWith(".html") && !body.includes('hreflang="en"')) failures.push(`missing English alternate in ${relative}`);
   if (file.endsWith(".html") && !body.includes('hreflang="ko"')) failures.push(`missing Korean alternate in ${relative}`);
+  if (file.endsWith(".html") && !body.includes('data-theme="')) failures.push(`missing managed theme in ${relative}`);
+  if (file.endsWith(".html") && !body.includes('data-accent="')) failures.push(`missing managed accent in ${relative}`);
 }
 
 if (failures.length > 0) {

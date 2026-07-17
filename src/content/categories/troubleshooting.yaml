@@ -1,4 +1,7 @@
 name: 트러블슈팅·신뢰성
 description: 장애와 실패를 재현하고 근거로 원인을 좁혀 재발을 막은 기록입니다.
+nameEn: Troubleshooting
+descriptionEn: Reproducible failures, evidence, root causes, fixes, and regression prevention.
 kind: competency
 order: 6
+visible: true

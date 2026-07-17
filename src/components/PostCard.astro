@@ -1,7 +1,6 @@
 ---
 import { getEntry, type CollectionEntry } from "astro:content";
 import { formatDate, formatDateEn, withBase } from "../lib/site";
-import { categoryEnglish } from "../lib/i18n";
 
 interface Props {
   post: CollectionEntry<"posts"> | CollectionEntry<"postsEn">;
@@ -12,9 +11,9 @@ const { post, locale = "ko" } = Astro.props;
 const category = await getEntry(post.data.category);
 const activity = post.data.activity ? await getEntry(post.data.activity) : undefined;
 const prefix = locale === "en" ? "en/" : "";
-const categoryName = (id: string, fallback?: string) => locale === "en"
-  ? categoryEnglish[id as keyof typeof categoryEnglish]?.name ?? fallback ?? id
-  : fallback ?? id;
+const categoryName = (entry: typeof category) => entry
+  ? locale === "en" ? entry.data.nameEn : entry.data.name
+  : "";
 ---
 
 <article class="post-row">
@@ -23,8 +22,8 @@ const categoryName = (id: string, fallback?: string) => locale === "en"
     <h3><a href={withBase(`${prefix}writing/${post.id}/`)}>{post.data.title}</a></h3>
     <p>{post.data.description}</p>
     <div class="post-taxonomy">
-      {category && <a class="category-link" href={withBase(`${prefix}writing/category/${category.id}/`)}>{categoryName(category.id, category.data.name)}</a>}
-      {activity && <a class="activity-link" href={withBase(`${prefix}writing/category/${activity.id}/`)}>{categoryName(activity.id, activity.data.name)}</a>}
+      {category && <a class="category-link" href={withBase(`${prefix}writing/category/${category.id}/`)}>{categoryName(category)}</a>}
+      {activity && <a class="activity-link" href={withBase(`${prefix}writing/category/${activity.id}/`)}>{categoryName(activity)}</a>}
       <div class="tag-row" aria-label="글 태그">{post.data.tags.slice(0, 3).map((tag) => <span>{tag}</span>)}</div>
     </div>
   </div>

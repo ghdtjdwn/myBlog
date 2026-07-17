@@ -1,4 +1,7 @@
 name: 설계·개발 과정
 description: 요구사항을 구조로 바꾸고 대안을 비교해 구현한 과정을 기록합니다.
+nameEn: Engineering
+descriptionEn: Architecture decisions, implementation trade-offs, testing, and maintainability.
 kind: competency
 order: 5
+visible: true

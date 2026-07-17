@@ -1,0 +1,60 @@
+authorNameKo: 홍성주
+authorNameEn: Hong Seong Ju
+siteTitleKo: 홍성주의 개발 노트
+siteTitleEn: Hong Seong Ju's Engineering Notes
+siteDescriptionKo: 백엔드, 데이터, AI 시스템을 만들며 겪은 문제와 선택의 이유를 기록하는 개발자 홍성주의 기술 블로그입니다.
+siteDescriptionEn: Engineering notes on backend, data, AI systems, infrastructure, and the evidence behind technical decisions.
+brandSubtitleKo: 개발 노트
+brandSubtitleEn: Engineering Notes
+footerTextKo: 백엔드, 데이터, AI 시스템을 만들며 배운 것을 씁니다.
+footerTextEn: Notes from building backend, data, and AI systems.
+home:
+  introLabelKo: 안녕하세요, 개발자 홍성주입니다.
+  introLabelEn: Hello, I am software engineer Hong Seong Ju.
+  headingKo: 만들며 배운 것을 기록합니다.
+  headingEn: I document what I learn by building.
+  summaryKo: 백엔드와 데이터, AI 시스템을 만들고 운영합니다. 성공한 결과만 정리하기보다 막혔던 지점, 선택한 이유, 실제로 확인한 증거를 글로 남깁니다.
+  summaryEn: I build backend, data, and AI systems. These notes preserve the constraints, failed hypotheses, decisions, and evidence behind the result—not only the finished screen.
+  recentPostsLabelKo: 최근 글
+  recentPostsLabelEn: Recent writing
+  featuredProjectsLabelKo: 대표 프로젝트
+  featuredProjectsLabelEn: Featured projects
+  recentPostCount: 6
+  featuredProjectCount: 3
+contact:
+  email: seongjuice999@gmail.com
+  github: https://github.com/ghdtjdwn
+  solvedAc: https://solved.ac/profile/akftjdwn
+  education: Soongsil University — Computer Science & Engineering
+appearance:
+  theme: paper
+  accent: blue
+navigation:
+  - labelKo: 글
+    labelEn: Writing
+    hrefKo: writing/
+    hrefEn: en/writing/
+    showInHeader: true
+    showInFooter: false
+    newTab: false
+  - labelKo: 프로젝트
+    labelEn: Projects
+    hrefKo: projects/
+    hrefEn: en/projects/
+    showInHeader: true
+    showInFooter: false
+    newTab: false
+  - labelKo: 소개
+    labelEn: About
+    hrefKo: about/
+    hrefEn: en/about/
+    showInHeader: true
+    showInFooter: false
+    newTab: false
+  - labelKo: GitHub
+    labelEn: GitHub
+    hrefKo: https://github.com/ghdtjdwn
+    hrefEn: https://github.com/ghdtjdwn
+    showInHeader: true
+    showInFooter: true
+    newTab: true

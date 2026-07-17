@@ -2,14 +2,12 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import PostCard from "../../../../components/PostCard.astro";
-import { categoryEnglish } from "../../../../lib/i18n";
 import { withBase } from "../../../../lib/site";
 export async function getStaticPaths() { const categories = await getCollection("categories"); return categories.map((category) => ({ params: { id: category.id }, props: { category } })); }
 const { category } = Astro.props;
-const copy = categoryEnglish[category.id as keyof typeof categoryEnglish] ?? { name: category.id, description: category.data.description };
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const posts = (await getCollection("postsEn", ({ data }) => (showDrafts || !data.draft) && (data.category.id === category.id || data.activity?.id === category.id))).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
-<BaseLayout locale="en" title={`${copy.name} — Hong Seong Ju's Engineering Notes`} description={copy.description}>
-  <div class="shell reading-shell page-wrap"><header class="page-header category-header"><a class="back-link" href={withBase("en/writing/")}>← All writing</a><h1>{copy.name}</h1><p>{copy.description}</p></header>{posts.length ? <div class="post-list">{posts.map((post) => <PostCard post={post} locale="en" />)}</div> : <p class="empty-state">No reviewed English articles are public in this category yet.</p>}</div>
+<BaseLayout locale="en" title={`${category.data.nameEn} — Hong Seong Ju's Engineering Notes`} description={category.data.descriptionEn}>
+  <div class="shell reading-shell page-wrap"><header class="page-header category-header"><a class="back-link" href={withBase("en/writing/")}>← All writing</a><h1>{category.data.nameEn}</h1><p>{category.data.descriptionEn}</p></header>{posts.length ? <div class="post-list">{posts.map((post) => <PostCard post={post} locale="en" />)}</div> : <p class="empty-state">No reviewed English articles are public in this category yet.</p>}</div>
 </BaseLayout>
