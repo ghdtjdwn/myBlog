@@ -25,12 +25,12 @@ screenshots:
   - image: "../../assets/projects/ssuai-live-connections.png"
     alt: "The ssuAI service-connections screen showing status and available features for u-SAINT, LMS, and the library"
     caption: "Service connections — separates u-SAINT, LMS, and library session state from the personal-data features each connection unlocks."
-  - image: "../../assets/projects/ssumcp-chatgpt-graduation.png"
-    alt: "ChatGPT explains the remaining graduation requirements using u-SAINT graduation-evaluation data retrieved through ssuMCP"
-    caption: "ChatGPT + ssuMCP — a real integration session that turns linked u-SAINT graduation-evaluation data into a natural-language requirements summary."
-  - image: "../../assets/projects/ssumcp-chatgpt-library-reservation.png"
-    alt: "ChatGPT uses ssuMCP tools to find an available corner seat and return a completed library reservation"
-    caption: "ChatGPT + ssuMCP — a write-tool session that checks availability and candidates, passes through client confirmation, and returns the reservation result."
+  - image: "../../assets/projects/ssumcp-chatgpt-lms-export-ready.png"
+    alt: "ChatGPT uses ssuMCP to prepare a ZIP of supported non-video materials across all enrolled LMS courses and return a download link"
+    caption: "ChatGPT + ssuMCP — a real session that collects supported non-video materials across the user's LMS courses, builds the ZIP asynchronously, and returns a limited download link."
+  - image: "../../assets/projects/ssumcp-chatgpt-lms-download.png"
+    alt: "The browser download page for the LMS course-material ZIP prepared by ssuMCP"
+    caption: "LMS material download — the final browser handoff for the prepared ZIP, protected by a single-use download token."
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:

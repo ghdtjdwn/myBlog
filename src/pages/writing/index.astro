@@ -6,8 +6,8 @@ import { withBase } from "../../lib/site";
 
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const categories = (await getCollection("categories")).sort((a, b) => a.data.order - b.data.order);
-const competencyCategories = categories.filter((category) => category.data.kind === "competency");
-const activityCategories = categories.filter((category) => category.data.kind === "activity");
+const competencyCategories = categories.filter((category) => category.data.visible && category.data.kind === "competency");
+const activityCategories = categories.filter((category) => category.data.visible && category.data.kind === "activity");
 const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );

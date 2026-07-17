@@ -3,28 +3,30 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import { site, withBase } from "../../lib/site";
+import { withBase } from "../../lib/site";
+import { getSiteSettings } from "../../lib/settings";
 
+const settings = await getSiteSettings();
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const projects = (await getCollection("projectsEn", ({ data }) => showDrafts || !data.draft)).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection("postsEn", ({ data }) => showDrafts || !data.draft)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<BaseLayout locale="en" title="Hong Seong Ju's Engineering Notes" description="Engineering notes on backend, data, AI systems, infrastructure, and the evidence behind technical decisions.">
+<BaseLayout locale="en">
   <div class="shell reading-shell home">
     <section class="home-intro">
-      <p class="intro-label">Hello, I am software engineer Hong Seong Ju.</p>
-      <h1>I document what I learn by building.</h1>
-      <p>I build backend, data, and AI systems. These notes preserve the constraints, failed hypotheses, decisions, and evidence behind the result—not only the finished screen.</p>
-      <div class="inline-links"><a href={withBase("en/about/")}>About me</a><a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
+      <p class="intro-label">{settings.home.introLabelEn}</p>
+      <h1>{settings.home.headingEn}</h1>
+      <p>{settings.home.summaryEn}</p>
+      <div class="inline-links"><a href={withBase("en/about/")}>About me</a><a href={settings.contact.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
     </section>
     <section class="home-section">
-      <header class="list-heading"><h2>Recent writing</h2><a href={withBase("en/writing/")}>View all</a></header>
-      <div class="post-list">{posts.slice(0, 6).map((post) => <PostCard post={post} locale="en" />)}</div>
+      <header class="list-heading"><h2>{settings.home.recentPostsLabelEn}</h2><a href={withBase("en/writing/")}>View all</a></header>
+      <div class="post-list">{posts.slice(0, settings.home.recentPostCount).map((post) => <PostCard post={post} locale="en" />)}</div>
     </section>
     <section class="home-section">
-      <header class="list-heading"><h2>Featured projects</h2><a href={withBase("en/projects/")}>View all</a></header>
-      <div class="project-list">{projects.filter((project) => project.data.featured).slice(0, 3).map((project) => <ProjectCard project={project} locale="en" />)}</div>
+      <header class="list-heading"><h2>{settings.home.featuredProjectsLabelEn}</h2><a href={withBase("en/projects/")}>View all</a></header>
+      <div class="project-list">{projects.filter((project) => project.data.featured).slice(0, settings.home.featuredProjectCount).map((project) => <ProjectCard project={project} locale="en" />)}</div>
     </section>
   </div>
 </BaseLayout>

@@ -1,11 +1,13 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
+import { getSiteSettings } from "../../lib/settings";
 
 export async function GET(context) {
   const posts = await getCollection("postsEn", ({ data }) => !data.draft);
+  const settings = await getSiteSettings();
   return rss({
-    title: "Hong Seong Ju's Engineering Notes",
-    description: "Engineering notes on backend, data, AI systems, infrastructure, and technical decisions.",
+    title: settings.siteTitleEn,
+    description: settings.siteDescriptionEn,
     site: new URL("en/", context.site),
     items: posts.map((post) => ({
       title: post.data.title,

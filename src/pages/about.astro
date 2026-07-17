@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { site, withBase } from "../lib/site";
+import { withBase } from "../lib/site";
+import { getSiteSettings } from "../lib/settings";
+const settings = await getSiteSettings();
 ---
 
 <BaseLayout title="About — 홍성주" description="백엔드·데이터·AI·인프라를 연결해 운영 가능한 서비스를 만들고, 선택과 실패를 근거로 기록하는 개발자 홍성주입니다.">
@@ -24,8 +26,8 @@ import { site, withBase } from "../lib/site";
       <div class="inline-links">
         <a href={withBase("projects/")}>프로젝트 보기</a>
         <a href={withBase("writing/")}>기술 글 읽기</a>
-        <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a href={`mailto:${site.email}`}>Email</a>
+        <a href={settings.contact.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href={`mailto:${settings.contact.email}`}>Email</a>
       </div>
     </div>
 
@@ -35,7 +37,7 @@ import { site, withBase } from "../lib/site";
       <dl class="profile-facts">
         <div>
           <dt>Education</dt>
-          <dd>{site.education}</dd>
+          <dd>{settings.contact.education}</dd>
         </div>
         <div>
           <dt>Credential</dt>
@@ -47,7 +49,7 @@ import { site, withBase } from "../lib/site";
         </div>
         <div>
           <dt>Contact</dt>
-          <dd><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.solvedAc} target="_blank" rel="noreferrer">solved.ac ↗</a></dd>
+          <dd><a href={`mailto:${settings.contact.email}`}>{settings.contact.email}</a>{settings.contact.solvedAc && <> · <a href={settings.contact.solvedAc} target="_blank" rel="noreferrer">solved.ac ↗</a></>}</dd>
         </div>
       </dl>
     </section>

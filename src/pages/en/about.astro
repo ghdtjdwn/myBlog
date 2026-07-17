@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { site, withBase } from "../../lib/site";
+import { withBase } from "../../lib/site";
+import { getSiteSettings } from "../../lib/settings";
+const settings = await getSiteSettings();
 ---
 
 <BaseLayout locale="en" title="About — Hong Seong Ju" description="Hong Seong Ju builds operable backend, data, AI, and infrastructure systems and documents decisions with evidence.">
@@ -9,15 +11,15 @@ import { site, withBase } from "../../lib/site";
     <div class="about-intro">
       <p>I study Computer Science at Soongsil University and build backend, data, and AI systems. My implementation boundary includes where data comes from, how a service is deployed, and how failures are observed and recovered.</p>
       <p>I prefer defining the problem and constraints before choosing technology. I preserve decisions, rejected alternatives, failed hypotheses, and verified results in code, ADRs, work logs, and troubleshooting records.</p>
-      <div class="inline-links"><a href={withBase("en/projects/")}>Projects</a><a href={withBase("en/writing/")}>Writing</a><a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={`mailto:${site.email}`}>Email</a></div>
+      <div class="inline-links"><a href={withBase("en/projects/")}>Projects</a><a href={withBase("en/writing/")}>Writing</a><a href={settings.contact.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={`mailto:${settings.contact.email}`}>Email</a></div>
     </div>
     <section class="about-section profile-section">
       <p class="intro-label">Profile</p><h2>Education and credentials</h2>
       <dl class="profile-facts">
-        <div><dt>Education</dt><dd>{site.education}</dd></div>
+        <div><dt>Education</dt><dd>{settings.contact.education}</dd></div>
         <div><dt>Credential</dt><dd>컴퓨터활용능력 2급 (Computer Specialist in Spreadsheet &amp; Database, Level II)</dd></div>
         <div><dt>Credential</dt><dd>정보처리기능사 (Craftsman Information Processing)</dd></div>
-        <div><dt>Contact</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.solvedAc} target="_blank" rel="noreferrer">solved.ac ↗</a></dd></div>
+        <div><dt>Contact</dt><dd><a href={`mailto:${settings.contact.email}`}>{settings.contact.email}</a>{settings.contact.solvedAc && <> · <a href={settings.contact.solvedAc} target="_blank" rel="noreferrer">solved.ac ↗</a></>}</dd></div>
       </dl>
     </section>
     <section class="about-section">

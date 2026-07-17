@@ -7,8 +7,60 @@ const categories = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    nameEn: z.string(),
+    descriptionEn: z.string(),
     kind: z.enum(["competency", "activity"]),
     order: z.number().int(),
+    visible: z.boolean().default(true),
+  }),
+});
+
+const settings = defineCollection({
+  loader: glob({ base: "./src/content/settings", pattern: "*.{yaml,yml}" }),
+  schema: z.object({
+    authorNameKo: z.string(),
+    authorNameEn: z.string(),
+    siteTitleKo: z.string(),
+    siteTitleEn: z.string(),
+    siteDescriptionKo: z.string(),
+    siteDescriptionEn: z.string(),
+    brandSubtitleKo: z.string(),
+    brandSubtitleEn: z.string(),
+    footerTextKo: z.string(),
+    footerTextEn: z.string(),
+    home: z.object({
+      introLabelKo: z.string(),
+      introLabelEn: z.string(),
+      headingKo: z.string(),
+      headingEn: z.string(),
+      summaryKo: z.string(),
+      summaryEn: z.string(),
+      recentPostsLabelKo: z.string(),
+      recentPostsLabelEn: z.string(),
+      featuredProjectsLabelKo: z.string(),
+      featuredProjectsLabelEn: z.string(),
+      recentPostCount: z.number().int().min(1).max(24),
+      featuredProjectCount: z.number().int().min(1).max(12),
+    }),
+    contact: z.object({
+      email: z.email(),
+      github: z.url(),
+      solvedAc: z.url().optional(),
+      education: z.string(),
+    }),
+    appearance: z.object({
+      theme: z.enum(["paper", "warm", "night"]),
+      accent: z.enum(["blue", "green", "violet", "orange"]),
+    }),
+    navigation: z.array(z.object({
+      labelKo: z.string(),
+      labelEn: z.string(),
+      hrefKo: z.string(),
+      hrefEn: z.string(),
+      showInHeader: z.boolean(),
+      showInFooter: z.boolean(),
+      newTab: z.boolean(),
+    })),
   }),
 });
 
@@ -93,4 +145,4 @@ const incidents = defineCollection({
   }),
 });
 
-export const collections = { categories, decisions, incidents, posts, postsEn, projects, projectsEn };
+export const collections = { categories, decisions, incidents, posts, postsEn, projects, projectsEn, settings };

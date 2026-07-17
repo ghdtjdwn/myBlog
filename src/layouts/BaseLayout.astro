@@ -2,7 +2,8 @@
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
-import { site, withBase } from "../lib/site";
+import { withBase } from "../lib/site";
+import { getSiteSettings, isExternalHref, managedHref } from "../lib/settings";
 
 interface Props {
   title?: string;
@@ -14,14 +15,15 @@ interface Props {
   locale?: "ko" | "en";
 }
 
+const settings = await getSiteSettings();
+const { locale = "ko" } = Astro.props;
 const {
-  title = site.title,
-  description = site.description,
+  title = locale === "ko" ? settings.siteTitleKo : settings.siteTitleEn,
+  description = locale === "ko" ? settings.siteDescriptionKo : settings.siteDescriptionEn,
   image,
   type = "website",
   publishedAt,
   updatedAt,
-  locale = "ko",
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const isPreview = process.env.VERCEL_ENV === "preview";
@@ -43,14 +45,14 @@ const resolvedImagePath = imagePath.startsWith(import.meta.env.BASE_URL) ? image
 const imageUrl = new URL(resolvedImagePath, Astro.site);
 const person = {
   "@type": "Person",
-  name: locale === "ko" ? site.name : "Hong Seong Ju",
+  name: locale === "ko" ? settings.authorNameKo : settings.authorNameEn,
   url: new URL(withBase(locale === "ko" ? "about/" : "en/about/"), Astro.site).toString(),
-  email: `mailto:${site.email}`,
+  email: `mailto:${settings.contact.email}`,
   affiliation: {
     "@type": "EducationalOrganization",
     name: "Soongsil University",
   },
-  sameAs: [site.github, site.solvedAc],
+  sameAs: [settings.contact.github, settings.contact.solvedAc].filter(Boolean),
   hasCredential: [
     {
       "@type": "EducationalOccupationalCredential",
@@ -63,6 +65,17 @@ const person = {
       credentialCategory: "certificate",
     },
   ],
+};
+const headerNavigation = settings.navigation.filter((item) => item.showInHeader);
+const footerNavigation = settings.navigation.filter((item) => item.showInFooter);
+const themeColor = settings.appearance.theme === "night" ? "#17181b" : settings.appearance.theme === "warm" ? "#f4f0e8" : "#fafafa";
+const localizedHref = (item: (typeof settings.navigation)[number]) => locale === "ko" ? item.hrefKo : item.hrefEn;
+const localizedLabel = (item: (typeof settings.navigation)[number]) => locale === "ko" ? item.labelKo : item.labelEn;
+const isCurrentNavigation = (href: string) => {
+  if (isExternalHref(href)) return false;
+  const target = new URL(managedHref(href), Astro.site).pathname.replace(/\/$/, "");
+  const current = pathname.replace(/\/$/, "");
+  return current === target || (target !== import.meta.env.BASE_URL.replace(/\/$/, "") && current.startsWith(`${target}/`));
 };
 const isProfilePage = /^\/?(?:en\/)?about\/?$/.test(relativePath);
 const jsonLd =
@@ -94,13 +107,13 @@ const jsonLd =
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} data-theme={settings.appearance.theme} data-accent={settings.appearance.accent}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="theme-color" content={themeColor} />
     {verification.google && <meta name="google-site-verification" content={verification.google} />}
     {verification.naver && <meta name="naver-site-verification" content={verification.naver} />}
     {isPreview && <meta name="robots" content="noindex, nofollow" />}
@@ -110,7 +123,7 @@ const jsonLd =
     <link rel="alternate" hreflang="ko" href={koUrl} />
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="x-default" href={koUrl} />
-    <link rel="alternate" type="application/rss+xml" title={site.title} href={withBase("rss.xml")} />
+    <link rel="alternate" type="application/rss+xml" title={settings.siteTitleKo} href={withBase("rss.xml")} />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -126,15 +139,15 @@ const jsonLd =
     <a class="skip-link" href="#content">{locale === "ko" ? "본문으로 바로가기" : "Skip to content"}</a>
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href={withBase(locale === "ko" ? "" : "en/")} aria-label={locale === "ko" ? "홍성주 홈" : "Hong Seong Ju home"}>
-          <strong>{locale === "ko" ? "홍성주" : "Hong Seong Ju"}</strong><span>{locale === "ko" ? "개발 노트" : "Engineering Notes"}</span>
+        <a class="brand" href={withBase(locale === "ko" ? "" : "en/")} aria-label={`${locale === "ko" ? settings.authorNameKo : settings.authorNameEn} home`}>
+          <strong>{locale === "ko" ? settings.authorNameKo : settings.authorNameEn}</strong><span>{locale === "ko" ? settings.brandSubtitleKo : settings.brandSubtitleEn}</span>
         </a>
         <nav aria-label={locale === "ko" ? "주요 메뉴" : "Main navigation"}>
-          <a href={withBase(locale === "ko" ? "writing/" : "en/writing/")} aria-current={pathname.includes("/writing") ? "page" : undefined}>{locale === "ko" ? "글" : "Writing"}</a>
-          <a href={withBase(locale === "ko" ? "projects/" : "en/projects/")} aria-current={pathname.includes("/projects") ? "page" : undefined}>{locale === "ko" ? "프로젝트" : "Projects"}</a>
-          <a href={withBase(locale === "ko" ? "about/" : "en/about/")} aria-current={pathname.includes("/about") ? "page" : undefined}>{locale === "ko" ? "소개" : "About"}</a>
+          {headerNavigation.map((item) => {
+            const href = localizedHref(item);
+            return <a href={managedHref(href)} target={item.newTab ? "_blank" : undefined} rel={item.newTab ? "noreferrer" : undefined} aria-current={isCurrentNavigation(href) ? "page" : undefined} data-external={isExternalHref(href) ? "" : undefined}>{localizedLabel(item)}</a>;
+          })}
           <a class="language-link" href={languageHref} hreflang={locale === "ko" ? "en" : "ko"}>{locale === "ko" ? "EN" : "KO"}</a>
-          <a href={site.github} target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
     </header>
@@ -143,12 +156,15 @@ const jsonLd =
     </main>
     <footer class="site-footer">
       <div>
-        <p>{locale === "ko" ? "백엔드, 데이터, AI 시스템을 만들며 배운 것을 씁니다." : "Notes from building backend, data, and AI systems."}</p>
-        <p class="footer-meta">© {new Date().getFullYear()} {locale === "ko" ? "홍성주" : "Hong Seong Ju"}</p>
+        <p>{locale === "ko" ? settings.footerTextKo : settings.footerTextEn}</p>
+        <p class="footer-meta">© {new Date().getFullYear()} {locale === "ko" ? settings.authorNameKo : settings.authorNameEn}</p>
       </div>
       <div class="footer-links">
         <a href={withBase(locale === "ko" ? "rss.xml" : "en/rss.xml")}>RSS</a>
-        <a href={site.github} target="_blank" rel="noreferrer">GitHub</a>
+        {footerNavigation.map((item) => {
+          const href = localizedHref(item);
+          return <a href={managedHref(href)} target={item.newTab ? "_blank" : undefined} rel={item.newTab ? "noreferrer" : undefined}>{localizedLabel(item)}</a>;
+        })}
       </div>
     </footer>
   </body>

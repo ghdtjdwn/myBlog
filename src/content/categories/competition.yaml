@@ -1,4 +1,7 @@
 name: 공모전·대회
 description: 해커톤과 공모전의 제한된 시간과 조건 안에서 판단하고 만든 기록입니다.
+nameEn: Competitions
+descriptionEn: Projects and lessons from hackathons, contests, and public challenges.
 kind: activity
 order: 21
+visible: true

@@ -2,6 +2,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const contentRoot = path.resolve("src/content");
+const settingsSource = await readFile(path.join(contentRoot, "settings", "site.yaml"), "utf8");
 
 async function ids(collection, extensionPattern = /\.(?:md|mdx)$/) {
   return new Set((await readdir(path.join(contentRoot, collection)))
@@ -40,6 +41,14 @@ const projectIdsEn = await ids("projects-en");
 const projectStates = await publicationStates("projects");
 const projectStatesEn = await publicationStates("projects-en");
 const failures = [];
+
+for (const match of settingsSource.matchAll(/^\s+(hrefKo|hrefEn):\s*(.*?)\s*$/gm)) {
+  const [, field, rawHref] = match;
+  const href = rawHref.replace(/^(?:"([\s\S]*)"|'([\s\S]*)')$/, (_, doubleQuoted, singleQuoted) => doubleQuoted ?? singleQuoted);
+  const allowedExternal = /^(?:https?:\/\/|mailto:)/i.test(href);
+  const allowedInternal = !href.startsWith("//") && /^\/?[A-Za-z0-9._~!$&()*+,;=:@%/#?-]*$/.test(href);
+  if (!allowedExternal && !allowedInternal) failures.push(`settings/site.yaml: unsafe or unsupported ${field} '${href}'`);
+}
 
 for (const id of projectIds) {
   if (!projectIdsEn.has(id)) failures.push(`projects-en: missing translation for '${id}'`);
