@@ -30,10 +30,21 @@ const posts = (await getCollection("postsEn", ({ data }) => (showDrafts || !data
       {project.data.contributionEvidence.length > 0 && <div><dt>Contribution evidence</dt><dd><ul>{project.data.contributionEvidence.map((evidence) => <li>{evidence}</li>)}</ul></dd></div>}
     </dl></div></section>
     <ProjectGallery
+      screenshots={project.data.architecture}
+      id="project-architecture"
+      eyebrow="System architecture"
+      title="Service architecture"
+      intro="These repository-source diagrams show the service boundaries and operating flows. Select an image to open it at full size."
+      layout="wide"
+      openLabel="Open full-size image"
+    />
+    <ProjectGallery
       screenshots={project.data.screenshots}
+      id="project-screens"
       eyebrow="Product screens"
       title="Key operating screens"
-      intro="These are the primary screens where users review campus data and personal status."
+      intro="These screens show the service's primary features and operating state. Select an image to open it at full size."
+      openLabel="Open full-size image"
     />
     <div class="article-layout shell"><aside class="article-aside"><p>STACK & FOCUS</p><div class="tag-row">{[...project.data.tags, ...project.data.infra].map((tag) => <span>{tag}</span>)}</div></aside><div class="prose"><Content /></div></div>
   </article>

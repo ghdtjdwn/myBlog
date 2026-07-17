@@ -10,6 +10,10 @@ teamScope: "Solo project"
 contributionEvidence: ["168 commits", "117 PRs", "Public Terraform and performance evidence"]
 image: "../../assets/projects/geuneul-prototype.png"
 imageAlt: "Desktop view of Geuneul showing the place list and map side by side"
+architecture:
+  - image: "../../assets/projects/geuneul-architecture.png"
+    alt: "Geuneul architecture showing the Vercel BFF, CloudFront, ALB, ECS Fargate, RDS PostGIS, Redis, S3, and EventBridge deployment"
+    caption: "Geuneul — the diagram connects the same-origin Vercel BFF to CloudFront, ALB, and ECS Fargate, alongside RDS PostGIS, ElastiCache, S3, EventBridge, and OIDC delivery boundaries."
 tags: ["Spring Boot", "PostGIS", "Next.js", "PWA"]
 infra: ["AWS ECS", "RDS", "ElastiCache", "CloudFront", "Terraform"]
 metrics:
@@ -23,6 +27,7 @@ repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/geuneul" }
 recordPlan: "The public repository's README, architecture, DEPLOY, ADRs, and work log are the sources of truth for the completed result. The blog links selected performance, data, and operations cases centered on the problem and its validation."
 recordLinks:
+  - { label: "Runtime, data, and deployment architecture", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/architecture.md" }
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
   - { label: "PostGIS load and plan-tuning ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0012-k6-load-explain-index-tuning.md" }
   - { label: "Captured PostGIS EXPLAIN results", url: "https://github.com/ghdtjdwn/geuneul/blob/main/perf/explain/RESULTS.md" }

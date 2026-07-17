@@ -62,10 +62,21 @@ const posts = (await getCollection("posts", ({ data }) => (showDrafts || !data.d
       </div>
     </section>
     <ProjectGallery
+      screenshots={project.data.architecture}
+      id="project-architecture"
+      eyebrow="System architecture"
+      title="서비스 아키텍처"
+      intro="서비스 경계와 운영 흐름을 저장소별 정본 다이어그램으로 정리했습니다. 이미지를 누르면 원본 크기로 볼 수 있습니다."
+      layout="wide"
+      openLabel="원본 크기로 보기"
+    />
+    <ProjectGallery
       screenshots={project.data.screenshots}
+      id="project-screens"
       eyebrow="Product screens"
       title="주요 운영 화면"
-      intro="사용자가 학교 데이터와 개인 상태를 확인하는 주요 화면입니다."
+      intro="사용자가 서비스의 주요 기능과 상태를 확인하는 화면입니다. 이미지를 누르면 원본 크기로 볼 수 있습니다."
+      openLabel="원본 크기로 보기"
     />
     <div class="article-layout shell">
       <aside class="article-aside">

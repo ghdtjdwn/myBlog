@@ -12,6 +12,16 @@ contributionEvidence:
   - "Repository-level ADRs, work logs, troubleshooting records, and deployment verification"
 image: "../../assets/projects/ssuai-live-home.png"
 imageAlt: "The ssuAI home dashboard combining personal schedules, assignments, library seats, dining, and notices"
+architecture:
+  - image: "../../assets/projects/ssuai-architecture.png"
+    alt: "ssuAI frontend architecture showing request paths across the browser, Vercel server boundary, ssuMCP, and ssuAgent"
+    caption: "ssuAI — public reads go directly to the backend without credentials, while authenticated APIs and agent streams cross the same-origin Vercel server boundary."
+  - image: "../../assets/projects/ssuagent-architecture.png"
+    alt: "ssuAgent architecture showing the trusted proxy, LangGraph supervisor and domain agents, HITL, checkpoints, and MCP calls"
+    caption: "ssuAgent — verified principals and thread ownership connect to LangGraph domain routing, PostgreSQL checkpoints, MCP tool calls, and HITL approval for write operations."
+  - image: "../../assets/projects/ssumcp-architecture.png"
+    alt: "ssuMCP architecture showing REST and MCP adapters, the shared service layer, data stores, university connectors, and GitOps operations"
+    caption: "ssuMCP — REST and MCP share one business layer; PostgreSQL remains the durable source of truth while Redis, Kafka, connectors, observability, and k3s have explicit operating boundaries."
 screenshots:
   - image: "../../assets/projects/ssuai-live-academics.png"
     alt: "The ssuAI academics screen showing graduation requirements, cumulative grades, chapel, scholarships, and LMS assignments"
@@ -46,6 +56,9 @@ repositories:
   - { label: "ssu-ai-service", url: "https://github.com/ghdtjdwn/ssu-ai-service" }
 recordPlan: "Each repository retains its ADRs and original incident records. I rewrite only the cases that require understanding boundaries across multiple services as blog posts. Because the platform is still operating, new incidents and decisions continue to be added."
 recordLinks:
+  - { label: "ssuAI frontend architecture", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/architecture.md" }
+  - { label: "ssuAgent orchestration architecture", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/architecture.md" }
+  - { label: "ssuMCP service and production architecture", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/architecture.md" }
   - { label: "Authoritative MCP session boundary ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0098-authoritative-mcp-session-resolution.md" }
   - { label: "Server-verified principal proxy ADR", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/adr/0086-server-side-principal.md" }
   - { label: "Stable-principal thread ownership ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0011-thread-stable-principal-binding.md" }

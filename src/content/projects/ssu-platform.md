@@ -12,6 +12,16 @@ contributionEvidence:
   - "저장소별 ADR·작업 로그·트러블슈팅과 배포 검증 기록"
 image: "../../assets/projects/ssuai-live-home.png"
 imageAlt: "개인 일정, 과제, 도서관 좌석, 학식과 공지를 한 화면에 모은 ssuAI 홈 대시보드"
+architecture:
+  - image: "../../assets/projects/ssuai-architecture.png"
+    alt: "ssuAI 브라우저, Vercel 서버 경계, ssuMCP와 ssuAgent 요청 경로를 보여주는 프런트엔드 아키텍처"
+    caption: "ssuAI — 공개 조회는 자격증명 없이 백엔드로 직접 보내고, 인증 API와 에이전트 스트림은 Vercel의 same-origin 서버 경계를 통과시킵니다."
+  - image: "../../assets/projects/ssuagent-architecture.png"
+    alt: "ssuAgent의 신뢰된 프록시, LangGraph supervisor와 도메인 에이전트, HITL, 체크포인터와 MCP 호출 흐름을 보여주는 아키텍처"
+    caption: "ssuAgent — 검증된 principal과 thread 소유권, LangGraph 도메인 라우팅, PostgreSQL checkpoint, MCP 도구 호출과 쓰기 작업의 HITL 승인을 연결합니다."
+  - image: "../../assets/projects/ssumcp-architecture.png"
+    alt: "ssuMCP의 REST와 MCP 어댑터, 공통 서비스 계층, 데이터 저장소, 학교 시스템 연동과 GitOps 운영 구성을 보여주는 아키텍처"
+    caption: "ssuMCP — REST와 MCP가 같은 비즈니스 계층을 사용하고, PostgreSQL을 영속 정본으로 두면서 Redis·Kafka·커넥터·관측성과 k3s 운영 경계를 분리합니다."
 screenshots:
   - image: "../../assets/projects/ssuai-live-academics.png"
     alt: "졸업요건, 누적 성적, 채플, 장학금과 LMS 과제를 보여주는 ssuAI 학사 화면"
@@ -46,6 +56,9 @@ repositories:
   - { label: "ssu-ai-service", url: "https://github.com/ghdtjdwn/ssu-ai-service" }
 recordPlan: "각 저장소에는 ADR과 장애 원문을 남기고, 여러 서비스의 경계를 이해해야 하는 사례만 블로그 글로 다시 구성합니다. 운영 중인 프로젝트이므로 새로운 장애와 결정은 계속 추가됩니다."
 recordLinks:
+  - { label: "ssuAI 프런트엔드 아키텍처", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/architecture.md" }
+  - { label: "ssuAgent 오케스트레이션 아키텍처", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/architecture.md" }
+  - { label: "ssuMCP 서비스·운영 아키텍처", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/architecture.md" }
   - { label: "명시 MCP 세션 인증 경계 ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0098-authoritative-mcp-session-resolution.md" }
   - { label: "서버 검증 principal 프록시 ADR", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/adr/0086-server-side-principal.md" }
   - { label: "안정 principal thread 소유권 ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0011-thread-stable-principal-binding.md" }

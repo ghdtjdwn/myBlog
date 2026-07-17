@@ -183,8 +183,12 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .case-gallery-heading h2 { margin: 0; font-size: 29px; letter-spacing: -.03em; }
 .case-gallery-heading > p:last-child { margin: 14px 0 0; color: var(--muted); font-size: 14px; }
 .case-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 30px; align-items: start; }
+.case-gallery-grid--wide { grid-template-columns: 1fr; gap: 36px; }
 .case-gallery-card { min-width: 0; margin: 0; }
+.case-gallery-image-link { display: block; border-radius: 8px; outline-offset: 4px; }
 .case-gallery-card img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.case-gallery-image-link:hover img { border-color: var(--text); }
+.case-gallery-image-link:focus-visible { outline: 2px solid var(--accent); }
 .case-gallery-card figcaption { margin-top: 10px; color: var(--muted); font-size: 12px; line-height: 1.65; }
 
 .article-hero { padding-block: 72px 52px; border-bottom: 1px solid var(--line); }

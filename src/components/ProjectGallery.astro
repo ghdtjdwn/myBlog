@@ -9,32 +9,48 @@ interface Screenshot {
 
 interface Props {
   screenshots: Screenshot[];
+  id: string;
   eyebrow: string;
   title: string;
   intro: string;
+  layout?: "grid" | "wide";
+  openLabel: string;
 }
 
-const { screenshots, eyebrow, title, intro } = Astro.props;
+const { screenshots, id, eyebrow, title, intro, layout = "grid", openLabel } = Astro.props;
+const headingId = `${id}-title`;
+const widths = layout === "wide" ? [640, 960, 1280] : [480, 720, 960];
+const sizes = layout === "wide"
+  ? "(max-width: 760px) calc(100vw - 32px), 960px"
+  : "(max-width: 760px) calc(100vw - 32px), 430px";
 ---
 
 {screenshots.length > 0 && (
-  <section class="case-gallery-section" aria-labelledby="project-gallery-title">
+  <section class:list={["case-gallery-section", { "case-gallery-section--wide": layout === "wide" }]} aria-labelledby={headingId}>
     <div class="shell reading-shell">
       <header class="case-gallery-heading">
         <p class="intro-label">{eyebrow}</p>
-        <h2 id="project-gallery-title">{title}</h2>
+        <h2 id={headingId}>{title}</h2>
         <p>{intro}</p>
       </header>
-      <div class="case-gallery-grid">
+      <div class:list={["case-gallery-grid", { "case-gallery-grid--wide": layout === "wide" }]}>
         {screenshots.map((screenshot) => (
           <figure class="case-gallery-card">
-            <Image
-              src={screenshot.image}
-              alt={screenshot.alt}
-              widths={[480, 720, 960]}
-              sizes="(max-width: 760px) calc(100vw - 32px), 430px"
-              loading="lazy"
-            />
+            <a
+              class="case-gallery-image-link"
+              href={screenshot.image.src}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${openLabel}: ${screenshot.alt}`}
+            >
+              <Image
+                src={screenshot.image}
+                alt={screenshot.alt}
+                widths={widths}
+                sizes={sizes}
+                loading="lazy"
+              />
+            </a>
             <figcaption>{screenshot.caption}</figcaption>
           </figure>
         ))}

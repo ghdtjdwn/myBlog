@@ -78,6 +78,11 @@ const projectCollection = (base: string) => defineCollection({
     contributionEvidence: z.array(z.string()).default([]),
     image: image().optional(),
     imageAlt: z.string().optional(),
+    architecture: z.array(z.object({
+      image: image(),
+      alt: z.string(),
+      caption: z.string(),
+    })).default([]),
     screenshots: z.array(z.object({
       image: image(),
       alt: z.string(),

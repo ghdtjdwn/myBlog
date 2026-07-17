@@ -10,6 +10,10 @@ teamScope: "개인 프로젝트"
 contributionEvidence: ["168 commits", "117 PRs", "Terraform과 성능 자료 공개"]
 image: "../../assets/projects/geuneul-prototype.png"
 imageAlt: "그늘 장소 목록과 지도를 함께 보여주는 데스크톱 화면"
+architecture:
+  - image: "../../assets/projects/geuneul-architecture.png"
+    alt: "그늘의 Vercel BFF, CloudFront, ALB, ECS Fargate, RDS PostGIS, Redis, S3와 EventBridge 배포 구성을 보여주는 아키텍처"
+    caption: "그늘 — Vercel same-origin BFF에서 CloudFront·ALB·ECS Fargate로 이어지는 요청 경로와 RDS PostGIS·ElastiCache·S3·EventBridge, OIDC 배포 경계를 한 장에 정리했습니다."
 tags: ["Spring Boot", "PostGIS", "Next.js", "PWA"]
 infra: ["AWS ECS", "RDS", "ElastiCache", "CloudFront", "Terraform"]
 metrics:
@@ -23,6 +27,7 @@ repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/geuneul" }
 recordPlan: "공개 저장소의 README, architecture, DEPLOY, ADR와 worklog를 완료 산출물의 원본으로 사용합니다. 블로그에는 성능·데이터·운영 사례를 문제와 검증 중심으로 선별해 연결합니다."
 recordLinks:
+  - { label: "런타임·데이터·배포 아키텍처", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/architecture.md" }
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
   - { label: "PostGIS 부하·실행계획 튜닝 ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0012-k6-load-explain-index-tuning.md" }
   - { label: "PostGIS EXPLAIN 결과", url: "https://github.com/ghdtjdwn/geuneul/blob/main/perf/explain/RESULTS.md" }

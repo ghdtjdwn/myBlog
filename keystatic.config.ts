@@ -194,6 +194,11 @@ export default config({
         contributionEvidence: textList("기여 근거"),
         image: fields.image({ label: "대표 이미지", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
         imageAlt: fields.text({ label: "이미지 대체 텍스트" }),
+        architecture: fields.array(fields.object({
+          image: fields.image({ label: "아키텍처 이미지", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
+          alt: fields.text({ label: "대체 텍스트", validation: { isRequired: true } }),
+          caption: fields.text({ label: "설명", multiline: true, validation: { isRequired: true } }),
+        }), { label: "서비스 아키텍처", itemLabel: (props) => props.fields.caption.value || "새 아키텍처" }),
         screenshots: fields.array(fields.object({
           image: fields.image({ label: "화면 이미지", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
           alt: fields.text({ label: "대체 텍스트", validation: { isRequired: true } }),
@@ -240,6 +245,11 @@ export default config({
         contributionEvidence: textList("Contribution evidence"),
         image: fields.image({ label: "Cover image", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
         imageAlt: fields.text({ label: "Image alt text" }),
+        architecture: fields.array(fields.object({
+          image: fields.image({ label: "Architecture image", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
+          alt: fields.text({ label: "Alt text", validation: { isRequired: true } }),
+          caption: fields.text({ label: "Caption", multiline: true, validation: { isRequired: true } }),
+        }), { label: "Service architecture", itemLabel: (props) => props.fields.caption.value || "New architecture" }),
         screenshots: fields.array(fields.object({
           image: fields.image({ label: "Screen image", directory: "src/assets/projects", publicPath: "../../assets/projects/" }),
           alt: fields.text({ label: "Alt text", validation: { isRequired: true } }),
