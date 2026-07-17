@@ -31,6 +31,12 @@ screenshots:
   - image: "../../assets/projects/ssumcp-chatgpt-library-reservation.png"
     alt: "ChatGPT가 ssuMCP 도구로 도서관 빈 좌석을 확인하고 모서리 좌석을 예약한 결과 화면"
     caption: "ChatGPT + ssuMCP — 좌석 가용성과 후보를 확인하고 클라이언트 확인을 거쳐 예약 결과를 반환한 write 도구 연동 화면입니다."
+  - image: "../../assets/projects/ssumcp-chatgpt-lms-export-ready.png"
+    alt: "ChatGPT가 ssuMCP로 전체 수강 과목의 비영상 강의자료 ZIP을 준비하고 다운로드 링크를 반환한 화면"
+    caption: "ChatGPT + ssuMCP — LMS의 전체 수강 과목에서 지원되는 비영상 자료를 수집해 비동기 ZIP 내보내기와 제한된 다운로드 링크로 전달한 실제 세션입니다."
+  - image: "../../assets/projects/ssumcp-chatgpt-lms-download.png"
+    alt: "ssuMCP가 준비한 LMS 강의자료 ZIP을 브라우저에서 다운로드하는 화면"
+    caption: "LMS 자료 다운로드 — 준비가 끝난 ZIP을 브라우저에서 내려받는 최종 전달 화면이며 다운로드 토큰은 한 번만 사용할 수 있습니다."
 tags: ["MCP", "LangGraph", "Spring Boot", "Next.js"]
 infra: ["k3s", "ArgoCD", "Kafka", "PostgreSQL", "Observability"]
 metrics:

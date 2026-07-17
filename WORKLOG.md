@@ -7,9 +7,27 @@
 - 카테고리: 한·영 이름·설명, 메뉴 노출 여부를 콘텐츠 모델과 CMS에 추가했다. 종류 변경으로 직무 역량/활동 유형 그룹을 이동하고 숫자 순서로 그룹 안 위치를 바꾼다. 영문 화면의 하드코딩 카테고리 사전을 제거했다.
 - 안전: 기존 draft-first, 카테고리·프로젝트 관계 검증을 유지하고 메뉴 링크를 내부 경로·HTTP(S)·메일 링크로 제한했다. 임의 레이아웃 코드와 스크립트 편집은 CMS 범위에서 제외했다.
 - 검증: `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일의 오류·경고·힌트 0건, 69개 생성 문서의 언어·canonical·hreflang·관리형 테마 속성과 draft 격리를 확인했다. `/admin`은 로컬에서 `/keystatic` 307과 `noindex`, `/keystatic`은 HTTP 200을 반환했다. `BASE_PATH=/myBlog npm run build`도 통과했고 관리 메뉴 내부 경로 세 개에 하위 경로가 적용되며 외부 GitHub URL은 바뀌지 않음을 확인했다. 테마·메뉴 속성 추가로 기존 언어 검사 문자열 가정이 한 차례 실패해 속성 순서와 무관한 검사로 교정했다. 인앱 브라우저가 없어 데스크톱·모바일 픽셀 검수는 수행하지 못했다.
-- 운영 준비: 사용자가 생성한 GitHub App의 로컬 환경 변수 4개가 ignored `.env`에 존재하는지 값 노출 없이 확인했다. 서버 재시작 후 GitHub mode 로그인 경로가 `/keystatic/setup`이 아니라 GitHub OAuth로 HTTP 307 이동하고 관리자 UI가 200임을 확인했다. Vercel Preview·Production 변수 등록, 공개 로그인, 실제 저장 commit 검증은 아직 남아 있다.
+- 운영 준비: 사용자가 생성한 GitHub App의 로컬 환경 변수 4개가 ignored `.env`에 존재하는지 값 노출 없이 확인했다. 서버 재시작 후 GitHub mode 로그인 경로가 `/keystatic/setup`이 아니라 GitHub OAuth로 HTTP 307 이동하고 관리자 UI가 200임을 확인했다. 같은 변수 4개와 Google 소유권 확인 변수는 값을 노출하지 않고 Vercel Preview·Production에 등록했다. 공개 로그인과 실제 저장 commit 검증은 배포 후 확인 대상으로 남겼다.
 - 이미지 확인: 블로그의 ssuAI 화면 5개와 PR #11의 ssuMCP LMS 화면 2개는 각 원본 저장소 `main`의 최신 공개 가림본과 Git blob SHA·크기가 일치했다. 추가 교체 없이 개인정보 위험이 있던 기존 화면 2개를 제거하는 PR 구성을 유지한다.
-- 전달: 로컬 구현 단계다. Production CMS는 기존과 같이 GitHub App 최초 설정 전까지 로그인할 수 없으며, 계정 설정·commit·push·배포는 수행하지 않았다.
+- 전달: commit `466129e`를 draft PR #12에 올렸고 GitHub Actions validate·secret-scan과 Vercel Preview가 성공했다. GitHub App 설정과 안전한 갤러리 정리 작업을 합친 후 최종 Preview·Production 및 기본 alias를 검증한다.
+
+## 2026-07-17 — ChatGPT에서 ssuMCP LMS 강의자료 일괄 내보내기 화면 추가
+
+- 목표: ChatGPT에 연결한 ssuMCP가 전체 수강 과목의 지원 강의자료를 수집하고 비동기 ZIP으로
+  준비해 브라우저 다운로드로 전달한 실제 화면을 프로젝트 저장소와 기술 블로그에서 확인할 수 있게 한다.
+- ssuMCP 문서: 한·영 README의 실제 연동 섹션에 ZIP 준비 결과와 브라우저 다운로드 화면을
+  추가하고, 영상·오디오 제외 경계와 비동기 생성·전체 과목 수집·1회성 다운로드 토큰 ADR을 연결했다.
+- 블로그: 한·영 ssu 플랫폼 프로젝트 갤러리의 ChatGPT + ssuMCP 흐름에 LMS 내보내기 화면 2장과
+  대체 텍스트·설명을 추가했다.
+- 공개 범위: 사용자가 공개를 요청한 원본 화면을 그대로 사용하되, 과목 수·파일 수·용량·식별자와
+  만료 시각을 주변 설명에 반복하지 않는다. 모든 LMS 콘텐츠가 아니라 도구 계약상 지원되는 비영상
+  자료를 대상으로 한 한 번의 성공 세션으로 설명한다.
+- 검증: ssuMCP의 전체 테스트와 JaCoCo report·line coverage verification이 통과했다. 블로그
+  `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 31개 파일 진단 0건, 69개
+  생성 문서와 draft 격리가 통과했다. 로컬 한·영 ssu 플랫폼 상세는 각각 200이며 대표 이미지와
+  갤러리 이미지 11개, 47개 반응형 이미지 응답을 확인했다.
+- 검수 제한: 인앱 브라우저가 제공되지 않아 실제 데스크톱·모바일 viewport 캡처 검수는 수행하지
+  못했다. 생성 HTML, 반응형 이미지 생성 결과와 로컬 HTTP 응답을 확인했다.
 
 ## 2026-07-16 — ChatGPT에서 ssuMCP 도구 연동 화면 추가
 
