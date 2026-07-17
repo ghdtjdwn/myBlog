@@ -9,7 +9,7 @@
 - 검증: `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일의 오류·경고·힌트 0건, 69개 생성 문서의 언어·canonical·hreflang·관리형 테마 속성과 draft 격리를 확인했다. `/admin`은 로컬에서 `/keystatic` 307과 `noindex`, `/keystatic`은 HTTP 200을 반환했다. `BASE_PATH=/myBlog npm run build`도 통과했고 관리 메뉴 내부 경로 세 개에 하위 경로가 적용되며 외부 GitHub URL은 바뀌지 않음을 확인했다. 테마·메뉴 속성 추가로 기존 언어 검사 문자열 가정이 한 차례 실패해 속성 순서와 무관한 검사로 교정했다. 인앱 브라우저가 없어 데스크톱·모바일 픽셀 검수는 수행하지 못했다.
 - 운영 준비: 사용자가 생성한 GitHub App의 로컬 환경 변수 4개가 ignored `.env`에 존재하는지 값 노출 없이 확인했다. 서버 재시작 후 GitHub mode 로그인 경로가 `/keystatic/setup`이 아니라 GitHub OAuth로 HTTP 307 이동하고 관리자 UI가 200임을 확인했다. 같은 변수 4개와 Google 소유권 확인 변수는 값을 노출하지 않고 Vercel Preview·Production에 등록했다. 공개 로그인과 실제 저장 commit 검증은 배포 후 확인 대상으로 남겼다.
 - 이미지 확인: 블로그의 ssuAI 화면 5개와 PR #11의 ssuMCP LMS 화면 2개는 각 원본 저장소 `main`의 최신 공개 가림본과 Git blob SHA·크기가 일치했다. 추가 교체 없이 개인정보 위험이 있던 기존 화면 2개를 제거하는 PR 구성을 유지한다.
-- 전달: commit `466129e`를 draft PR #12에 올렸고 GitHub Actions validate·secret-scan과 Vercel Preview가 성공했다. GitHub App 설정과 안전한 갤러리 정리 작업을 합친 후 최종 Preview·Production 및 기본 alias를 검증한다.
+- 전달: 안전한 갤러리 정리 작업을 개인정보 포함 commit의 ancestry 없이 PR #12에 합쳤고 PR #11은 대체 종료했다. 최종 GitHub Actions validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 한·영 홈·글·ssu 플랫폼 상세와 관리자 UI는 모두 200이고, Google 확인 meta가 존재하며 GitHub 로그인 경로가 OAuth로 307 이동함을 확인했다. Production과 기본 alias 검증은 병합 후 수행한다.
 
 ## 2026-07-17 — 개인정보가 포함된 챗봇 화면 공개 차단
 
@@ -22,7 +22,7 @@
   조회와 HITL 예약 성공 사실은 개인값을 재노출하지 않는 텍스트 설명과 저장소의 ADR·테스트
   기록으로만 남긴다.
 - 전달 경계: 노출 커밋의 ancestry는 기본 브랜치에 병합하지 않는다. branch head와 Preview의 현재
-  노출을 먼저 차단한 뒤 PR을 닫고, 안전한 LMS 화면 변경만 최신 `main`에서 새 PR로 다시 만든다.
+  노출을 먼저 차단한 뒤 PR #11을 닫고, 안전한 LMS 화면 변경만 PR #12의 최신 `main` 기반 commit으로 옮겼다.
   이미 공개된 커밋 객체의 완전 삭제는 별도 승인된 이력 정리와 호스팅 사업자 조율 없이는 보장하지
   않는다.
 
@@ -38,9 +38,9 @@
   만료 시각을 주변 설명에 반복하지 않는다. 모든 LMS 콘텐츠가 아니라 도구 계약상 지원되는 비영상
   자료를 대상으로 한 한 번의 성공 세션으로 설명한다.
 - 검증: ssuMCP의 전체 테스트와 JaCoCo report·line coverage verification이 통과했다. 블로그
-  `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 31개 파일 진단 0건, 69개
-  생성 문서와 draft 격리가 통과했다. 로컬 한·영 ssu 플랫폼 상세는 각각 200이며 대표 이미지와
-  갤러리 이미지 11개, 47개 반응형 이미지 응답을 확인했다.
+  `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 69개
+  생성 문서와 draft 격리가 통과했다. Ready Preview의 한·영 ssu 플랫폼 상세는 각각 200이며
+  대표 이미지와 갤러리 이미지 6개를 확인했다. LMS 가림본 2개는 존재하고 제거 대상 5개는 렌더되지 않는다.
 - 검수 제한: 인앱 브라우저가 제공되지 않아 실제 데스크톱·모바일 viewport 캡처 검수는 수행하지
   못했다. 생성 HTML, 반응형 이미지 생성 결과와 로컬 HTTP 응답을 확인했다.
 
