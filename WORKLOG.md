@@ -10,6 +10,8 @@
 - 운영 준비: 사용자가 생성한 GitHub App의 로컬 환경 변수 4개가 ignored `.env`에 존재하는지 값 노출 없이 확인했다. 서버 재시작 후 GitHub mode 로그인 경로가 `/keystatic/setup`이 아니라 GitHub OAuth로 HTTP 307 이동하고 관리자 UI가 200임을 확인했다. 같은 변수 4개와 Google 소유권 확인 변수는 값을 노출하지 않고 Vercel Preview·Production에 등록했다. 공개 로그인과 실제 저장 commit 검증은 배포 후 확인 대상으로 남겼다.
 - 이미지 확인: 블로그의 ssuAI 화면 5개와 PR #11의 ssuMCP LMS 화면 2개는 각 원본 저장소 `main`의 최신 공개 가림본과 Git blob SHA·크기가 일치했다. 추가 교체 없이 개인정보 위험이 있던 기존 화면 2개를 제거하는 PR 구성을 유지한다.
 - 전달: 안전한 갤러리 정리 작업을 개인정보 포함 commit의 ancestry 없이 PR #12에 합쳤고 PR #11은 대체 종료했다. 최종 GitHub Actions validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 한·영 홈·글·ssu 플랫폼 상세와 관리자 UI는 모두 200이고, Google 확인 meta가 존재하며 GitHub 로그인 경로가 OAuth로 307 이동함을 확인했다. Production과 기본 alias 검증은 병합 후 수행한다.
+- Production 전달: PR #12를 squash commit `919cd3a`로 병합했고 main CI run `29570605660`의 validate·secret-scan과 Vercel deployment `dpl_FocvHfoyt3fUNcF3FSaPRWPWiwuZ`가 성공했다. 배포가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_3QLc7xYEH4PBgwqf6heVB7BGpbG8`에서 새 배포로 전환했다. 공개 한·영 홈·글·ssu 플랫폼 상세, 관리자 UI, robots·sitemap·RSS, canonical·보안 header, Google 확인 meta, GitHub OAuth 이동과 안전한 갤러리를 확인했다. 실패 시 복구할 이전 고유 배포 주소는 보존했다.
+- 남은 외부 확인: Google Search Console의 Verify 클릭과 sitemap 제출은 로그인된 브라우저 세션이 필요하다. 네이버는 `NAVER_SITE_VERIFICATION` 값을 발급·등록한 뒤 같은 공개 meta와 sitemap을 확인해야 한다. CMS 로그인 경로는 정상이나 실제 GitHub 로그인과 저장 commit은 계정 상호작용이 필요하다.
 
 ## 2026-07-17 — 개인정보가 포함된 챗봇 화면 공개 차단
 
