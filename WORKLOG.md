@@ -11,7 +11,8 @@
 - 이미지 확인: 블로그의 ssuAI 화면 5개와 PR #11의 ssuMCP LMS 화면 2개는 각 원본 저장소 `main`의 최신 공개 가림본과 Git blob SHA·크기가 일치했다. 추가 교체 없이 개인정보 위험이 있던 기존 화면 2개를 제거하는 PR 구성을 유지한다.
 - 전달: 안전한 갤러리 정리 작업을 개인정보 포함 commit의 ancestry 없이 PR #12에 합쳤고 PR #11은 대체 종료했다. 최종 GitHub Actions validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 한·영 홈·글·ssu 플랫폼 상세와 관리자 UI는 모두 200이고, Google 확인 meta가 존재하며 GitHub 로그인 경로가 OAuth로 307 이동함을 확인했다. Production과 기본 alias 검증은 병합 후 수행한다.
 - Production 전달: PR #12를 squash commit `919cd3a`로 병합했고 main CI run `29570605660`의 validate·secret-scan과 Vercel deployment `dpl_FocvHfoyt3fUNcF3FSaPRWPWiwuZ`가 성공했다. 배포가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_3QLc7xYEH4PBgwqf6heVB7BGpbG8`에서 새 배포로 전환했다. 공개 한·영 홈·글·ssu 플랫폼 상세, 관리자 UI, robots·sitemap·RSS, canonical·보안 header, Google 확인 meta, GitHub OAuth 이동과 안전한 갤러리를 확인했다. 실패 시 복구할 이전 고유 배포 주소는 보존했다.
-- 남은 외부 확인: Google Search Console의 Verify 클릭과 sitemap 제출은 로그인된 브라우저 세션이 필요하다. 네이버는 `NAVER_SITE_VERIFICATION` 값을 발급·등록한 뒤 같은 공개 meta와 sitemap을 확인해야 한다. CMS 로그인 경로는 정상이나 실제 GitHub 로그인과 저장 commit은 계정 상호작용이 필요하다.
+- 검색 등록: Google Search Console은 HTML tag로 소유확인을 완료하고 `sitemap-index.xml`을 제출했다. 제출 직후 sitemap 상태는 `Couldn't fetch`이지만 공개 index·하위 sitemap은 Googlebot 요청에 application/xml·HTTP 200이고 robots 차단이 없으며, 홈페이지 Live Test는 `URL is available to Google`과 색인 가능을 확인했다. 네이버는 인증값을 노출하지 않고 `NAVER_SITE_VERIFICATION` Preview·Production 변수로 등록해 deployment `dpl_A2XMVKkFPGNbDumiU8hVzkNEsZ8J`를 project `seongju`, Production, Ready로 확인한 뒤 기본 alias를 전환했다. 공개 네이버 meta와 Yeti 요청의 홈·sitemap·RSS·robots HTTP 200을 확인했고 사용자가 소유확인과 sitemap·RSS 제출을 완료했다.
+- 남은 외부 확인: Google sitemap 처리 상태와 네이버 수집·색인 리포트는 검색로봇 재방문 후 확인한다. CMS 로그인 경로는 정상이나 실제 GitHub 로그인과 저장 commit은 계정 상호작용이 필요하다.
 
 ## 2026-07-17 — 개인정보가 포함된 챗봇 화면 공개 차단
 
