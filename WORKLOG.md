@@ -29,6 +29,7 @@
 - 검증: 초안 포함 빌드에서 새 한·영 글 40개와 프로젝트 2개가 모두 HTTP 200·올바른 문서 언어·제목·placeholder 없음으로 렌더링됐다. 대표 14페이지의 description·canonical·hreflang과 50개 내부 링크를 검사했다. 인앱 브라우저가 제공되지 않아 실제 viewport 시각 검수는 수행하지 못했다.
 - 전체 게이트: 공개 상태 전환 후 `npm test`가 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건, 111개 생성 문서와 기존 draft 격리를 검증했다. 첫 실행에서 설명용 `sizeBytes=null`이 unresolved-value 방어 규칙에 걸린 문제는 자연어 표현으로 교정한 뒤 재실행해 통과했다. Vite의 기존 500 kB 초과 chunk 경고는 남아 있으나 이번 콘텐츠 변경에서 새 client bundle을 추가하지 않았다.
 - 전달: 최신 `origin/main`의 개인정보 모자이크·아키텍처 다이어그램 변경을 보존해 commit `a0e5c6f`을 draft PR #17로 push했다. GitHub Actions run `29577153752`의 validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 SSU·Geuneul·DDSC 한·영 글과 DDSC 프로젝트 8개 경로는 HTTP 200, 새 제목·placeholder 없음과 Preview `noindex`·robots 전체 차단을 확인했다. Production merge·배포·기본 alias 전환은 명시적 확인 전까지 수행하지 않는다.
+- Production 전달: 사용자 승인 뒤 PR #17을 squash commit `ea5707d`로 병합했고 main CI run `29583084767`의 validate·secret-scan이 성공했다. 병합 SHA와 일치하는 Vercel deployment `dpl_HisroZdNpnaEYT8PwgL6aVasyvcX`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_Eoca7zZvJWPVPzwnupcjx4bsSa6A`에서 새 배포로 전환했다. 공개 한·영 홈·글 목록과 새 글 40개·DDSC 프로젝트 2개를 포함한 46개 경로, canonical·hreflang·보안 header·robots·sitemap·RSS를 검사했고 draft incident 경로는 404였다. 인앱 브라우저 세션이 없어 viewport 시각 검수는 수행하지 못했으며, 실패 시 복구할 이전 고유 배포 주소와 ID는 로컬 운영 기록에 보존했다.
 ## 2026-07-17 — 코드 없는 블로그 관리 범위 확장
 
 - 목표: 기존 글 CRUD 중심 Keystatic 관리자를 사이트 브랜딩·홈·메뉴·테마·양언어 카테고리까지 코드 없이 관리할 수 있는 운영 화면으로 확장한다.
