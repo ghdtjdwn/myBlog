@@ -8,6 +8,7 @@
 - 공개 범위: 이미지에는 비밀 값이나 개인 식별값이 없고 공개 호스트·namespace와 자격증명 이름·역할만 있다. ssu 3개 PNG는 각 저장소 `origin/main` 원본과 SHA-256이 일치하며, 그늘 PNG는 정본 SVG를 1480×860으로 변환해 직접 확인했다.
 - 검증: `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 빌드, 69개 생성 문서와 draft 격리가 통과했다. 네 원본 PNG와 4단계 반응형 WebP가 생성되고 한·영 ssu 플랫폼·그늘 페이지에 전체 너비 섹션과 원본 링크가 렌더되는 것을 생성 HTML에서 확인했다.
 - 검수 제한: 로컬 브라우저 연결을 사용할 수 없어 실제 뷰포트 상호작용 검수는 수행하지 못했다. 대신 원본 4장을 직접 확인하고 생성 HTML, 원본 링크와 반응형 산출물을 검증했다.
+- Production 전달: 개인정보 모자이크 교체와 함께 PR #16의 exact commit `361b475`를 `main`에 fast-forward했고 main CI run `29574827274`가 성공했다. Vercel deployment `dpl_891mDTdcdNukZqvHbJaEjzAtBf4y`가 project `seongju`, target Production, Ready이며 해당 commit과 연결된 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_G4aHtXiS7PHdKjUEweg6zGd1fpmt`에서 새 배포로 전환했다. 공개 한·영 홈·ssu 플랫폼·그늘, robots·sitemap·RSS, canonical·보안 header, 아키텍처 원본 PNG 4개의 200 응답과 draft 비노출을 확인했고 이전 고유 배포 주소는 rollback 대상으로 보존했다.
 
 ## 2026-07-17 — ssuAI 공개 화면의 개인정보 값 모자이크 동기화
 
@@ -16,7 +17,8 @@
 - 공개 범위: 실명, 개인 학사·재정·대출·수업·좌석 값은 픽셀 모자이크로 읽을 수 없게 하고, 메뉴·라벨·버튼·공개 좌석 현황과 화면 구조는 유지했다. 캠퍼스·서비스 연결·ssuMCP LMS 화면은 개인 값이 없어 그대로 두었다.
 - 검증: 세 원본의 SHA-256이 ssuAI 최종본과 일치한다. `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 빌드, 69개 생성 문서와 draft 격리가 통과했다. 한·영 ssu 플랫폼 상세는 로컬에서 HTTP 200이고 이미지별 4개 반응형 WebP가 생성됐다.
 - 검수 제한: 로컬 브라우저 연결을 사용할 수 없어 실제 뷰포트 상호작용 검수는 수행하지 못했다. 대신 빌드가 만든 최대 해상도 WebP 3장을 직접 확인해 모자이크와 화면 문맥이 유지되는지 검수했다.
-- 전달: commit `c761c25`를 draft PR #16에 push했고 GitHub Actions `validate`·`secret-scan`과 Vercel Preview가 성공했다. `main` 병합과 Production 전환은 별도 승인 전까지 수행하지 않는다.
+- Preview 전달: commit `c761c25`를 draft PR #16에 push했고 GitHub Actions `validate`·`secret-scan`과 Vercel Preview가 성공했다. 이 단계에서는 별도 승인 전까지 `main` 병합과 Production 전환을 보류했다.
+- 최종 전달: 사용자가 전체 전달을 승인한 뒤 아키텍처 작업과 같은 PR #16으로 exact commit `361b475`까지 `main`에 반영하고 Production alias를 전환했다. 공개 사이트에서 최종 홈·학사·도서관 WebP를 다시 내려받아 개인 값 모자이크와 기능 문맥이 유지되는 것을 직접 확인했다. 상세한 CI·deployment·rollback 정보는 위 아키텍처 작업 항목에 함께 기록했다.
 
 ## 2026-07-17 — 코드 없는 블로그 관리 범위 확장
 
