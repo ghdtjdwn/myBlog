@@ -61,18 +61,17 @@ npm run new:record -- post post-slug "글 제목"
 
 공개 사이트에서는 [`/admin`](https://seongju.vercel.app/admin)이 관리 화면으로 연결됩니다. GitHub 인증을 완료하면 편집 내용이 저장소에 커밋되고 Vercel이 새 버전을 배포합니다. 새 글과 프로젝트는 기본적으로 `비공개 초안`이며, 이 항목을 해제해야 공개됩니다.
 
-배포 관리자 최초 설정에는 Keystatic용 GitHub App 생성과 저장소 설치, Vercel 환경 변수 등록이 한 번 필요합니다. 비밀값은 저장소나 문서에 기록하지 않습니다.
+배포 관리자 최초 설정에는 Keystatic용 GitHub App 생성과 저장소 설치, Vercel 환경 변수 등록이 한 번 필요합니다. 이 프로젝트는 최초 설정과 Production·Preview 변수 등록을 완료했습니다. 비밀값은 저장소나 문서에 기록하지 않습니다.
 
-GitHub App을 아직 만들지 않았다면 Production의 `Login with GitHub`를 먼저 누르지 않습니다. `npm run dev:cms-setup`을 실행하고 `http://127.0.0.1:4321/keystatic/setup`에서 Production URL을 입력해 앱을 만든 뒤, 로컬 `.env`에 생성된 네 값을 Vercel에 등록하고 재배포합니다.
+다른 배포에서 GitHub App을 새로 만들어야 한다면 `npm run dev:cms-setup`을 실행하고 `http://127.0.0.1:4321/keystatic/setup`에서 Production URL을 입력합니다. 로컬 `.env`에 생성된 네 값을 Vercel에 등록한 뒤 재배포합니다.
 
 ### 남은 수동 설정
 
-- Keystatic GitHub App 생성과 `ghdtjdwn/myBlog` 한정 설치
-- Keystatic 환경 변수 4개를 Vercel Production·Preview에 등록하고 재배포
 - `/admin` GitHub 로그인, 글 작성과 저장 커밋 확인
-- Google Search Console과 네이버 서치어드바이저 소유권 인증·사이트맵 제출
+- Google Search Console에서 소유권 확인 버튼 클릭과 `sitemap-index.xml` 제출
+- 네이버 서치어드바이저 인증값 발급·Vercel 등록, 소유권 인증과 sitemap·RSS 제출
 
-이 설정 전까지 공개 블로그와 영문 페이지는 정상 동작하지만 Production CMS 로그인은 사용할 수 없습니다.
+Production의 OAuth 시작 경로는 GitHub 로그인으로 정상 이동한다. 실제 계정 로그인과 저장 커밋 확인은 위 수동 항목으로 남아 있다.
 
 관리 화면은 콘텐츠와 준비된 화면 옵션을 편집하는 도구입니다. 새로운 페이지 종류, 완전히 새로운 레이아웃, 임의 JavaScript 같은 코드 수준의 변경은 의도적으로 관리자에서 허용하지 않습니다. 공개 저장소에 실행 코드를 주입하는 경로를 막고 정적 사이트의 접근성·SEO·보안 계약을 유지하기 위한 경계입니다.
 
