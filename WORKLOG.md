@@ -19,7 +19,16 @@
 - 검수 제한: 로컬 브라우저 연결을 사용할 수 없어 실제 뷰포트 상호작용 검수는 수행하지 못했다. 대신 빌드가 만든 최대 해상도 WebP 3장을 직접 확인해 모자이크와 화면 문맥이 유지되는지 검수했다.
 - Preview 전달: commit `c761c25`를 draft PR #16에 push했고 GitHub Actions `validate`·`secret-scan`과 Vercel Preview가 성공했다. 이 단계에서는 별도 승인 전까지 `main` 병합과 Production 전환을 보류했다.
 - 최종 전달: 사용자가 전체 전달을 승인한 뒤 아키텍처 작업과 같은 PR #16으로 exact commit `361b475`까지 `main`에 반영하고 Production alias를 전환했다. 공개 사이트에서 최종 홈·학사·도서관 WebP를 다시 내려받아 개인 값 모자이크와 기능 문맥이 유지되는 것을 직접 확인했다. 상세한 CI·deployment·rollback 정보는 위 아키텍처 작업 항목에 함께 기록했다.
+## 2026-07-17 — 프로젝트 근거 기반 기술 글 20편 보강
 
+- 목표: 프로젝트 정리 RTF와 각 저장소의 작업 로그·ADR·트러블슈팅·테스트 기록을 전수 감사해, 면접에서 설계 판단과 검증 범위를 설명할 수 있는 사례만 기술 블로그 글로 만든다.
+- 선별: SSU 플랫폼 8편, Geuneul 6편, Axwar plugin 3편, Cham Domi·DDSC·블로그 운영 각 1편을 한·영 동일 slug로 작성했다. 기존 `semantic-kiosk-automation`과 겹치는 Macro 사례는 중복 발행하지 않았고, HeungMap·YOGI·OSC는 구현 근거가 없어 기술 성과 글에서 제외했다.
+- 콘텐츠: 인증 grant·LMS 부분 실패·내구성 예약 intent·LangGraph HITL·RAG quota·Testcontainers 수명주기·StatefulSet rollout·관측성, 공간 ETL·점수 정책·PostgreSQL NOTIFY·ECS rollback·RDS 암호화·proxy IP 신뢰 경계, 결정론 AI guardrail과 Stable Roommates oracle을 문제-증거-결정-검증-한계 구조로 정리했다.
+- 프로젝트: 비공개 개인 대회작 `ddsc-learning-game`의 한·영 프로젝트 페이지를 추가했다. 정적 demo는 mock grader만 사용하고 실제 AI server·학습 효과를 주장하지 않는 공개 경계를 프로젝트 카탈로그에도 기록했다.
+- 사실 감사: 공개 PR 6개의 병합 상태와 원문 수치를 재대조했다. Geuneul 지오코딩은 초기 46,897건에서 재실행 시 기존 좌표 전량 재사용·5,437건 추가·총 52,334건으로 갱신했고, ECS 사건은 GitHub Actions 성공이 아니라 `gh run watch | tail`을 사용한 merge 자동화의 exit code 오판으로 교정했다. 팀원 소유 영역, 비공개 URL·원문, 사용자 식별값과 secret-shaped 값은 포함하지 않았다.
+- 검증: 초안 포함 빌드에서 새 한·영 글 40개와 프로젝트 2개가 모두 HTTP 200·올바른 문서 언어·제목·placeholder 없음으로 렌더링됐다. 대표 14페이지의 description·canonical·hreflang과 50개 내부 링크를 검사했다. 인앱 브라우저가 제공되지 않아 실제 viewport 시각 검수는 수행하지 못했다.
+- 전체 게이트: 공개 상태 전환 후 `npm test`가 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건, 111개 생성 문서와 기존 draft 격리를 검증했다. 첫 실행에서 설명용 `sizeBytes=null`이 unresolved-value 방어 규칙에 걸린 문제는 자연어 표현으로 교정한 뒤 재실행해 통과했다. Vite의 기존 500 kB 초과 chunk 경고는 남아 있으나 이번 콘텐츠 변경에서 새 client bundle을 추가하지 않았다.
+- 전달: 글과 DDSC 프로젝트는 로컬에서 `draft: false`인 공개 준비 상태다. Production merge·배포·기본 alias 전환은 명시적 확인 전까지 수행하지 않는다.
 ## 2026-07-17 — 코드 없는 블로그 관리 범위 확장
 
 - 목표: 기존 글 CRUD 중심 Keystatic 관리자를 사이트 브랜딩·홈·메뉴·테마·양언어 카테고리까지 코드 없이 관리할 수 있는 운영 화면으로 확장한다.
