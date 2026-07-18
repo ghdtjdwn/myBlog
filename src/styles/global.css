@@ -185,6 +185,7 @@ nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: 
 .case-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 30px; align-items: start; }
 .case-gallery-grid--wide { grid-template-columns: 1fr; gap: 36px; }
 .case-gallery-card { min-width: 0; margin: 0; }
+.case-gallery-card--portrait { width: min(100%, 300px); justify-self: center; }
 .case-gallery-image-link { display: block; border-radius: 8px; outline-offset: 4px; }
 .case-gallery-card img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
 .case-gallery-image-link:hover img { border-color: var(--text); }
