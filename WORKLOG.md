@@ -8,6 +8,8 @@
 - 공개 범위: 모바일 홈의 실명·개인 일정 및 학사 수치와 모바일 학사의 개인 이수값·판정·전공 식별 부분만 기존 공개 이미지와 같은 픽셀 모자이크로 비식별화했다. 모바일 챗봇과 LMS 화면에는 개인 식별값이 없으며 네 PNG 모두 메타데이터를 제거했다.
 - 검증: 블로그 `npm test`에서 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 build, 147개 생성 문서와 draft 격리가 통과했다. ssuAI는 Node 20·pnpm 10.34.5에서 lint·typecheck, 30개 파일 187개 test와 production build가 통과했다. 로컬 Chromium의 1440px·390px 한·영 페이지에서 이미지 비율, 캡션, 가로 넘침과 본문 배치를 확인했다.
 - Preview 전달: commit `29c176e`을 draft PR #21로 push했고 GitHub Actions run `29645153082`의 `validate`·`secret-scan`과 Vercel Preview deployment `dpl_C8CyHovNcs5AiDGZuRZdyacxKWPK`가 성공했다. Ready Preview의 한·영 ssu 플랫폼 상세는 200이고 새 이미지 4종, 반응형 이미지 응답, canonical·hreflang과 Preview `noindex`를 확인했다.
+- GitHub 전달: ssuAI PR #255를 rebase commit `934cf4a`로 병합했고 main CI run `29645312734`와 Security run `29645312726`이 성공했다. 같은 SHA의 Vercel deployment `dpl_HuiaERtyREHMDCEBZkuTS8ttN74q`가 Production·Ready이며, GitHub의 한·영 README GFM 렌더와 공개 PNG 4개 응답을 확인했다.
+- Production 전달: PR #21을 squash commit `dd91fec`으로 병합했고 main CI run `29645302830`의 `validate`·`secret-scan`이 성공했다. 같은 SHA의 Vercel deployment `dpl_9jJqYPkJGCvLkKi96gRsFeBCeKBJ`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 Ready deployment `dpl_BEa4Lr2fxzQ4ESsqbCQNukxgH5Xc`에서 새 배포로 전환했다. 공개 한·영 ssu 플랫폼 상세와 새 이미지 4종, 홈·프로젝트 목록·robots·sitemap·RSS, canonical·hreflang·검색 허용·보안 header가 정상이며 이전 고유 배포 URL은 rollback 대상으로 보존했다.
 
 ## 2026-07-18 — 프로젝트 기록 전수 감사 기반 기술 글 18편 추가
 
