@@ -22,6 +22,7 @@ recordLinks:
   - { label: "Architecture and safety boundaries", url: "https://github.com/UNITHON24/Macro/blob/main/docs/ARCHITECTURE.md" }
   - { label: "Semantic automation decision", url: "https://github.com/UNITHON24/Macro/blob/main/docs/adr/0002-black-box-semantic-automation.md" }
   - { label: "Live order boundary audit", url: "https://github.com/UNITHON24/Macro/blob/main/docs/troubleshooting/2026-live-order-boundary-audit.md" }
+  - { label: "Windows SQLite·UTF-8 이식성 문제", url: "https://github.com/UNITHON24/Macro/blob/main/docs/troubleshooting/2026-windows-ci-portability.md" }
   - { label: "Macro work log", url: "https://github.com/UNITHON24/Macro/blob/main/WORKLOG.md" }
 ---
 

@@ -29,7 +29,10 @@ recordPlan: "공개 저장소의 README, architecture, DEPLOY, ADR와 worklog를
 recordLinks:
   - { label: "런타임·데이터·배포 아키텍처", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/architecture.md" }
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
-  - { label: "PostGIS 부하·실행계획 튜닝 ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0012-k6-load-explain-index-tuning.md" }
+  - { label: "geometry·geography 함수 인덱스 ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0001-geometry-storage-geography-function-index.md" }
+  - { label: "무인 수집·advisory lock ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0011-scheduled-public-data-sync.md" }
+  - { label: "Production 부하 기반 CPU·인덱스 튜닝 ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0025-scale-prep-load-based-tuning.md" }
+  - { label: "CloudFront·ALB origin 격리 ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0028-alb-cloudfront-origin-lockdown.md" }
   - { label: "PostGIS EXPLAIN 결과", url: "https://github.com/ghdtjdwn/geuneul/blob/main/perf/explain/RESULTS.md" }
 ---
 
@@ -43,9 +46,9 @@ recordLinks:
 
 자연키 `source + source_external_id`로 배치를 반복 실행해도 중복되지 않는 ETL을 구성했습니다. 반경 검색, 최근접 kNN, 지도 bounds 조회는 PostGIS와 GiST 인덱스로 처리합니다. `EXPLAIN ANALYZE`와 k6로 실행계획과 꼬리 지연을 확인했습니다.
 
-전국 데이터는 기관마다 식별자, 좌표, 갱신 주기가 다릅니다. 원천 출처와 외부 ID를 자연키로 보존하고 upsert해 재실행 가능한 수집 파이프라인을 만들었습니다. 위치는 PostGIS geography로 저장하고, 반경·최근접·현재 지도 영역이라는 서로 다른 질의 목적에 맞춰 실행계획을 분리해 봤습니다.
+전국 데이터는 기관마다 식별자, 좌표, 갱신 주기가 다릅니다. 원천 출처와 외부 ID를 자연키로 보존하고 upsert해 재실행 가능한 수집 파이프라인을 만들었습니다. 위치는 `geometry(Point, 4326)`로 한 번만 저장하고, 미터 반경·최근접은 `geography(geom)` 함수 인덱스, 현재 지도 영역은 geometry GiST를 사용해 질의 목적별 실행계획을 분리했습니다.
 
-반경 검색 p95는 동일 로컬 조건에서 약 2.68초에서 1.39초로, kNN은 238ms에서 98ms로 줄어든 기록이 있습니다. 이는 ARM64 Mac에서 amd64 PostGIS 컨테이너를 에뮬레이션한 상대 비교이며 Production RDS의 절대 성능으로 사용하지 않습니다.
+Production에 4 VU·70초 read-only gentle load를 같은 스크립트로 적용한 전후 기록에서, Fargate task를 0.25에서 0.5 vCPU로 바꾼 뒤 반경 검색 p95는 약 2.68초에서 1.39초로, kNN은 238ms에서 98ms로 줄었습니다. 이는 당시 데이터와 작은 부하 조건의 병목 진단 결과이며 최대 처리량이나 일반 사용자 전체의 절대 지연으로 확대하지 않습니다.
 
 ## 실시간성과 제품 경계
 
@@ -63,6 +66,6 @@ ECS 서비스는 최소 1개에서 최대 3개까지 CPU 60% 기준으로 확장
 
 ## 한계
 
-성능 수치는 ARM64 Mac에서 amd64 PostGIS 이미지를 에뮬레이션한 동일 환경의 before/after입니다. 프로덕션 RDS의 절대 지연으로 표현하지 않습니다.
+성능 수치는 Production에 영향을 줄 수 있는 쓰기 없이 4 VU·70초로 제한한 before/after입니다. 대규모 부하 한계, 장기간 변동이나 모든 사용자 환경의 절대 지연을 증명하지 않습니다.
 
 그늘과 편의 정보 중 일부는 공공데이터의 갱신 시점과 사용자 제보에 의존합니다. “15만 개 장소”는 수집 범위를 뜻하며 모든 장소의 현재 상태가 실시간으로 보장된다는 의미가 아닙니다.

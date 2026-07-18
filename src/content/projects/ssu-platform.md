@@ -64,6 +64,13 @@ recordLinks:
   - { label: "안정 principal thread 소유권 ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0011-thread-stable-principal-binding.md" }
   - { label: "MCP content block와 HITL resume ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0016-mcp-content-block-hitl-unwrap.md" }
   - { label: "일회용 SSO code exchange ADR", url: "https://github.com/ghdtjdwn/ssuAI/blob/main/docs/adr/0089-sso-code-exchange.md" }
+  - { label: "비동기 confirm·scoped supersede ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0086-confirm-action-async-and-scoped-supersede.md" }
+  - { label: "Spring Security filter chain 범위 ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0074-mcp-oauth-chain-scoping.md" }
+  - { label: "도서관 fan-out rate limit ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0097-pyxis-read-cap-fanout-sizing.md" }
+  - { label: "예약 intent Kafka bus ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0091-reservation-intent-bus-kafka.md" }
+  - { label: "Cilium FQDN egress lab ADR", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/adr/0094-cilium-fqdn-egress-lab-validated.md" }
+  - { label: "LMS capability link terminal ADR", url: "https://github.com/ghdtjdwn/ssuAgent/blob/main/docs/adr/0022-deterministic-lms-export-download.md" }
+  - { label: "임베딩 서비스 GitOps 배포 장애", url: "https://github.com/ghdtjdwn/ssu-ai-service/blob/main/docs/deployment-troubleshooting.md" }
   - { label: "ssuMCP 트러블슈팅 하이라이트", url: "https://github.com/ghdtjdwn/ssuMCP/blob/main/docs/troubleshooting-highlights.md" }
 ---
 
