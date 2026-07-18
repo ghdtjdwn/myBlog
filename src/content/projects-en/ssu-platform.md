@@ -35,6 +35,18 @@ screenshots:
   - image: "../../assets/projects/ssuai-live-connections.png"
     alt: "The ssuAI service-connections screen showing status and available features for u-SAINT, LMS, and the library"
     caption: "Service connections — separates u-SAINT, LMS, and library session state from the personal-data features each connection unlocks."
+  - image: "../../assets/projects/ssuai-chat-lms-export.png"
+    alt: "The ssuAI chat prepares an export of all LMS course materials and returns a download button"
+    caption: "ssuAI chat — routes a natural-language request to the LMS agent, verifies authentication and terms, starts an asynchronous export, and exposes the restricted download action."
+  - image: "../../assets/projects/ssuai-mobile-home.png"
+    alt: "The ssuAI mobile home with personal values pixelated and its AI briefing and priority cards in one column"
+    caption: "Mobile home — rearranges the same briefing and priority information into one column with bottom-tab navigation. Personal values are de-identified in the public image."
+  - image: "../../assets/projects/ssuai-mobile-chat.png"
+    alt: "The ssuAI mobile chat showing bottom tabs, suggested questions, and the message composer"
+    caption: "Mobile chat — keeps the natural-language flow usable on a small screen with viewport-aware conversation space, a fixed composer, and suggested questions."
+  - image: "../../assets/projects/ssuai-mobile-academics.png"
+    alt: "The ssuAI mobile academics screen focused on graduation requirements with personal completion values pixelated"
+    caption: "Mobile academics — turns the desktop academic data into single-column cards and de-identifies personal completion values in the public image."
   - image: "../../assets/projects/ssumcp-chatgpt-lms-export-ready.png"
     alt: "ChatGPT uses ssuMCP to prepare a ZIP of supported non-video materials across all enrolled LMS courses and return a download link"
     caption: "ChatGPT + ssuMCP — a real session that collects supported non-video materials across the user's LMS courses, builds the ZIP asynchronously, and returns a limited download link."
@@ -86,6 +98,12 @@ General-purpose AI cannot directly work with university dining menus, announceme
 - Write operations follow a `prepare → confirm` flow that requires explicit user approval.
 
 The four services have distinct responsibilities. `ssuAI` owns the user-facing web application and same-origin BFF. `ssuMCP` collects university data and exposes 52 MCP tools. `ssuAgent` handles LangGraph routing and HITL flows. `ssu-ai-service` isolates embedding requests behind a separate FastAPI gateway. Service contracts form the boundary so that neither the frontend nor the agent needs to know the implementation details of university systems.
+
+## One codebase for desktop and mobile
+
+ssuAI is one responsive Next.js web application rather than a separate native app. `AppShell` uses a fixed 246px sidebar on wide screens and switches to a top bar plus five bottom tabs on smaller screens. The bottom navigation respects the device safe area so it does not overlap the home indicator.
+
+Data fetching and authentication state stay in the same component tree; only presentation changes with available width. Home widgets move from three desktop columns to one mobile column, while the weekly timetable changes from a five-day grid to a today-first list. Chat uses `dvh` to fill the remaining viewport, and mobile inputs stay at 16px to avoid iOS focus zoom without disabling pinch zoom.
 
 ## Reliability and safety boundaries
 

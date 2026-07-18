@@ -23,6 +23,9 @@ const widths = layout === "wide" ? [640, 960, 1280] : [480, 720, 960];
 const sizes = layout === "wide"
   ? "(max-width: 760px) calc(100vw - 32px), 960px"
   : "(max-width: 760px) calc(100vw - 32px), 430px";
+const portraitWidths = [240, 360, 480];
+const portraitSizes = "(max-width: 420px) calc(100vw - 64px), 300px";
+const isPortrait = (screenshot: Screenshot) => screenshot.image.height / screenshot.image.width >= 1.5;
 ---
 
 {screenshots.length > 0 && (
@@ -35,7 +38,7 @@ const sizes = layout === "wide"
       </header>
       <div class:list={["case-gallery-grid", { "case-gallery-grid--wide": layout === "wide" }]}>
         {screenshots.map((screenshot) => (
-          <figure class="case-gallery-card">
+          <figure class:list={["case-gallery-card", { "case-gallery-card--portrait": isPortrait(screenshot) }]}>
             <a
               class="case-gallery-image-link"
               href={screenshot.image.src}
@@ -46,8 +49,8 @@ const sizes = layout === "wide"
               <Image
                 src={screenshot.image}
                 alt={screenshot.alt}
-                widths={widths}
-                sizes={sizes}
+                widths={isPortrait(screenshot) ? portraitWidths : widths}
+                sizes={isPortrait(screenshot) ? portraitSizes : sizes}
                 loading="lazy"
               />
             </a>

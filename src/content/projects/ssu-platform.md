@@ -35,6 +35,18 @@ screenshots:
   - image: "../../assets/projects/ssuai-live-connections.png"
     alt: "u-SAINT, LMS와 도서관의 연결 상태와 제공 기능을 보여주는 ssuAI 서비스 연결 화면"
     caption: "서비스 연결 — u-SAINT·LMS·도서관 세션의 연결 상태와 열리는 개인 데이터 기능을 명확히 구분합니다."
+  - image: "../../assets/projects/ssuai-chat-lms-export.png"
+    alt: "ssuAI 챗봇이 전체 LMS 강의자료 내보내기를 준비하고 다운로드 버튼을 반환한 화면"
+    caption: "ssuAI 챗봇 — 자연어 요청을 LMS 에이전트로 전달하고 인증·학기 조회·비동기 내보내기를 거쳐 제한된 다운로드 동작을 제공합니다."
+  - image: "../../assets/projects/ssuai-mobile-home.png"
+    alt: "개인값을 모자이크하고 AI 브리핑과 우선순위 카드를 한 열로 배치한 ssuAI 모바일 홈"
+    caption: "모바일 홈 — 같은 브리핑과 우선순위 정보를 한 열로 재배치하고 하단 탭으로 주요 화면을 전환합니다. 개인값은 공개용 이미지에서 비식별화했습니다."
+  - image: "../../assets/projects/ssuai-mobile-chat.png"
+    alt: "하단 탭과 추천 질문, 메시지 입력창을 보여주는 ssuAI 모바일 챗봇"
+    caption: "모바일 챗봇 — 화면 높이에 맞춘 대화 영역과 고정 입력창, 추천 질문으로 작은 화면에서도 자연어 흐름을 유지합니다."
+  - image: "../../assets/projects/ssuai-mobile-academics.png"
+    alt: "개인 이수값을 모자이크한 졸업요건 중심의 ssuAI 모바일 학사 화면"
+    caption: "모바일 학사 — 데스크톱 학사 데이터를 단일 열 카드로 바꾸고 개인 이수값은 공개용 이미지에서 비식별화했습니다."
   - image: "../../assets/projects/ssumcp-chatgpt-lms-export-ready.png"
     alt: "ChatGPT가 ssuMCP로 전체 수강 과목의 비영상 강의자료 ZIP을 준비하고 다운로드 링크를 반환한 화면"
     caption: "ChatGPT + ssuMCP — LMS의 전체 수강 과목에서 지원되는 비영상 자료를 수집해 비동기 ZIP 내보내기와 제한된 다운로드 링크로 전달한 실제 세션입니다."
@@ -86,6 +98,12 @@ recordLinks:
 - 쓰기 동작은 `prepare → confirm`으로 나눠 사용자의 명시적 승인을 요구합니다.
 
 네 서비스의 책임도 분리했습니다. `ssuAI`는 사용자가 보는 웹과 same-origin BFF를, `ssuMCP`는 학교 데이터 수집과 52개 MCP 도구를, `ssuAgent`는 LangGraph 기반 라우팅과 HITL 흐름을 담당합니다. `ssu-ai-service`는 임베딩 요청을 별도 FastAPI 게이트웨이로 격리합니다. 프론트나 에이전트가 학교 시스템의 세부 구현을 직접 알지 않도록 서비스 계약을 경계로 삼았습니다.
+
+## 웹과 모바일을 한 코드베이스로 구성
+
+ssuAI는 별도 네이티브 앱이 아니라 하나의 반응형 Next.js 웹입니다. `AppShell`이 넓은 화면에서는 246px 고정 사이드바를 사용하고, 작은 화면에서는 상단 바와 5개 하단 탭으로 전환합니다. 하단 탐색에는 기기의 safe area를 반영해 홈 인디케이터와 겹치지 않게 했습니다.
+
+데이터 조회와 인증 상태는 같은 컴포넌트 트리를 사용하고 표현만 화면 폭에 맞춰 바꿉니다. 홈 위젯은 데스크톱 3열에서 모바일 1열로, 주간 시간표는 월–금 5열에서 오늘 우선 목록으로 바뀝니다. 챗봇은 `dvh`로 남은 화면 높이를 계산하고 모바일 입력 글자를 16px로 유지해 iOS 자동 확대를 피하면서 핀치 줌은 허용합니다.
 
 ## 신뢰성과 안전 경계
 

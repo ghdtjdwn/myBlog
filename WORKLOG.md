@@ -1,5 +1,14 @@
 # Work log
 
+## 2026-07-18 — ssuAI LMS 다운로드와 모바일 운영 화면 추가
+
+- 목표: ssuAI 웹 챗봇의 LMS 강의자료 일괄 다운로드 흐름과 실제 모바일 홈·챗봇·학사 화면을 GitHub README와 기술 블로그에서 함께 확인할 수 있게 한다.
+- 변경: ssuAI 챗봇이 LMS 인증·학기 조회·비동기 내보내기를 거쳐 다운로드 동작을 제공한 화면과 모바일 화면 3장을 한·영 프로젝트 갤러리에 추가했다. GitHub README도 같은 공개용 이미지와 한·영 설명을 사용한다.
+- 반응형 설명: 별도 네이티브 앱이 아니라 한 Next.js 컴포넌트 트리에서 데스크톱 사이드바와 모바일 하단 탭, 홈 3열·1열, 시간표 5열·오늘 우선 목록, `dvh` 채팅과 iOS 입력 크기를 분기하는 방식을 실제 source와 대조해 정리했다. 블로그 갤러리는 세로 비율 1.5 이상 화면을 300px 폭으로 제한하고 원본 링크를 유지한다.
+- 공개 범위: 모바일 홈의 실명·개인 일정 및 학사 수치와 모바일 학사의 개인 이수값·판정·전공 식별 부분만 기존 공개 이미지와 같은 픽셀 모자이크로 비식별화했다. 모바일 챗봇과 LMS 화면에는 개인 식별값이 없으며 네 PNG 모두 메타데이터를 제거했다.
+- 검증: 블로그 `npm test`에서 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 build, 147개 생성 문서와 draft 격리가 통과했다. ssuAI는 Node 20·pnpm 10.34.5에서 lint·typecheck, 30개 파일 187개 test와 production build가 통과했다. 로컬 Chromium의 1440px·390px 한·영 페이지에서 이미지 비율, 캡션, 가로 넘침과 본문 배치를 확인했다.
+- Preview 전달: commit `29c176e`을 draft PR #21로 push했고 GitHub Actions run `29645153082`의 `validate`·`secret-scan`과 Vercel Preview deployment `dpl_C8CyHovNcs5AiDGZuRZdyacxKWPK`가 성공했다. Ready Preview의 한·영 ssu 플랫폼 상세는 200이고 새 이미지 4종, 반응형 이미지 응답, canonical·hreflang과 Preview `noindex`를 확인했다.
+
 ## 2026-07-18 — 프로젝트 기록 전수 감사 기반 기술 글 18편 추가
 
 - 목표: 데스크톱 프로젝트 정리 RTF에 흩어진 트러블슈팅·작업 로그를 실제 저장소의 ADR, source, test와 대조해 면접에서 설계 판단과 검증 범위를 설명할 수 있는 상세 기술 사례로 공개한다.
