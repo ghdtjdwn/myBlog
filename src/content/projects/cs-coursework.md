@@ -15,9 +15,12 @@ order: 11
 featured: false
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/cs-coursework" }
-recordPlan: "과목별 README와 Git 이력을 원본으로 유지합니다. 제품 경험으로 부풀리지 않고, 시스템·언어·AI 기본기를 설명할 가치가 있는 과제만 학습 글로 선별합니다."
+recordPlan: "과목별 README와 Git 이력을 원본으로 유지합니다. 제품 경험으로 부풀리지 않고, 현재 소스를 다시 검증한 POSIX 채점기·인터프리터·RISC-V 세 과제만 학습 글로 연결합니다."
 recordLinks:
   - { label: "과목별 코드와 README", url: "https://github.com/ghdtjdwn/cs-coursework" }
+  - { label: "POSIX 자동채점기", url: "https://github.com/ghdtjdwn/cs-coursework/tree/main/Linux_System_Programming" }
+  - { label: "재귀하향 인터프리터", url: "https://github.com/ghdtjdwn/cs-coursework/tree/main/Programming_Languages" }
+  - { label: "RISC-V 시뮬레이터", url: "https://github.com/ghdtjdwn/cs-coursework/tree/main/Computer_Architecture" }
 ---
 
 ## 아카이브의 목적
@@ -34,7 +37,7 @@ AI 과제는 PyTorch로 CNN, ViT, BERT와 Transformer 구성 요소를 구현하
 
 ## 채용 포트폴리오에서의 위치
 
-대표 프로젝트는 운영 중인 ssu 플랫폼과 개발을 완료한 그늘처럼 운영·데이터·사용자 문제를 함께 다룬 사례입니다. 이 아카이브는 면접에서 자료구조, 실행 모델, 네트워크와 ML 기본기를 코드 수준에서 확인할 때 보조 근거로 사용합니다. 12개를 모두 글로 옮기지 않고 interpreter, RISC-V, Transformer처럼 현재 역량과 연결되는 2~3개만 회고로 확장할 예정입니다.
+대표 프로젝트는 운영 중인 ssu 플랫폼과 개발을 완료한 그늘처럼 운영·데이터·사용자 문제를 함께 다룬 사례입니다. 이 아카이브는 면접에서 자료구조와 실행 모델을 코드 수준에서 확인할 때 보조 근거로 사용합니다. 현재 공개 소스를 재감사해 POSIX 병렬 채점기, 재귀하향 interpreter와 RISC-V simulator 세 글을 연결했습니다. 기록된 과거 성능과 이번에 실제 실행한 검증을 구분하고, 문서와 코드가 어긋난 interpreter 의미도 한계로 공개했습니다.
 
 ## 한계
 

@@ -1,5 +1,17 @@
 # Work log
 
+## 2026-07-18 — 프로젝트 기록 전수 감사 기반 기술 글 18편 추가
+
+- 목표: 데스크톱 프로젝트 정리 RTF에 흩어진 트러블슈팅·작업 로그를 실제 저장소의 ADR, source, test와 대조해 면접에서 설계 판단과 검증 범위를 설명할 수 있는 상세 기술 사례로 공개한다.
+- 감사 범위: 프로젝트 정리 RTF, 로컬에서 식별한 23개 Git root와 본인 GitHub 13개 저장소를 inventory하고, 공개 근거가 있는 프로젝트의 ADR·worklog·troubleshooting·배포 기록·현재 source를 교차 확인했다. 비밀 값과 개인 식별 정보는 외부로 보내거나 글에 옮기지 않았다.
+- 신규 콘텐츠: SSU 플랫폼 10편, Geuneul 4편, Macro 1편, coursework 3편을 한·영 동일 slug로 추가했다. 비동기 confirm 상태 경계, Spring Security chain scoping, 일회용 SSO 교환, fan-out rate limit, Kafka SSE broadcast, read-only root filesystem, Cilium FQDN lab, LangGraph stream routing, LMS capability terminal, GitOps image drift, PostGIS 이중 표현식 index, advisory lock batch, CPU 기반 부하 튜닝, CloudFront origin 격리, Windows SQLite lock, POSIX grader, interpreter와 RISC-V simulator를 다룬다.
+- 프로젝트 연결: ssu 플랫폼·Geuneul·Macro·coursework 한·영 프로젝트 페이지에 원본 ADR·troubleshooting·source 링크를 추가했다. Geuneul의 좌표 저장을 실제 `geometry(Point, 4326)` + `geography(geom)` 함수 index로 교정하고, 2.68초→1.39초 수치를 로컬 ARM emulation이 아닌 Production 4 VU·70초 read-only gentle load 기록으로 바로잡았다.
+- 선별 기준: 이미 발행한 20편과 중복되는 사례는 새 글로 만들지 않았다. HeungMap·YOGI·OSC의 계획 단계 항목과 근거가 약한 아이디어는 기술 성과에서 제외했다. 운영 관측, disposable lab, 과제 당시 기록과 이번 source 감사 결과를 서로 다른 근거 수준으로 표시했다.
+- 사실 검수: approval `ActionAudit`과 reservation intent 상태를 분리하고 실제 `get_library_wait_status`·상태 enum을 사용했다. Spring Security의 네 통합 test, SSO Redis의 `code-key → studentId` 저장, Kafka facade/delegate bean 모호성, Terraform state의 secret 경계, PostGIS `ST_Distance` 반환, selective bounds 실행계획과 readiness의 NotReady 의미처럼 꼬리 질문에서 검증 가능한 세부 표현을 원본과 맞췄다.
+- coursework 재검증: interpreter 현재 source에서 괄호식 9, 상수 재할당 `Syntax Error!`, `1+2*3`의 현재 결과 9와 repeat-until 종료값 1을 직접 확인했다. POSIX grader는 macOS GNU11/pthread syntax compile이 성공했지만 format·return-path·dangling-else warning을 한계로 남겼고, RISC-V simulator는 C11 syntax compile만 통과했으므로 ISA 정확성 전체를 주장하지 않았다.
+- 로컬 검증: `npm test`에서 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 build, 147개 생성 문서와 draft 격리가 통과했다. 새 18개 한·영 route의 code markup을 확인했고, 29개 고유 외부 근거 URL은 모두 HTTP 200이었다. `gitleaks dir src/content --redact --no-banner`와 staged diff 검사는 leak 0건이었다. 기존 Vite 500 kB 초과 chunk warning은 남지만 콘텐츠 변경에서 client bundle code는 추가하지 않았다.
+- 전달: commit `d31291b`을 `agent/add-evidence-backed-case-studies-20260718` branch로 push하고 draft PR #19를 열었다. GitHub Actions run `29637879316`의 `validate`·`secret-scan`과 Vercel Preview deployment `5500276847`가 성공했다. 이 단계에서는 `main` merge, Production deployment와 alias 전환을 수행하지 않는다.
+
 ## 2026-07-17 — 프로젝트 아키텍처 다이어그램 블로그 연결
 
 - 목표: ssuAI·ssuAgent·ssuMCP·그늘의 서비스 경계와 운영 구조를 기술 블로그 한·영 프로젝트 페이지에서 원본 문서와 함께 확인할 수 있게 한다.

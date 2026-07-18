@@ -15,9 +15,12 @@ order: 11
 featured: false
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/cs-coursework" }
-recordPlan: "Course READMEs and Git history remain the sources of truth. Rather than inflating them into product experience, I will select only assignments that meaningfully demonstrate systems, language, or AI fundamentals for learning-focused posts."
+recordPlan: "Course READMEs and Git history remain the sources of truth. Rather than inflating them into product experience, I link only the POSIX grader, interpreter, and RISC-V assignments whose current source I re-audited."
 recordLinks:
   - { label: "Course code and READMEs", url: "https://github.com/ghdtjdwn/cs-coursework" }
+  - { label: "POSIX autograder", url: "https://github.com/ghdtjdwn/cs-coursework/tree/main/Linux_System_Programming" }
+  - { label: "Recursive-descent interpreter", url: "https://github.com/ghdtjdwn/cs-coursework/tree/main/Programming_Languages" }
+  - { label: "RISC-V simulator", url: "https://github.com/ghdtjdwn/cs-coursework/tree/main/Computer_Architecture" }
 ---
 
 ## Purpose of the archive
@@ -34,7 +37,7 @@ The AI assignments use PyTorch to implement and experiment with CNNs, ViT, BERT,
 
 ## Position in the hiring portfolio
 
-The flagship projects include the operating ssu platform and the completed Geuneul service, both of which address operations, data, and user problems. This archive serves as supporting evidence when an interview calls for code-level discussion of data structures, execution models, networking, or ML fundamentals. Rather than turning all 12 courses into posts, I plan to expand only two or three topics that connect to current work, such as the interpreter, RISC-V, and Transformer.
+The flagship projects include the operating ssu platform and the completed Geuneul service, both of which address operations, data, and user problems. This archive serves as supporting evidence for code-level discussion of data structures and execution models. I re-audited the current public source and linked three posts on the POSIX parallel grader, recursive-descent interpreter, and RISC-V simulator. They distinguish historical performance from checks run during this review and disclose the interpreter semantics where documentation and code diverge.
 
 ## Limitations
 

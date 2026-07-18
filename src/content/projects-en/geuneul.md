@@ -29,7 +29,10 @@ recordPlan: "The public repository's README, architecture, DEPLOY, ADRs, and wor
 recordLinks:
   - { label: "Runtime, data, and deployment architecture", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/architecture.md" }
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }
-  - { label: "PostGIS load and plan-tuning ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0012-k6-load-explain-index-tuning.md" }
+  - { label: "Geometry and geography expression-index ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0001-geometry-storage-geography-function-index.md" }
+  - { label: "Unattended ingestion and advisory-lock ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0011-scheduled-public-data-sync.md" }
+  - { label: "Production load-based CPU and index tuning ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0025-scale-prep-load-based-tuning.md" }
+  - { label: "CloudFront and ALB origin-lockdown ADR", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/adr/0028-alb-cloudfront-origin-lockdown.md" }
   - { label: "Captured PostGIS EXPLAIN results", url: "https://github.com/ghdtjdwn/geuneul/blob/main/perf/explain/RESULTS.md" }
 ---
 
@@ -43,9 +46,9 @@ Simply placing locations on a map was not enough. Users need to judge whether a 
 
 I built an idempotent ETL pipeline using the natural key `source + source_external_id`, so repeated runs do not create duplicates. Radius search, nearest-neighbor kNN, and map-bounds queries use PostGIS and GiST indexes. I examined execution plans and tail latency with `EXPLAIN ANALYZE` and k6.
 
-Nationwide datasets differ in identifiers, coordinates, and update schedules. The pipeline preserves the source and external ID as a natural key and upserts records so ingestion can be rerun safely. Locations are stored as PostGIS geography values, and I evaluated separate execution plans for radius, nearest-neighbor, and current-map-area query goals.
+Nationwide datasets differ in identifiers, coordinates, and update schedules. The pipeline preserves the source and external ID as a natural key and upserts records so ingestion can be rerun safely. Each location is stored once as `geometry(Point, 4326)`; meter-radius and nearest-neighbor queries use a `geography(geom)` expression index, while current-map bounds use the geometry GiST path.
 
-Under the same local conditions, the recorded radius-search p95 fell from about 2.68 seconds to 1.39 seconds, while kNN fell from 238 ms to 98 ms. This is a relative comparison from an ARM64 Mac emulating an amd64 PostGIS container, not an absolute Production RDS latency claim.
+In a before-and-after production record using the same four-VU, 70-second, read-only gentle load, moving the Fargate task from 0.25 to 0.5 vCPU reduced radius-search p95 from about 2.68 seconds to 1.39 seconds and kNN from 238 ms to 98 ms. These figures diagnose the bottleneck under that data and small-load condition; they do not establish maximum throughput or universal end-user latency.
 
 ## Real-time behavior and product boundaries
 
@@ -63,6 +66,6 @@ I published and verified the web app, API health endpoint, PWA installation path
 
 ## Limitations
 
-The performance numbers are before-and-after measurements from the same environment, with an ARM64 Mac emulating an amd64 PostGIS image. They are not presented as absolute Production RDS latency.
+The performance numbers come from a production before-and-after restricted to four VUs for 70 seconds with no writes. They do not establish large-load capacity, long-term variance, or absolute latency for every user environment.
 
 Some shade and amenity information depends on public-data update times and user reports. “150,000 places” describes collection coverage; it does not mean that every location's current condition is guaranteed in real time.
