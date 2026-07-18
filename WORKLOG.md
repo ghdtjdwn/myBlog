@@ -11,6 +11,7 @@
 - coursework 재검증: interpreter 현재 source에서 괄호식 9, 상수 재할당 `Syntax Error!`, `1+2*3`의 현재 결과 9와 repeat-until 종료값 1을 직접 확인했다. POSIX grader는 macOS GNU11/pthread syntax compile이 성공했지만 format·return-path·dangling-else warning을 한계로 남겼고, RISC-V simulator는 C11 syntax compile만 통과했으므로 ISA 정확성 전체를 주장하지 않았다.
 - 로컬 검증: `npm test`에서 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 build, 147개 생성 문서와 draft 격리가 통과했다. 새 18개 한·영 route의 code markup을 확인했고, 29개 고유 외부 근거 URL은 모두 HTTP 200이었다. `gitleaks dir src/content --redact --no-banner`와 staged diff 검사는 leak 0건이었다. 기존 Vite 500 kB 초과 chunk warning은 남지만 콘텐츠 변경에서 client bundle code는 추가하지 않았다.
 - 전달: commit `d31291b`을 `agent/add-evidence-backed-case-studies-20260718` branch로 push하고 draft PR #19를 열었다. GitHub Actions run `29637879316`의 `validate`·`secret-scan`과 Vercel Preview deployment `5500276847`가 성공했다. 이 단계에서는 `main` merge, Production deployment와 alias 전환을 수행하지 않는다.
+- Production 전달: 사용자 전체 전달 승인 뒤 PR #19를 squash commit `33913f6`으로 병합했고 main CI run `29638187278`의 `validate`·`secret-scan`이 성공했다. 같은 SHA의 Vercel deployment `5500343804`·`dpl_Gzb6GTgj3M8ABX35tnJuY53kmPEu`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 Ready deployment `dpl_9TLwe3erea169Joa1h9nt6zJfp8r`에서 새 배포로 전환했다. 공개 한·영 신규 글 36개와 연결한 프로젝트 8개는 HTTP 200, 올바른 언어·canonical·hreflang·code markup과 검색 허용 상태를 확인했다. 한·영 홈·글·프로젝트 목록, robots·sitemap·RSS, 보안 header도 정상이고 draft incident는 404였다. 이전 고유 배포 URL은 rollback 대상으로 보존했다.
 
 ## 2026-07-17 — 프로젝트 아키텍처 다이어그램 블로그 연결
 
