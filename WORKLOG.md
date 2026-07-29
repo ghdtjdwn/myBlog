@@ -1,5 +1,13 @@
 # Work log
 
+## 2026-07-29 — GitHub README를 포트폴리오 진입점으로 재구성
+
+- 목표: 저장소를 처음 방문한 사람이 공개 사이트의 목적, 근거 연결 방식, 콘텐츠 모델과 검증·배포 경계를 README에서 빠르게 이해할 수 있게 한다.
+- 변경: 기존 운영 메모 중심 구성을 문제, 3단 근거 구조, 콘텐츠 유형, draft-first 게시 흐름, 기술 설계, 로컬 검증과 문서 지도로 재구성했다. 기존 Open Graph 이미지를 대표 이미지로 재사용하고, GitHub가 지원하는 Mermaid로 게시 흐름을 표현했으며 상세 CMS·alias 절차는 접힌 보조 정보로 이동했다.
+- 결정: 새 배너나 외부 통계 이미지를 추가하지 않고 저장소가 이미 소유한 정적 자산과 검증 가능한 CI badge만 사용했다. 공개 README는 시작과 구조 이해에 집중하고 긴 운영 절차의 정본은 기존 기술 스펙·ADR·작업 로그에 유지한다.
+- 검증: `npm test`가 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 147개 생성 문서와 draft 격리를 통과했다. `npm ci`의 현재 registry 감사는 기존 lockfile에서 2 moderate·5 high advisory를 보고했으며 이번 문서 변경에서는 의존성을 수정하지 않았다.
+- 전달: 전용 portfolio README branch에서 검토 중이며 commit, pull request, CI와 merge 결과는 전달 뒤 이 항목에 갱신한다.
+
 ## 2026-07-18 — ssuAI LMS 다운로드와 모바일 운영 화면 추가
 
 - 목표: ssuAI 웹 챗봇의 LMS 강의자료 일괄 다운로드 흐름과 실제 모바일 홈·챗봇·학사 화면을 GitHub README와 기술 블로그에서 함께 확인할 수 있게 한다.

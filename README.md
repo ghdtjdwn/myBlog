@@ -1,93 +1,131 @@
-# myBlog
+# seongju.vercel.app
 
-홍성주의 프로젝트 경험과 기술 기록을 글 중심으로 제공하는 개발 블로그입니다.
+[![CI](https://github.com/ghdtjdwn/myBlog/actions/workflows/ci.yml/badge.svg)](https://github.com/ghdtjdwn/myBlog/actions/workflows/ci.yml)
 
-공개 사이트: [seongju.vercel.app](https://seongju.vercel.app)
+프로젝트의 결과만 나열하지 않고 문제, 선택한 대안, 검증 근거와 남은 한계를 함께 기록하는
+홍성주의 엔지니어링 포트폴리오이자 기술 블로그입니다.
 
-영문 사이트: [seongju.vercel.app/en](https://seongju.vercel.app/en/)
+[한국어 사이트](https://seongju.vercel.app) ·
+[English](https://seongju.vercel.app/en/) ·
+[GitHub profile](https://github.com/ghdtjdwn)
 
-## 원칙
+![시스템과 데이터 흐름을 표현한 seongju.vercel.app 대표 이미지](public/og-card.png)
 
-- 결과보다 문제, 판단, 대안, 검증 근거를 함께 기록한다.
-- 공개 글은 Git 커밋, 테스트, ADR, 작업 로그처럼 확인 가능한 자료에 근거한다.
-- 비공개 저장소와 로컬 문서는 자동 공개하지 않는다.
-- 새 기록은 항상 draft로 시작하고 Preview에서 검토한 뒤 발행한다.
+## 이 저장소가 해결하는 문제
 
-## 기술 구성
+프로젝트 README와 Git 이력은 구현 사실을 증명하기에는 좋지만, 여러 저장소에 걸친 결정과 실패를
+처음 보는 사람이 따라가기 어렵습니다. 반대로 포트폴리오 글만으로는 주장을 원본 코드와 연결하기
+어렵습니다. 이 사이트는 다음 세 층을 한 경로로 연결합니다.
 
-- Astro 7 정적 빌드
-- TypeScript strict
-- 한국어·영어 Markdown/MDX Content Collections
-- Keystatic GitHub CMS
-- GitHub Actions CI
-- Vercel Preview/Production
-- Vercel Web Analytics와 Speed Insights
+1. 프로젝트 저장소의 코드, 테스트, ADR, 작업 로그와 troubleshooting을 원본 근거로 둡니다.
+2. 프로젝트 페이지에서 역할·상태·아키텍처·검증 범위를 요약하고 원본 링크를 제공합니다.
+3. 면접에서 설명할 가치가 있는 결정과 장애만 별도 기술 글로 다시 구성합니다.
 
-전체 결정은 [기술 스펙](docs/TECH_SPEC.md), [ADR-0001](docs/adr/0001-stack-and-hosting.md), [ADR-0002](docs/adr/0002-git-based-cms.md)에 기록합니다. GitHub 프로필과 블로그의 역할 분리는 [ADR-0005](docs/adr/0005-github-and-blog-portfolio-surfaces.md)를 따릅니다.
+비공개 저장소와 개인 기록은 자동 수집하지 않으며, 공개 글은 확인 가능한 기여와 결과만 사용합니다.
 
-## 작업 상태
+## 콘텐츠 구조
 
-프로젝트·GitHub 전수 감사, 기술 스펙, 사이트 V1, draft-first 기록 도구와 CI 구성을 완료했습니다. 실제 완료 내역과 검증 결과는 [WORKLOG.md](WORKLOG.md)에 기록합니다.
+| 콘텐츠 | 답하는 질문 | 공개 기준 |
+| --- | --- | --- |
+| Projects | 무엇을 만들었고 어디까지 맡았는가 | 현재 상태, 역할 경계, 검증과 한계를 함께 표시 |
+| Posts | 어떤 문제를 어떻게 풀었는가 | 원본 코드·ADR·실험 링크가 있는 사례만 발행 |
+| Decisions | 왜 이 선택을 했는가 | 대안과 재검토 조건이 남아 있는 결정 |
+| Incidents | 무엇이 실패했고 어떻게 재발을 막았는가 | 실제 장애·배포·CI 근거가 있는 기록 |
 
-## 로컬 실행
+한국어와 영어는 같은 slug의 별도 원문으로 관리합니다. 런타임 자동 번역에 의존하지 않고 각 페이지에
+canonical, `hreflang`과 `x-default`를 생성합니다.
 
-```sh
+## 게시 흐름
+
+```mermaid
+flowchart LR
+    A[로컬 또는 Keystatic에서 초안 작성] --> B[Git commit / pull request]
+    B --> C[관계·타입·정적 빌드 검증]
+    C --> D{검증 통과}
+    D -- 아니요 --> A
+    D -- 예 --> E[Vercel Preview 또는 Production]
+    E --> F[정적 공개 페이지]
+```
+
+새 기록은 항상 draft로 시작합니다. CI는 끊어진 카테고리·프로젝트 관계, 한·영 slug 불일치, 잘못된
+내부 링크, draft 노출과 생성 산출물을 검사한 뒤에만 배포를 허용합니다.
+
+## 기술 설계
+
+| 영역 | 구현 |
+| --- | --- |
+| Application | Astro 7 정적 출력, TypeScript strict, React 기반 관리자 UI |
+| Content | Markdown/MDX Content Collections, schema 검증, 한국어·영어 원문 |
+| Editing | Keystatic GitHub mode, 코드와 분리된 콘텐츠·메뉴·테마 편집 |
+| Delivery | GitHub Actions, Vercel Preview/Production, draft 격리 |
+| Web quality | semantic HTML, keyboard navigation, RSS, sitemap, Open Graph, JSON-LD |
+| Operations | Web Analytics, Speed Insights, canonical·보안 header 검증 |
+
+Astro를 선택한 이유와 Next.js, S3·CloudFront, k3s, GitHub Pages를 제외한 근거는
+[ADR-0001](docs/adr/0001-stack-and-hosting.md)에 기록했습니다. Git 기반 관리자를 선택한 대안 비교는
+[ADR-0002](docs/adr/0002-git-based-cms.md), GitHub와 블로그의 역할 분리는
+[ADR-0005](docs/adr/0005-github-and-blog-portfolio-surfaces.md)에서 확인할 수 있습니다.
+
+## 로컬 실행과 검증
+
+Node.js 24와 npm을 사용합니다.
+
+```bash
 nvm use
 npm ci
 npm run dev
 ```
 
-정식 산출물은 `npm test`로 타입·콘텐츠·빌드·draft 격리를 함께 검사합니다. 검증 전 초안을 로컬에서 보려면 `SHOW_DRAFTS=true npm run dev`를 사용합니다.
+전체 로컬 게이트는 콘텐츠 관계, Astro 검사, production build와 draft 격리를 순서대로 검증합니다.
 
-프로젝트별 작업 로그·ADR·트러블슈팅 원문과 블로그를 연결하는 기준은 [엔지니어링 기록 운영 방식](docs/ENGINEERING_RECORDS.md)을 따릅니다. 진행 중 작업은 GitHub Issues/Projects에서 추적하고, 완료 사실은 저장소 문서에, 면접에서 설명할 가치가 있는 사례는 블로그 글로 다시 구성합니다.
-
-새 기록은 항상 비공개 초안으로 생성됩니다. 프로젝트와 글은 같은 slug의 한국어·영어 초안을 함께 만들어 번역 누락으로 `hreflang` 링크가 깨지지 않게 합니다.
-
-```sh
-npm run new:record -- post post-slug "글 제목"
+```bash
+npm test
 ```
 
-## 글 관리
+개별 명령은 다음과 같습니다.
 
-로컬 개발 서버에서는 [`/keystatic`](http://127.0.0.1:4321/keystatic)을 열면 별도 로그인 없이 관리 화면을 사용할 수 있습니다. 한국어·영어 글과 프로젝트, 카테고리·ADR·트러블슈팅을 만들고 수정하거나 삭제할 수 있습니다. `사이트 관리 → 사이트 설정`에서는 다음 항목도 코드 없이 바꿀 수 있습니다.
-
-- 사이트 제목·설명, 작성자 이름, 연락처와 홈 소개 문구
-- 홈의 최근 글·대표 프로젝트 표시 개수
-- 밝은 회색·아이보리·야간 테마와 파랑·초록·보라·주황 강조색
-- 상단·하단 메뉴의 한·영 이름, 링크, 노출 위치, 새 탭 여부와 드래그 순서
-- 카테고리의 한·영 이름·설명, 직무 역량/활동 유형 이동, 숫자 순서와 메뉴 노출 여부
-
-글 목록은 발행일의 최신순이며 대표 글과 대표 프로젝트는 각 항목의 체크박스로 관리합니다. 카테고리를 삭제하거나 slug를 바꾸기 전에는 연결된 글을 먼저 다른 카테고리로 이동해야 합니다. 끊어진 관계나 지원하지 않는 메뉴 URL은 저장 후 CI 검증에서 배포를 차단합니다.
-
-공개 사이트에서는 [`/admin`](https://seongju.vercel.app/admin)이 관리 화면으로 연결됩니다. GitHub 인증을 완료하면 편집 내용이 저장소에 커밋되고 Vercel이 새 버전을 배포합니다. 새 글과 프로젝트는 기본적으로 `비공개 초안`이며, 이 항목을 해제해야 공개됩니다.
-
-배포 관리자 최초 설정에는 Keystatic용 GitHub App 생성과 저장소 설치, Vercel 환경 변수 등록이 한 번 필요합니다. 이 프로젝트는 최초 설정과 Production·Preview 변수 등록을 완료했습니다. 비밀값은 저장소나 문서에 기록하지 않습니다.
-
-다른 배포에서 GitHub App을 새로 만들어야 한다면 `npm run dev:cms-setup`을 실행하고 `http://127.0.0.1:4321/keystatic/setup`에서 Production URL을 입력합니다. 로컬 `.env`에 생성된 네 값을 Vercel에 등록한 뒤 재배포합니다.
-
-### 남은 수동 설정
-
-- `/admin` GitHub 로그인, 글 작성과 저장 커밋 확인
-- Google Search Console에서 소유권 확인 버튼 클릭과 `sitemap-index.xml` 제출
-- 네이버 서치어드바이저 인증값 발급·Vercel 등록, 소유권 인증과 sitemap·RSS 제출
-
-Production의 OAuth 시작 경로는 GitHub 로그인으로 정상 이동한다. 실제 계정 로그인과 저장 커밋 확인은 위 수동 항목으로 남아 있다.
-
-관리 화면은 콘텐츠와 준비된 화면 옵션을 편집하는 도구입니다. 새로운 페이지 종류, 완전히 새로운 레이아웃, 임의 JavaScript 같은 코드 수준의 변경은 의도적으로 관리자에서 허용하지 않습니다. 공개 저장소에 실행 코드를 주입하는 경로를 막고 정적 사이트의 접근성·SEO·보안 계약을 유지하기 위한 경계입니다.
-
-영문은 자동 번역 API가 아니라 `/en/` 아래의 별도 원문으로 관리합니다. 같은 slug의 한국어·영어 프로젝트를 함께 유지하며 모든 공개 페이지는 canonical과 `hreflang` 한국어·영어·기본 URL을 제공합니다.
-
-Google Search Console과 네이버 서치어드바이저의 HTML 태그 소유권 인증값은 각각 Vercel의 `GOOGLE_SITE_VERIFICATION`, `NAVER_SITE_VERIFICATION` 환경 변수로 설정합니다.
-
-배포 canonical은 `https://seongju.vercel.app`을 사용합니다. 이 주소는 Vercel의 자동 프로젝트 도메인이 아니라 수동 alias입니다. 최종 commit의 GitHub Vercel deployment status에서 고유 URL을 얻고, 그 URL이 project `seongju`의 Production·Ready 배포인지 확인합니다. 변경 전 본진이 가리키는 기존 URL과 ID도 rollback 값으로 보존합니다.
-
-```sh
-gh api "repos/ghdtjdwn/myBlog/deployments?sha=<main-commit-sha>"
-gh api "repos/ghdtjdwn/myBlog/deployments/<github-deployment-id>/statuses"
-vercel inspect seongju.vercel.app
-vercel inspect <verified-production-deployment-url>
-vercel alias set <production-deployment-url> seongju.vercel.app
-vercel inspect seongju.vercel.app
+```bash
+npm run check            # Astro와 콘텐츠 타입 검사
+npm run verify:content   # 관계와 링크 검사
+npm run build            # 정적 production build
+npm run verify           # 생성 파일과 draft 격리 검사
 ```
 
-그다음 한·영 홈과 변경한 페이지의 내용·canonical·보안 헤더를 실제 주소에서 확인합니다. 하나라도 실패하면 `vercel alias set <previous-deployment-url> seongju.vercel.app`으로 즉시 되돌립니다. 개인 도메인을 연결하면 Vercel의 Production·Preview `SITE_URL`과 `astro.config.mjs` 기본값을 함께 변경합니다. 하위 경로 배포가 필요할 때만 `BASE_PATH`를 설정합니다.
+## 새 기록 만들기
+
+같은 slug의 한국어·영어 초안을 함께 생성합니다. 기존 파일은 덮어쓰지 않습니다.
+
+```bash
+npm run new:record -- <project|post|decision|incident> <slug> "제목"
+```
+
+<details>
+<summary>Keystatic 관리자와 배포 운영 메모</summary>
+
+로컬 개발 서버에서는 `http://127.0.0.1:4321/keystatic`에서 콘텐츠와 사이트 설정을 편집할 수 있습니다.
+Production의 `/admin`은 GitHub 인증을 거쳐 저장소 commit으로 변경을 남깁니다. 새 글과 프로젝트는
+기본적으로 draft이며 공개 상태를 명시적으로 바꿔야 합니다.
+
+새 배포에서 GitHub App을 설정해야 할 때만 `npm run dev:cms-setup`을 실행합니다. OAuth secret과 검색
+소유권 값은 로컬 환경 또는 Vercel 환경 변수에만 두고 저장소에 기록하지 않습니다.
+
+`seongju.vercel.app`은 자동 프로젝트 도메인이 아니라 검증된 Production 배포에 수동으로 연결하는
+alias입니다. alias를 바꾸기 전에는 commit, project, target과 Ready 상태를 확인하고 기존 배포 URL을
+rollback 값으로 보존합니다.
+
+</details>
+
+## 문서
+
+- [기술 스펙](docs/TECH_SPEC.md)
+- [프로젝트 공개 범위 카탈로그](docs/PROJECT_CATALOG.md)
+- [엔지니어링 기록 운영 방식](docs/ENGINEERING_RECORDS.md)
+- [Architecture Decision Records](docs/adr/)
+- [Troubleshooting records](docs/troubleshooting/)
+- [실제 작업 로그](WORKLOG.md)
+
+## 범위와 제약
+
+- 저장소의 CI 성공은 Vercel 환경 변수, alias 또는 외부 링크의 실제 동작까지 증명하지 않습니다.
+- 비공개 저장소의 코드·문서·URL은 공개하지 않고, 공개 가능한 역할과 검증 범위만 별도로 작성합니다.
+- 공개 수치와 상태는 기록 시점의 근거를 함께 남기며 현재의 상시 가용성이나 성능 보장으로 확대하지 않습니다.
