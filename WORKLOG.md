@@ -54,14 +54,13 @@
 ## 2026-07-17 — 프로젝트 근거 기반 기술 글 20편 보강
 
 - 목표: 프로젝트 정리 RTF와 각 저장소의 작업 로그·ADR·트러블슈팅·테스트 기록을 전수 감사해, 면접에서 설계 판단과 검증 범위를 설명할 수 있는 사례만 기술 블로그 글로 만든다.
-- 선별: SSU 플랫폼 8편, Geuneul 6편, Axwar plugin 3편, Cham Domi·DDSC·블로그 운영 각 1편을 한·영 동일 slug로 작성했다. 기존 `semantic-kiosk-automation`과 겹치는 Macro 사례는 중복 발행하지 않았고, HeungMap·YOGI·OSC는 구현 근거가 없어 기술 성과 글에서 제외했다.
-- 콘텐츠: 인증 grant·LMS 부분 실패·내구성 예약 intent·LangGraph HITL·RAG quota·Testcontainers 수명주기·StatefulSet rollout·관측성, 공간 ETL·점수 정책·PostgreSQL NOTIFY·ECS rollback·RDS 암호화·proxy IP 신뢰 경계, 결정론 AI guardrail과 Stable Roommates oracle을 문제-증거-결정-검증-한계 구조로 정리했다.
-- 프로젝트: 비공개 개인 대회작 `ddsc-learning-game`의 한·영 프로젝트 페이지를 추가했다. 정적 demo는 mock grader만 사용하고 실제 AI server·학습 효과를 주장하지 않는 공개 경계를 프로젝트 카탈로그에도 기록했다.
+- 선별: SSU 플랫폼, Geuneul, Axwar plugin, Cham Domi와 블로그 운영 사례를 한·영 동일 slug로 작성했다. 기존 `semantic-kiosk-automation`과 겹치는 Macro 사례는 중복 발행하지 않았고, HeungMap·YOGI·OSC는 구현 근거가 없어 기술 성과 글에서 제외했다.
+- 콘텐츠: 인증 grant·LMS 부분 실패·내구성 예약 intent·LangGraph HITL·RAG quota·Testcontainers 수명주기·StatefulSet rollout·관측성, 공간 ETL·점수 정책·PostgreSQL NOTIFY·ECS rollback·RDS 암호화·proxy IP 신뢰 경계와 Stable Roommates oracle을 문제-증거-결정-검증-한계 구조로 정리했다.
 - 사실 감사: 공개 PR 6개의 병합 상태와 원문 수치를 재대조했다. Geuneul 지오코딩은 초기 46,897건에서 재실행 시 기존 좌표 전량 재사용·5,437건 추가·총 52,334건으로 갱신했고, ECS 사건은 GitHub Actions 성공이 아니라 `gh run watch | tail`을 사용한 merge 자동화의 exit code 오판으로 교정했다. 팀원 소유 영역, 비공개 URL·원문, 사용자 식별값과 secret-shaped 값은 포함하지 않았다.
 - 검증: 초안 포함 빌드에서 새 한·영 글 40개와 프로젝트 2개가 모두 HTTP 200·올바른 문서 언어·제목·placeholder 없음으로 렌더링됐다. 대표 14페이지의 description·canonical·hreflang과 50개 내부 링크를 검사했다. 인앱 브라우저가 제공되지 않아 실제 viewport 시각 검수는 수행하지 못했다.
 - 전체 게이트: 공개 상태 전환 후 `npm test`가 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건, 111개 생성 문서와 기존 draft 격리를 검증했다. 첫 실행에서 설명용 `sizeBytes=null`이 unresolved-value 방어 규칙에 걸린 문제는 자연어 표현으로 교정한 뒤 재실행해 통과했다. Vite의 기존 500 kB 초과 chunk 경고는 남아 있으나 이번 콘텐츠 변경에서 새 client bundle을 추가하지 않았다.
-- 전달: 최신 `origin/main`의 개인정보 모자이크·아키텍처 다이어그램 변경을 보존해 commit `a0e5c6f`을 draft PR #17로 push했다. GitHub Actions run `29577153752`의 validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 SSU·Geuneul·DDSC 한·영 글과 DDSC 프로젝트 8개 경로는 HTTP 200, 새 제목·placeholder 없음과 Preview `noindex`·robots 전체 차단을 확인했다. Production merge·배포·기본 alias 전환은 명시적 확인 전까지 수행하지 않는다.
-- Production 전달: 사용자 승인 뒤 PR #17을 squash commit `ea5707d`로 병합했고 main CI run `29583084767`의 validate·secret-scan이 성공했다. 병합 SHA와 일치하는 Vercel deployment `dpl_HisroZdNpnaEYT8PwgL6aVasyvcX`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_Eoca7zZvJWPVPzwnupcjx4bsSa6A`에서 새 배포로 전환했다. 공개 한·영 홈·글 목록과 새 글 40개·DDSC 프로젝트 2개를 포함한 46개 경로, canonical·hreflang·보안 header·robots·sitemap·RSS를 검사했고 draft incident 경로는 404였다. 인앱 브라우저 세션이 없어 viewport 시각 검수는 수행하지 못했으며, 실패 시 복구할 이전 고유 배포 주소와 ID는 로컬 운영 기록에 보존했다.
+- 전달: 최신 `origin/main`의 개인정보 모자이크·아키텍처 다이어그램 변경을 보존해 commit `a0e5c6f`을 draft PR #17로 push했다. GitHub Actions run `29577153752`의 validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 대표 한·영 글과 프로젝트 경로는 HTTP 200, 새 제목·placeholder 없음과 Preview `noindex`·robots 전체 차단을 확인했다. Production merge·배포·기본 alias 전환은 명시적 확인 전까지 수행하지 않는다.
+- Production 전달: 사용자 승인 뒤 PR #17을 squash commit `ea5707d`로 병합했고 main CI run `29583084767`의 validate·secret-scan이 성공했다. 병합 SHA와 일치하는 Vercel deployment `dpl_HisroZdNpnaEYT8PwgL6aVasyvcX`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_Eoca7zZvJWPVPzwnupcjx4bsSa6A`에서 새 배포로 전환했다. 공개 한·영 홈·글 목록과 새 글 40개를 포함한 46개 경로, canonical·hreflang·보안 header·robots·sitemap·RSS를 검사했고 draft incident 경로는 404였다. 인앱 브라우저 세션이 없어 viewport 시각 검수는 수행하지 못했으며, 실패 시 복구할 이전 고유 배포 주소와 ID는 로컬 운영 기록에 보존했다.
 ## 2026-07-17 — 코드 없는 블로그 관리 범위 확장
 
 - 목표: 기존 글 CRUD 중심 Keystatic 관리자를 사이트 브랜딩·홈·메뉴·테마·양언어 카테고리까지 코드 없이 관리할 수 있는 운영 화면으로 확장한다.
