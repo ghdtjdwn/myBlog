@@ -1,5 +1,13 @@
 # Work log
 
+## 2026-07-29 — 폐기 콘텐츠 공개 노출 제거
+
+- 목표: 더 이상 포트폴리오로 유지하지 않는 개인 대회작과 연결 글이 GitHub 프로필, 프로젝트 목록, 검색과 직접 URL에 남지 않게 한다.
+- 변경: 한·영 프로젝트 상세와 연결 기술 글을 삭제하고, 프로젝트 카탈로그와 과거 작업 로그에서는 해당 이름과 경로만 제거해 나머지 검증·배포 기록을 보존했다. 프로필 대표 프로젝트 행은 별도 [pull request #12](https://github.com/ghdtjdwn/ghdtjdwn/pull/12)에서 제거한다.
+- 결정: `draft` 전환은 공개 저장소의 source와 기존 route를 남기므로 사용하지 않았다. Git 기록으로 복구 가능성을 유지하면서 현재 tree와 정적 산출물에서는 완전히 제외했다.
+- 검증: `npm ci && npm test`가 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 143개 생성 문서와 draft 격리를 통과했다. source·생성물에서 폐기 대상 이름과 경로가 0건이고 변경분 Gitleaks가 통과했다. 기존 lockfile의 2 moderate·5 high advisory는 이번 콘텐츠 변경에서 수정하지 않았다.
+- 전달: [pull request #24](https://github.com/ghdtjdwn/myBlog/pull/24)의 GitHub CI와 Vercel Preview, `main` 병합 뒤 동일 SHA의 Production 배포와 삭제 route 404 확인을 완료 조건으로 둔다.
+
 ## 2026-07-29 — GitHub README를 포트폴리오 진입점으로 재구성
 
 - 목표: 저장소를 처음 방문한 사람이 공개 사이트의 목적, 근거 연결 방식, 콘텐츠 모델과 검증·배포 경계를 README에서 빠르게 이해할 수 있게 한다.
