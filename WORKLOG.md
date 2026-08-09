@@ -8,7 +8,7 @@
 - 글과 시각 자료: 그룹 채팅에서 MySQL·REST를 정본으로 두고 STOMP를 전달 계층으로 사용하는 기술 글을 한·영으로 발행 상태까지 작성했다. 기존 Stable Roommates 글도 운영 전환 이후 상태로 갱신했다. 공개 가능한 매칭·필터·채팅 화면과 가로형 매칭 흐름도를 연결하고 Cham Domi를 대표 프로젝트 2순위로 올렸으며 About의 한·영 수상 항목을 동기화했다.
 - 리뷰 수정: 독립 리뷰에서 공개 안내와 결과 근거의 혼동, 서로 다른 FE 226·BE 295 실행의 합산 표현, 세로 대표 이미지와 고정 OG 크기의 불일치를 발견했다. 결과 통지와 공개 안내의 역할을 분리하고 테스트 기록을 서로 다른 2026-07-31 전달 단위로 명시했으며, 가로형 대표 이미지와 실제 이미지 치수 기반 OG metadata로 교정했다.
 - 검증: `npm run check`와 `npm run verify:content`가 11개 카테고리·11개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건을 확인했다. 초안 포함 build에서 새 한·영 프로젝트·글·About과 반응형 이미지가 생성됐고 로컬 핵심 11개 경로가 HTTP 200이었다. 최종 `npm test`가 production build와 145개 생성 문서·draft 격리를 통과했다. 기존 Vite 500 kB 초과 chunk 경고는 남아 있으며 이번 변경에서 client bundle 기능을 추가하지 않았다.
-- 검수 제한과 전달: 연결 가능한 인앱 브라우저가 없어 실제 desktop·mobile viewport 검수는 수행하지 못했다. 원본 이미지를 직접 확인하고 생성 HTML의 언어·제목·이미지·OG 치수와 로컬 응답으로 보완했다. GitHub 프로필과 블로그는 `portfolio/cham-domi-silver-20260809` 브랜치에서 준비했으며 commit·PR·CI·Preview와 Production 반영은 다음 전달 단계에 기록한다.
+- 검수 제한과 전달: 연결 가능한 인앱 브라우저가 없어 실제 desktop·mobile viewport 검수는 수행하지 못했다. 원본 이미지를 직접 확인하고 생성 HTML의 언어·제목·이미지·OG 치수와 로컬 응답으로 보완했다. GitHub 프로필은 commit `e9a8eab`과 draft PR [#14](https://github.com/ghdtjdwn/ghdtjdwn/pull/14), 블로그는 commit `3bd11fc`과 draft PR [#25](https://github.com/ghdtjdwn/myBlog/pull/25)로 전달했다. 블로그 PR의 CI `validate`·`secret-scan`과 Vercel Preview가 성공했고, Preview의 한·영 프로젝트·About·신규 글을 포함한 7개 공개 경로가 HTTP 200과 기대한 제목·수상 문구를 반환했다. 두 PR은 병합하지 않았으며 Production 반영도 수행하지 않았다.
 
 ## 2026-07-29 — 폐기 콘텐츠 공개 노출 제거
 
