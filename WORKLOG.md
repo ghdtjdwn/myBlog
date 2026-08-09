@@ -1,5 +1,15 @@
 # Work log
 
+## 2026-08-09 — Cham Domi 은상·운영 전환 포트폴리오 반영
+
+- 목표: 프로토타입으로 남아 있던 Cham Domi 공개 설명을 현재 운영 상태와 최근 컴퓨터학부 소프트웨어공모전 은상 결과에 맞추고, GitHub 프로필과 기술 블로그에서 같은 기여 경계·검증·한계를 보여준다.
+- 근거와 공개 경계: 사용자에게 전달된 결과 통지로 은상을 확인했다. 공개 공모전 페이지는 대회명·일정·시상 체계 확인용으로만 연결하고, 결과가 LMS와 팀장 개별 메일로 통지되는 방식임을 명시했다. 비공개 FE·BE·infra의 작업 로그, 현재 source와 2026-08-09 공개 웹·BFF·backend health를 교차 확인했으며, 인증 핵심과 기숙사 검색·자격 판정은 팀원 소유로 유지했다.
+- 프로젝트 갱신: 한·영 Cham Domi를 `prototype`에서 `operating`으로 바꾸고 프론트엔드 전반, `domain.roommate`, OpenAPI 계약 통합과 OCI ARM64 k3s 운영 인프라를 직접 역할로 정리했다. 설명 가능한 Top 400→Top 200 추천, Stable Roommates, 멱등 채팅·transactional outbox, HttpOnly BFF와 exact SHA·digest·backup/restore 배포 계보를 기술하고 단일 replica·비영속 자동 배정·미완료 두 계정 E2E와 Push 검증을 한계로 남겼다.
+- 글과 시각 자료: 그룹 채팅에서 MySQL·REST를 정본으로 두고 STOMP를 전달 계층으로 사용하는 기술 글을 한·영으로 발행 상태까지 작성했다. 기존 Stable Roommates 글도 운영 전환 이후 상태로 갱신했다. 공개 가능한 매칭·필터·채팅 화면과 가로형 매칭 흐름도를 연결하고 Cham Domi를 대표 프로젝트 2순위로 올렸으며 About의 한·영 수상 항목을 동기화했다.
+- 리뷰 수정: 독립 리뷰에서 공개 안내와 결과 근거의 혼동, 서로 다른 FE 226·BE 295 실행의 합산 표현, 세로 대표 이미지와 고정 OG 크기의 불일치를 발견했다. 결과 통지와 공개 안내의 역할을 분리하고 테스트 기록을 서로 다른 2026-07-31 전달 단위로 명시했으며, 가로형 대표 이미지와 실제 이미지 치수 기반 OG metadata로 교정했다.
+- 검증: `npm run check`와 `npm run verify:content`가 11개 카테고리·11개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건을 확인했다. 초안 포함 build에서 새 한·영 프로젝트·글·About과 반응형 이미지가 생성됐고 로컬 핵심 11개 경로가 HTTP 200이었다. 최종 `npm test`가 production build와 145개 생성 문서·draft 격리를 통과했다. 기존 Vite 500 kB 초과 chunk 경고는 남아 있으며 이번 변경에서 client bundle 기능을 추가하지 않았다.
+- 검수 제한과 전달: 연결 가능한 인앱 브라우저가 없어 실제 desktop·mobile viewport 검수는 수행하지 못했다. 원본 이미지를 직접 확인하고 생성 HTML의 언어·제목·이미지·OG 치수와 로컬 응답으로 보완했다. GitHub 프로필과 블로그는 `portfolio/cham-domi-silver-20260809` 브랜치에서 준비했으며 commit·PR·CI·Preview와 Production 반영은 다음 전달 단계에 기록한다.
+
 ## 2026-07-29 — 폐기 콘텐츠 공개 노출 제거
 
 - 목표: 더 이상 포트폴리오로 유지하지 않는 개인 대회작과 연결 글이 GitHub 프로필, 프로젝트 목록, 검색과 직접 URL에 남지 않게 한다.

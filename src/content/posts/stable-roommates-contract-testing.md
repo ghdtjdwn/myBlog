@@ -2,6 +2,7 @@
 title: "복제된 점수 규칙과 Stable Roommates를 계약 테스트로 지킨 방법"
 description: "FE·BE가 병렬 개발한 생활 습관 점수를 같은 fixture로 묶고, 매칭 알고리즘은 작은 brute-force oracle과 비교한 팀 프로젝트 검증 기록입니다."
 publishedAt: 2026-07-17
+updatedAt: 2026-08-09
 category: engineering
 activity: team-project
 tags: ["Stable Roommates", "Contract Testing", "Next.js", "Spring Boot"]
@@ -13,9 +14,10 @@ evidence:
 validation:
   - "FE Vitest 9개, BE 순수 JUnit 점수 테스트와 대표 100·89점 parity"
   - "n=4와 n=6에서 각각 400개 무작위 선호 입력을 brute-force oracle과 대조"
+  - "서로 다른 2026-07-31 전달 기록의 FE 226/226·BE 295건과 OpenAPI 75개 경로 생성 일치"
 limitations:
   - "인증과 기숙사 자격 판정은 팀원 소유이며 이 글의 구현 범위가 아님"
-  - "실제 인증 통합, CI, 공개 배포와 사용자 운영 검증은 아직 없음"
+  - "실제 두 계정의 전체 변경 E2E와 자동 배정 결과 영속화는 아직 완료되지 않음"
   - "점수 규칙이 공용 package가 아니라 양쪽에 복제돼 contract test가 사라지면 drift할 수 있음"
 featured: true
 draft: false
@@ -23,7 +25,7 @@ draft: false
 
 ## 병렬 개발은 같은 문서를 읽는 것만으로 정합성을 보장하지 않는다
 
-Cham Domi는 생활 습관이 맞는 기숙사 룸메이트를 찾는 팀 프로토타입입니다. 저는 Next.js 프론트엔드 전체와 Spring Boot의 roommate 도메인을 맡았습니다. 인증과 기숙사 자격 판정은 팀원의 범위였습니다.
+Cham Domi는 생활 습관이 맞는 기숙사 룸메이트를 찾는 팀 서비스입니다. 저는 Next.js 프론트엔드와 Spring Boot의 roommate 도메인, 운영 인프라를 맡았습니다. 인증과 기숙사 자격 판정은 팀원의 범위였습니다. 이 글은 프로토타입 단계에서 점수와 Stable Roommates 정확성을 검증한 과정을 다루며, 이후 프로젝트는 공개 운영 서비스로 발전했습니다. 결과 통지에서 2026학년도 숭실대학교 컴퓨터학부 소프트웨어공모전 은상 수상을 확인했습니다.
 
 백엔드가 준비되기 전에도 화면 개발을 진행하기 위해 data access를 mock·real API adapter 뒤에 뒀습니다. 이 방식은 속도를 높였지만 생활 습관 점수를 FE에서도 즉시 보여주고 BE에서도 최종 계산하면서 같은 규칙이 두 언어에 복제됐습니다.
 
@@ -42,7 +44,7 @@ shared semantic fixture
 
 단순히 최종 숫자만 맞추면 서로 다른 버그가 우연히 상쇄될 수 있습니다. 항목별 contribution과 dealbreaker 판정도 확인해 어느 규칙이 달라졌는지 찾을 수 있게 했습니다.
 
-장기적으로는 schema에서 양쪽 구현을 생성하거나 하나의 backend 계산을 유일한 source로 만드는 편이 더 강합니다. 프로토타입 단계에서는 배포 경계를 늘리지 않고 contract fixture로 drift를 감시하는 비용을 선택했습니다.
+장기적으로는 schema에서 양쪽 구현을 생성하거나 하나의 backend 계산을 유일한 source로 만드는 편이 더 강합니다. 초기 프로토타입 단계에서는 배포 경계를 늘리지 않고 contract fixture로 drift를 감시하는 비용을 선택했습니다. 운영 전환 뒤에는 MySQL 후보 축약과 BE 권위 재채점을 추가해 최종 순위의 source를 서버로 명확히 했습니다.
 
 ## 알고리즘 테스트의 답을 같은 알고리즘으로 만들지 않는다
 
@@ -58,8 +60,8 @@ shared semantic fixture
 
 무작위 test는 재현 가능한 seed를 남겨 실패 입력을 고정 case로 승격할 수 있게 했습니다.
 
-## 검증된 범위와 팀 경계를 함께 공개한다
+## 운영 전환 뒤에도 검증된 범위와 팀 경계를 함께 공개한다
 
-FE에는 9개 Vitest, BE에는 순수 점수 JUnit와 H2 기반 domain test가 있습니다. Playwright로 mock adapter를 사용한 화면 흐름도 확인했습니다. 하지만 실제 팀 인증과 연결된 end-to-end, CI, 공개 배포와 운영 사용자는 없습니다.
+초기 구현에서는 FE 9개 Vitest, BE 순수 점수 JUnit와 H2 기반 domain test로 알고리즘 경계를 확인했습니다. 이후 실제 API·인증 계약, MySQL 후보 축약, CI와 공개 배포를 연결했습니다. 서로 다른 2026-07-31 전달 기록에는 FE 226/226, BE 295건 실패·오류 0과 OpenAPI 75개 경로 생성 일치가 각각 남아 있습니다. 하나의 통합 실행으로 합치지 않습니다. 2026-08-09에는 공개 웹·BFF와 백엔드 health 응답을 다시 확인했습니다.
 
-이 결과를 운영 안정성으로 표현하지 않는 이유입니다. 또한 인증·기숙사 자격 로직은 제가 구현한 일이 아닙니다. 이 글이 보여주는 범위는 제가 소유한 FE와 roommate 도메인에서, 복제 계약과 비자명한 매칭 알고리즘을 서로 다른 oracle로 검증한 과정입니다.
+이 숫자가 모든 사용자 흐름의 안정성을 뜻하지는 않습니다. 실제 두 계정의 승인·배정·채팅 변경 E2E와 자동 배정 결과 영속화는 남아 있습니다. 또한 인증·기숙사 자격 로직은 제가 구현한 일이 아닙니다. 이 글이 보여주는 범위는 제가 소유한 FE와 roommate 도메인에서, 복제 계약과 비자명한 매칭 알고리즘을 서로 다른 oracle로 검증하고 운영 권위 경계로 확장한 과정입니다.

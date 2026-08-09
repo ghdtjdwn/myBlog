@@ -33,11 +33,15 @@ const settings = await getSiteSettings();
 
     <section class="about-section profile-section">
       <p class="intro-label">Profile</p>
-      <h2>기본 정보와 자격</h2>
+      <h2>기본 정보, 수상과 자격</h2>
       <dl class="profile-facts">
         <div>
           <dt>Education</dt>
           <dd>{settings.contact.education}</dd>
+        </div>
+        <div>
+          <dt>Award</dt>
+          <dd><a href={withBase("projects/cham-domi/")}>2026학년도 숭실대학교 컴퓨터학부 소프트웨어공모전 은상 — Cham Domi</a></dd>
         </div>
         <div>
           <dt>Credential</dt>

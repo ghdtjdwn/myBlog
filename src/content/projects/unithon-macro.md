@@ -13,7 +13,7 @@ infra: ["Local Windows runtime", "Authenticated HTTP/WebSocket contracts", "SQLi
 metrics:
   - { label: "Safety", value: "Dry-run default" }
   - { label: "Validation", value: "69 tests · Linux/Windows CI" }
-order: 3
+order: 4
 featured: true
 repositories:
   - { label: "Macro", url: "https://github.com/UNITHON24/Macro" }
