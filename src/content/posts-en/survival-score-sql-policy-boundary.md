@@ -16,7 +16,6 @@ validation:
 limitations:
   - "Weights are product hypotheses, not the result of a user-outcome experiment"
   - "Sparse reviews and region-level weather cannot fully represent personalization or microclimates"
-featured: true
 draft: false
 ---
 

@@ -34,7 +34,6 @@ tags: ["TODO"]
 infra: []
 metrics: []
 order: 999
-featured: false
 draft: true
 repositories: []
 recordPlan: "TODO: 원본 작업 로그·ADR·트러블슈팅과 블로그 기록의 연결 방식"
@@ -69,7 +68,6 @@ tags: ["TODO"]
 infra: []
 metrics: []
 order: 999
-featured: false
 draft: true
 repositories: []
 recordPlan: "TODO: How source work logs, ADRs, and troubleshooting records connect to the blog"
@@ -102,7 +100,6 @@ validation:
   - "TODO: 실제 수행한 검증"
 limitations:
   - "TODO: 주장하지 않는 범위"
-featured: false
 draft: true
 ---
 
@@ -132,7 +129,6 @@ validation:
   - "TODO: Validation actually performed"
 limitations:
   - "TODO: Scope this article does not claim"
-featured: false
 draft: true
 ---
 

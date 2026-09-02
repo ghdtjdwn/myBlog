@@ -32,7 +32,7 @@ for (const name of await readdir(path.join(contentRoot, "categories"))) {
   if (!/\.(?:yaml|yml)$/.test(name)) continue;
   const source = await readFile(path.join(contentRoot, "categories", name), "utf8");
   const id = name.replace(/\.(?:yaml|yml)$/, "");
-  const kind = source.match(/^kind:\s*(competency|activity)\s*$/m)?.[1];
+  const kind = source.match(/^kind:\s*(topic|activity)\s*$/m)?.[1];
   if (kind) categoryKinds.set(id, kind);
 }
 const categoryIds = new Set(categoryKinds.keys());
@@ -81,8 +81,8 @@ for (const collection of ["posts", "posts-en", "decisions", "incidents"]) {
     if ((collection === "posts" || collection === "posts-en") && (!category || !categoryIds.has(category))) {
       failures.push(`${collection}/${name}: unknown or missing category '${category ?? ""}'`);
     }
-    if ((collection === "posts" || collection === "posts-en") && category && categoryKinds.get(category) !== "competency") {
-      failures.push(`${collection}/${name}: primary category '${category}' must be a competency`);
+    if ((collection === "posts" || collection === "posts-en") && category && categoryKinds.get(category) !== "topic") {
+      failures.push(`${collection}/${name}: primary category '${category}' must be a topic`);
     }
     if ((collection === "posts" || collection === "posts-en") && activity && !categoryIds.has(activity)) {
       failures.push(`${collection}/${name}: unknown activity '${activity}'`);

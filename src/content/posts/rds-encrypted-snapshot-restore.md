@@ -16,7 +16,6 @@ validation:
 limitations:
   - "실제 교체에는 약 15분의 database downtime이 있었으며 무중단 migration이 아님"
   - "free-tier 제약으로 당시 backup retention은 목표 7일 대신 1일"
-featured: true
 draft: false
 ---
 

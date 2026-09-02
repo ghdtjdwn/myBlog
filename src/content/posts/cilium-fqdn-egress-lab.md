@@ -17,7 +17,6 @@ limitations:
   - "폐기 가능한 lab 결과이며 production cluster에는 Cilium을 배포하지 않음"
   - "production은 단일 노드 flannel이라 CNI 교체에 failover가 없음"
   - "DoH·DoT·고정 IP와 chaining mode의 제한은 별도 사전 검증이 필요"
-featured: false
 draft: false
 ---
 

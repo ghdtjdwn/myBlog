@@ -20,7 +20,6 @@ limitations:
   - "sha256(principal) minimizes stored plaintext; anti-forgery comes from the server proxy and service API-key boundary"
   - "Unauthenticated traffic retains the existing session and anonymous contract"
   - "Ownerless anonymous threads remain accessible to anyone under the existing contract and sit outside the authenticated-principal ownership guarantee"
-featured: true
 draft: false
 ---
 

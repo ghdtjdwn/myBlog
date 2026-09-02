@@ -16,7 +16,6 @@ validation:
 limitations:
   - "Trace ingestion does not prove that sampling or every alert threshold is operationally optimal"
   - "Validation used safe synthetic conditions rather than causing a user-facing outage"
-featured: true
 draft: false
 ---
 

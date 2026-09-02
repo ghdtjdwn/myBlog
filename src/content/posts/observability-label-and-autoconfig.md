@@ -16,7 +16,6 @@ validation:
 limitations:
   - "trace 수집 성공은 sampling 적정성이나 모든 alert threshold의 운영 품질을 보장하지 않음"
   - "무해한 합성 장애로 검증했으며 실제 사용자 장애를 만들지는 않음"
-featured: true
 draft: false
 ---
 

@@ -16,7 +16,6 @@ validation:
 limitations:
   - "단일 cluster와 해당 StatefulSet controller 상태에서 관찰한 사례"
   - "Pod 삭제는 기존 데이터를 보존하는 구성 확인 뒤 수행했으며 무상태 workload의 일반 해법으로 제시하지 않음"
-featured: true
 draft: false
 ---
 

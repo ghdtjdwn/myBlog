@@ -16,7 +16,6 @@ limitations:
   - "The repository has no formal automated test suite; this review used a small set of audit probes"
   - "The current parser gives +, -, and * one left-associative precedence level, unlike the README's conventional description"
   - "RepeatStmt termination also differs from the README example and requires comparison with the original assignment specification"
-featured: false
 draft: false
 ---
 

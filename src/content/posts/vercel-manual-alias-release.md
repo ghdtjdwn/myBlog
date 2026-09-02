@@ -15,13 +15,12 @@ validation:
 limitations:
   - "현재 승격은 수동 단계라 누락 가능성이 남아 있음"
   - "개인 domain의 자동 Production assignment나 제한된 credential 기반 자동화는 아직 도입하지 않음"
-featured: false
 draft: false
 ---
 
 ## 초록색 세 개가 사용자에게 최신 화면을 보장하지 않았다
 
-프로젝트 설명을 수정한 pull request의 GitHub CI가 통과했고, main commit에 연결된 Vercel Production도 `Ready`였습니다. 고유 deployment URL에서는 새 한국어·영어 콘텐츠가 보였습니다. 그러나 채용 자료에 적은 `seongju.vercel.app`은 계속 이전 내용을 제공했습니다.
+프로젝트 설명을 수정한 pull request의 GitHub CI가 통과했고, main commit에 연결된 Vercel Production도 `Ready`였습니다. 고유 deployment URL에서는 새 한국어·영어 콘텐츠가 보였습니다. 그러나 주 공개 주소인 `seongju.vercel.app`은 계속 이전 내용을 제공했습니다.
 
 처음에는 CDN cache나 Astro build 누락을 의심했습니다. 네 상태를 따로 비교했습니다.
 
@@ -56,7 +55,7 @@ seongju.vercel.app alias   previous deployment
 
 ## post-deployment verification은 본진에서 끝낸다
 
-승격 뒤 본진 alias와 최종 Production의 deployment ID가 같아졌습니다. 한국어·영어 홈과 대표 프로젝트가 200을 반환하고 새 문구를 포함하는지 확인했습니다. canonical은 본진 주소를 가리켰고 HSTS, MIME sniffing 방지, frame 차단과 referrer 정책도 유지됐습니다.
+승격 뒤 본진 alias와 최종 Production의 deployment ID가 같아졌습니다. 한국어·영어 홈과 프로젝트 페이지가 200을 반환하고 새 문구를 포함하는지 확인했습니다. canonical은 본진 주소를 가리켰고 HSTS, MIME sniffing 방지, frame 차단과 referrer 정책도 유지됐습니다.
 
 CI는 source와 build를 검증하고, hosting status는 deployment를 검증합니다. 사용자가 실제로 찾는 주소는 별도의 routing object일 수 있습니다. 그래서 release 완료 조건에 public alias의 content probe를 추가했습니다.
 

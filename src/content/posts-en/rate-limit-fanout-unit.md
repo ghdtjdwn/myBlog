@@ -17,7 +17,6 @@ limitations:
   - "The 20/s cluster and 8/s user values are sized for the current six-room fan-out and observed upstream behavior"
   - "The Redisson limiter does not guarantee strict request ordering or fairness"
   - "Long-term upstream quotas and policy changes require another capacity calculation"
-featured: true
 draft: false
 ---
 

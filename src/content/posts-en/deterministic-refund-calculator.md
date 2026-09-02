@@ -16,7 +16,6 @@ validation:
 limitations:
   - "Scope is overseas package travel; business-day calendars, time zones, and compound promotions are unsupported"
   - "Consumer-standard comparisons are informational, not legal interpretation or merchant approval"
-featured: true
 draft: false
 ---
 

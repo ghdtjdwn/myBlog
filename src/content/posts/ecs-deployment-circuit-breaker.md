@@ -16,7 +16,6 @@ validation:
 limitations:
   - "당시 단일 ECS service와 0.25 vCPU task의 관측값이며 모든 workload의 권장 timeout이 아님"
   - "배포 안전성을 검증했지만 고부하 상태의 무중단 capacity는 별도 load test가 필요함"
-featured: true
 draft: false
 ---
 

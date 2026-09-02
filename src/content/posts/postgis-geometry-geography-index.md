@@ -17,7 +17,6 @@ limitations:
   - "SRID 4326 도시 규모 point 검색을 대상으로 한 설계"
   - "geometry와 geography용 GiST 두 개로 쓰기·저장 비용이 소폭 증가"
   - "표시용 distanceM도 DB ST_Distance 결과이며 애플리케이션은 소수점 반올림만 수행"
-featured: true
 draft: false
 ---
 

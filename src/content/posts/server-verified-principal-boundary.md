@@ -20,7 +20,6 @@ limitations:
   - "sha256(principal)은 원문 최소화 수단이며 위조 방어는 서버 프록시와 service API key 경계가 담당"
   - "로그인하지 않은 익명 흐름은 기존 세션·익명 계약을 유지"
   - "owner가 없는 익명 thread는 누구나 접근 가능한 기존 계약이므로 인증 principal 소유권 보장 범위 밖"
-featured: true
 draft: false
 ---
 

@@ -19,7 +19,6 @@ limitations:
   - "인증과 기숙사 자격 판정은 팀원 소유이며 이 글의 구현 범위가 아님"
   - "실제 두 계정의 전체 변경 E2E와 자동 배정 결과 영속화는 아직 완료되지 않음"
   - "점수 규칙이 공용 package가 아니라 양쪽에 복제돼 contract test가 사라지면 drift할 수 있음"
-featured: true
 draft: false
 ---
 

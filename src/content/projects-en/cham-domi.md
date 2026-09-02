@@ -28,8 +28,7 @@ infra: ["MySQL", "Transactional Outbox", "k3s", "Helm", "Prometheus"]
 metrics:
   - { label: "Award", value: "Silver Prize" }
   - { label: "Latest test records", value: "FE 226 · BE 295" }
-order: 2
-featured: true
+order: 10
 live: "https://chamdomi.vercel.app"
 repositories: []
 recordPlan: "Private team repositories retain the source code, ADRs, and work logs. Public case studies cover only my contribution and publishable design, validation, and limitations without presenting authentication or dormitory domains as my implementation."

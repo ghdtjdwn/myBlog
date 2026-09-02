@@ -17,7 +17,6 @@ limitations:
   - "설치된 LangGraph·LangChain 버전의 event shape를 대상으로 한 계약"
   - "결정적 선라우팅은 관측된 도서관·LMS 고신뢰 표현에만 보수적으로 적용"
   - "텍스트를 model end까지 버퍼링하므로 최종 문장 토큰의 체감 streaming은 줄어듦"
-featured: true
 draft: false
 ---
 

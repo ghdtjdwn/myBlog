@@ -16,7 +16,6 @@ validation:
 limitations:
   - "The limiter is an instance-local approximation and does not share quota across ECS tasks"
   - "Clearing at capacity protects memory but discards some recent history for legitimate clients"
-featured: true
 draft: false
 ---
 

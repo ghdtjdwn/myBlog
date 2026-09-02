@@ -6,7 +6,7 @@ import { withBase } from "../../../lib/site";
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const categories = (await getCollection("categories")).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection("postsEn", ({ data }) => showDrafts || !data.draft)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-const visibleCompetencies = categories.filter(c => c.data.visible && c.data.kind === "competency")
+const visibleTopics = categories.filter(c => c.data.visible && c.data.kind === "topic")
   .map(category => ({ category, count: posts.filter(post => post.data.category.id === category.id).length }))
   .filter(({ count }) => count > 0);
 const visibleActivities = categories.filter(c => c.data.visible && c.data.kind === "activity")
@@ -15,7 +15,7 @@ const visibleActivities = categories.filter(c => c.data.visible && c.data.kind =
 ---
 <BaseLayout locale="en" title="Writing — Hong Seong Ju" description="Reproducible engineering notes about performance, data, AI safety, infrastructure, and technical decisions.">
   <div class="shell reading-shell page-wrap"><header class="page-header"><p class="intro-label">Writing</p><h1>Engineering writing</h1><p>Problems I encountered, failed hypotheses, measurements, and the reasons behind decisions.</p></header>
-    <div class="category-groups"><nav class="category-nav" aria-label="Writing by engineering capability"><strong>Capabilities</strong><a aria-current="page" href={Astro.url.pathname}>All <span>{posts.length}</span></a>{visibleCompetencies.map(({ category, count }) => <a href={withBase(`en/writing/category/${category.id}/`)}>{category.data.nameEn} <span>{count}</span></a>)}</nav><nav class="category-nav" aria-label="Writing by activity"><strong>Activities</strong>{visibleActivities.map(({ category, count }) => <a href={withBase(`en/writing/category/${category.id}/`)}>{category.data.nameEn} <span>{count}</span></a>)}</nav></div>
+    <div class="category-groups"><nav class="category-nav" aria-label="Writing by technical topic"><strong>Topics</strong><a aria-current="page" href={Astro.url.pathname}>All <span>{posts.length}</span></a>{visibleTopics.map(({ category, count }) => <a href={withBase(`en/writing/category/${category.id}/`)}>{category.data.nameEn} <span>{count}</span></a>)}</nav><nav class="category-nav" aria-label="Writing by activity"><strong>Activities</strong>{visibleActivities.map(({ category, count }) => <a href={withBase(`en/writing/category/${category.id}/`)}>{category.data.nameEn} <span>{count}</span></a>)}</nav></div>
     {posts.length ? <div class="post-list">{posts.map((post) => <PostCard post={post} locale="en" />)}</div> : <p class="empty-state">Reviewed English articles will appear here.</p>}
   </div>
 </BaseLayout>

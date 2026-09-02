@@ -1,449 +1,52 @@
 # Work log
 
+## 2026-09-03 — Cham Domi 운영 기록과 기본 브랜치 동기화
+
+- 목표: 프로토타입으로 남아 있던 Cham Domi 설명을 확인 가능한 운영 상태, 직접 담당 범위와 현재 한계에 맞춘다.
+- 변경: 한·영 프로젝트 페이지에 룸메이트 추천·채팅·배포 구조, 은상 결과와 팀 소유 경계를 반영하고 관련 채팅·Stable Roommates 기술 글과 공개 이미지를 갱신했다. 최신 `main`의 콘텐츠 분류와 공개 문서 구조도 Draft에 병합했다.
+- 영향 범위: Cham Domi 한·영 프로젝트와 기술 글, 프로젝트 이미지·메타데이터, 콘텐츠 스키마와 공개 문서.
+- 검증: `npm test`에서 11개 카테고리와 10개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 생성 문서 143개와 draft 격리를 확인했다. `npm audit --audit-level=moderate`는 취약점 0건, `npm run check`와 `git diff --check`는 오류 0건이었다.
+- 전달: [Draft pull request #32](https://github.com/ghdtjdwn/myBlog/pull/32)에서 계속 검토하며, 이번 동기화는 Production 배포를 포함하지 않는다.
+
+## 2026-09-03 — 공개 콘텐츠 모델을 기술 기록 중심으로 정리
+
+- 목표: 공개 화면과 콘텐츠 관리 모델을 글·프로젝트 탐색이라는 현재 사이트 목적에 맞춘다.
+- 변경: About를 사이트 목적과 개발 원칙 중심으로 구성했다. 글은 기술 주제와 활동 유형으로 분류하고, 홈은 `order` 기준 프로젝트 목록을 표시한다. 사용하지 않는 콘텐츠 메타데이터, 오래된 기획 문서와 실제 구현이 없는 planned 항목을 정리하고 한·영 문구를 기술 기록 관점으로 맞췄다.
+- 영향 범위: Astro 페이지, Content Collections, Keystatic 스키마, 콘텐츠 관계 검사기, 한·영 Markdown·설계 문서.
+- 검증: `npm test`에서 11개 카테고리와 10개 한·영 프로젝트 관계, Astro 진단 0건, production build와 draft 격리를 확인했다. `npm audit --audit-level=moderate`는 취약점 0건, `git diff --check`는 오류 0건이었다.
+- 전달: [pull request #33](https://github.com/ghdtjdwn/myBlog/pull/33)의 정확한 head commit `577bbb10a61bee6c823664cca90ce6b4937e4ca8`을 `main`에 반영했다. [post-merge CI](https://github.com/ghdtjdwn/myBlog/actions/runs/33676437130)의 `validate`와 `secret-scan`이 통과했고, 같은 commit의 Vercel Production이 `READY`가 된 뒤 `seongju.vercel.app`을 해당 deployment에 연결했다. 한국어·영어 홈과 About, 글 목록, 프로젝트 목록은 모두 HTTP 200을 반환했다.
+
 ## 2026-09-03 — 기본 브랜치와 의존성 보안 설정
 
-- 목표: 운영 사이트의 소스가 검증되지 않은 직접 push나 알려진 의존성 취약점으로 변경되는 경로를 줄인다.
-- 변경: GitHub `main` ruleset에서 브랜치 삭제와 force-push를 차단하고, 모든 변경이 pull request를 거쳐 `validate`와 `secret-scan`을 통과하도록 설정했다. Dependabot 취약점 알림과 자동 보안 수정도 활성화했다.
-- 검증: GitHub rules API에서 `deletion`, `non_fast_forward`, `pull_request`, `required_status_checks` 네 규칙과 두 필수 check를 확인했다. Dependabot alerts API는 활성 상태에서 열린 알림 0건을 반환했다.
-- 전달: 저장소 설정은 적용 완료했다. 이 기록 변경은 별도 pull request에서 CI와 Preview를 확인하며, Production 반영과 `seongju.vercel.app` alias 변경은 수행하지 않는다.
+- 목표: 검증되지 않은 직접 변경과 알려진 의존성 취약점이 기본 브랜치에 들어오는 경로를 줄인다.
+- 변경: GitHub `main` ruleset에서 브랜치 삭제와 force-push를 차단하고, pull request와 `validate`·`secret-scan`을 필수로 설정했다. Dependabot 취약점 알림과 자동 보안 수정도 활성화했다.
+- 검증: GitHub rules API에서 `deletion`, `non_fast_forward`, `pull_request`, `required_status_checks` 규칙과 두 필수 check를 확인했다. Dependabot alerts API는 열린 알림 0건을 반환했다.
+- 전달: 저장소 설정에 적용했다.
 
 ## 2026-09-02 — 프런트엔드 의존성 보안 갱신
 
-- 목표: 현재 lockfile의 high 7건과 moderate 2건을 제거하고, 같은 수준의 알려진 취약점이 다시 기본 브랜치에 들어오지 않게 한다.
-- 변경: Astro를 `7.0.9`에서 `7.2.10`으로 올리고 transitive dependency를 패치 버전으로 다시 잠갔다. `esbuild@0.28.1`과 `fsevents@2.3.3`의 install script만 버전 고정으로 승인했으며, CI에 `npm audit --audit-level=moderate` 게이트를 추가했다.
-- 영향 범위: `package.json`, `package-lock.json`, GitHub CI만 변경하며 콘텐츠와 route 계약은 바꾸지 않는다.
-- 검증: Node 24와 npm 11에서 clean `npm ci`, audit 취약점 0건, 콘텐츠 관계 검사, Astro 진단 0건, production build, 생성 문서 143개와 draft 격리를 확인했다. 기존 500 kB 초과 chunk 경고는 남아 있으며 이번 dependency 갱신에서 새 오류는 발생하지 않았다.
-- 전달: 전용 pull request에서 GitHub CI와 Vercel Preview를 확인한 뒤 `main`에 반영한다. Production 배포가 같은 commit으로 Ready가 되면 `seongju.vercel.app` alias와 공개 페이지를 다시 확인한다.
+- 목표: lockfile의 알려진 취약점을 제거하고 같은 수준의 advisory가 다시 들어오지 않게 한다.
+- 변경: Astro를 `7.2.10`으로 갱신하고 transitive dependency를 다시 잠갔다. CI에 `npm audit --audit-level=moderate` 게이트를 추가했다.
+- 검증: Node 24와 npm 11에서 clean install, 취약점 0건, 콘텐츠 관계 검사, Astro 진단 0건, production build와 draft 격리를 확인했다.
+- 전달: pull request 검증 뒤 `main`과 Vercel Production에 반영했다.
 
-## 2026-09-02 — 공개 문서의 기술 근거 정리
+## 2026-07-18 — ssuAI 화면과 LMS 흐름 문서화
 
-- 목표: 블로그의 공개 목적과 실제 운영 기록은 유지하면서, 기술 선택 근거를 제품 동작과 운영 제약에 맞춰 일관되게 정리한다.
-- 변경: 스택·CMS·공개 진입점 ADR의 선택 근거를 동적 기능 필요성, 변경 추적, 정보 일관성, 장애 도메인, 지속 비용과 운영 책임으로 다시 적었다. Vercel alias 장애 기록은 재현·복구·회귀 방지 내용에 집중했고, 블로그 구조 글은 판단과 실패를 공개 코드·검증 결과에 연결하도록 한·영 문장을 맞췄다. 애플리케이션 코드와 콘텐츠 route는 바꾸지 않았다.
-- 결정: 기술 블로그라는 공개 정체성과 과거 전달 기록은 사실이므로 보존한다. 기술 결정은 사용자 기능, 검증 가능성, 운영 책임으로 설명한다.
-- 검증: 확장 키워드 검사, `git diff --check`, 저장소의 `npm test`와 변경분 secret scan을 실행한다.
-- 전달: 전용 pull request에서 GitHub CI와 Vercel Preview를 확인한 뒤 `main`에 반영하고, 같은 commit의 Production 배포와 `seongju.vercel.app` alias를 다시 확인한다.
+- 목표: ssuAI의 LMS 내보내기와 모바일 화면을 프로젝트 문서에 연결하되 개인 값은 공개하지 않는다.
+- 변경: LMS 인증·조회·내보내기 흐름과 모바일 홈·챗봇·학사 화면을 한·영 페이지에 추가했다. 실명과 개인 학사·재정 값은 픽셀 모자이크 처리하고 이미지 메타데이터를 제거했다.
+- 검증: 블로그 전체 테스트, ssuAI lint·typecheck·187개 테스트와 production build를 실행했다. GitHub CI와 Vercel Preview·Production 성공, 공개 한·영 페이지와 이미지 응답을 확인했다.
+- 전달: 검증된 commit을 `main`과 `seongju.vercel.app`에 반영했다.
 
-## 2026-08-09 — Cham Domi 은상·운영 전환 공개 기록 반영
+## 2026-07-17 — 서비스 아키텍처와 공개 이미지 정리
 
-- 목표: 프로토타입으로 남아 있던 Cham Domi 공개 설명을 현재 운영 상태와 최근 컴퓨터학부 소프트웨어공모전 은상 결과에 맞추고, GitHub 프로필과 기술 블로그에서 같은 기여 경계·검증·한계를 보여준다.
-- 근거와 공개 경계: 사용자에게 전달된 결과 통지로 은상을 확인했다. 공개 공모전 페이지는 대회명·일정·시상 체계 확인용으로만 연결하고, 결과가 LMS와 팀장 개별 메일로 통지되는 방식임을 명시했다. 비공개 FE·BE·infra의 작업 로그, 현재 source와 2026-08-09 공개 웹·BFF·backend health를 교차 확인했으며, 인증 핵심과 기숙사 검색·자격 판정은 팀원 소유로 유지했다.
-- 프로젝트 갱신: 한·영 Cham Domi를 `prototype`에서 `operating`으로 바꾸고 프론트엔드 전반, `domain.roommate`, OpenAPI 계약 통합과 OCI ARM64 k3s 운영 인프라를 직접 역할로 정리했다. 설명 가능한 Top 400→Top 200 추천, Stable Roommates, 멱등 채팅·transactional outbox, HttpOnly BFF와 exact SHA·digest·backup/restore 배포 계보를 기술하고 단일 replica·비영속 자동 배정·미완료 두 계정 E2E와 Push 검증을 한계로 남겼다.
-- 글과 시각 자료: 그룹 채팅에서 MySQL·REST를 정본으로 두고 STOMP를 전달 계층으로 사용하는 기술 글을 한·영으로 발행 상태까지 작성했다. 기존 Stable Roommates 글도 운영 전환 이후 상태로 갱신했다. 공개 가능한 매칭·필터·채팅 화면과 가로형 매칭 흐름도를 연결하고 Cham Domi를 대표 프로젝트 2순위로 올렸으며 About의 한·영 수상 항목을 동기화했다.
-- 리뷰 수정: 독립 리뷰에서 공개 안내와 결과 근거의 혼동, 서로 다른 FE 226·BE 295 실행의 합산 표현, 세로 대표 이미지와 고정 OG 크기의 불일치를 발견했다. 결과 통지와 공개 안내의 역할을 분리하고 테스트 기록을 서로 다른 2026-07-31 전달 단위로 명시했으며, 가로형 대표 이미지와 실제 이미지 치수 기반 OG metadata로 교정했다.
-- 검증: `npm run check`와 `npm run verify:content`가 11개 카테고리·11개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건을 확인했다. 초안 포함 build에서 새 한·영 프로젝트·글·About과 반응형 이미지가 생성됐고 로컬 핵심 11개 경로가 HTTP 200이었다. 최종 `npm test`가 production build와 145개 생성 문서·draft 격리를 통과했다. 기존 Vite 500 kB 초과 chunk 경고는 남아 있으며 이번 변경에서 client bundle 기능을 추가하지 않았다.
-- 검수 제한과 전달: 실제 desktop·mobile viewport 검수는 수행하지 못했다. 원본 이미지와 생성 HTML의 언어·제목·이미지·OG 치수, 로컬 응답을 확인했다. GitHub 프로필은 commit `e9a8eab`과 draft PR [#14](https://github.com/ghdtjdwn/ghdtjdwn/pull/14), 블로그는 commit `3bd11fc`과 draft PR [#25](https://github.com/ghdtjdwn/myBlog/pull/25)로 전달했다. 블로그 PR의 CI `validate`·`secret-scan`과 Vercel Preview가 성공했고, Preview의 한·영 프로젝트·About·신규 글을 포함한 7개 공개 경로가 HTTP 200과 기대한 제목·수상 문구를 반환했다. 두 PR은 병합하지 않았으며 Production 반영도 수행하지 않았다.
+- 목표: 서비스 경계와 운영 구조를 원본 문서와 함께 읽을 수 있게 하고 화면의 개인 값을 비식별화한다.
+- 변경: ssuAI·ssuAgent·ssuMCP·Geuneul 아키텍처 이미지를 프로젝트 페이지에 연결하고 한·영 설명을 추가했다. ssuAI 공개 화면은 개인 값만 모자이크한 최종본으로 교체했다.
+- 검증: 원본 이미지 해시, Astro 검사, production build, 반응형 이미지 산출물, 공개 페이지·원본 링크 응답을 확인했다.
+- 전달: GitHub CI와 Vercel Production 성공 뒤 공개 alias를 검증된 deployment에 연결했다.
 
-## 2026-07-29 — 폐기 콘텐츠 공개 노출 제거
+## 2026-07-15 — 정적 사이트와 Git 기반 콘텐츠 관리 도입
 
-- 목표: 더 이상 공개 프로젝트 목록에 유지하지 않는 개인 대회작과 연결 글이 GitHub 프로필, 프로젝트 목록, 검색과 직접 URL에 남지 않게 한다.
-- 변경: 한·영 프로젝트 상세와 연결 기술 글을 삭제하고, 프로젝트 카탈로그와 과거 작업 로그에서는 해당 이름과 경로만 제거해 나머지 검증·배포 기록을 보존했다. 프로필 대표 프로젝트 행은 별도 [pull request #12](https://github.com/ghdtjdwn/ghdtjdwn/pull/12)에서 제거한다.
-- 결정: `draft` 전환은 공개 저장소의 source와 기존 route를 남기므로 사용하지 않았다. Git 기록으로 복구 가능성을 유지하면서 현재 tree와 정적 산출물에서는 완전히 제외했다.
-- 검증: `npm ci && npm test`가 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 143개 생성 문서와 draft 격리를 통과했다. source·생성물에서 폐기 대상 이름과 경로가 0건이고 변경분 Gitleaks가 통과했다. 기존 lockfile의 2 moderate·5 high advisory는 이번 콘텐츠 변경에서 수정하지 않았다.
-- 전달: [pull request #24](https://github.com/ghdtjdwn/myBlog/pull/24)의 GitHub CI와 Vercel Preview, `main` 병합 뒤 동일 SHA의 Production 배포와 삭제 route 404 확인을 완료 조건으로 둔다.
-
-## 2026-07-29 — GitHub README를 공개 기술 기록 진입점으로 재구성
-
-- 목표: 저장소를 처음 방문한 사람이 공개 사이트의 목적, 근거 연결 방식, 콘텐츠 모델과 검증·배포 경계를 README에서 빠르게 이해할 수 있게 한다.
-- 변경: 기존 운영 메모 중심 구성을 문제, 3단 근거 구조, 콘텐츠 유형, draft-first 게시 흐름, 기술 설계, 로컬 검증과 문서 지도로 재구성했다. 기존 Open Graph 이미지를 대표 이미지로 재사용하고, GitHub가 지원하는 Mermaid로 게시 흐름을 표현했으며 상세 CMS·alias 절차는 접힌 보조 정보로 이동했다.
-- 결정: 새 배너나 외부 통계 이미지를 추가하지 않고 저장소가 이미 소유한 정적 자산과 검증 가능한 CI badge만 사용했다. 공개 README는 시작과 구조 이해에 집중하고 긴 운영 절차의 정본은 기존 기술 스펙·ADR·작업 로그에 유지한다.
-- 검증: `npm test`가 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 147개 생성 문서와 draft 격리를 통과했다. `npm ci`의 현재 registry 감사는 기존 lockfile에서 2 moderate·5 high advisory를 보고했으며 이번 문서 변경에서는 의존성을 수정하지 않았다.
-- 전달: [pull request #23](https://github.com/ghdtjdwn/myBlog/pull/23)의 CI가 통과한 exact commit을 `main`에 fast-forward로 반영했다. README와 작업 로그만 변경했으므로 공개 사이트 콘텐츠와 `seongju.vercel.app` alias는 전환하지 않았다.
-
-## 2026-07-18 — ssuAI LMS 다운로드와 모바일 운영 화면 추가
-
-- 목표: ssuAI 웹 챗봇의 LMS 강의자료 일괄 다운로드 흐름과 실제 모바일 홈·챗봇·학사 화면을 GitHub README와 기술 블로그에서 함께 확인할 수 있게 한다.
-- 변경: ssuAI 챗봇이 LMS 인증·학기 조회·비동기 내보내기를 거쳐 다운로드 동작을 제공한 화면과 모바일 화면 3장을 한·영 프로젝트 갤러리에 추가했다. GitHub README도 같은 공개용 이미지와 한·영 설명을 사용한다.
-- 반응형 설명: 별도 네이티브 앱이 아니라 한 Next.js 컴포넌트 트리에서 데스크톱 사이드바와 모바일 하단 탭, 홈 3열·1열, 시간표 5열·오늘 우선 목록, `dvh` 채팅과 iOS 입력 크기를 분기하는 방식을 실제 source와 대조해 정리했다. 블로그 갤러리는 세로 비율 1.5 이상 화면을 300px 폭으로 제한하고 원본 링크를 유지한다.
-- 공개 범위: 모바일 홈의 실명·개인 일정 및 학사 수치와 모바일 학사의 개인 이수값·판정·전공 식별 부분만 기존 공개 이미지와 같은 픽셀 모자이크로 비식별화했다. 모바일 챗봇과 LMS 화면에는 개인 식별값이 없으며 네 PNG 모두 메타데이터를 제거했다.
-- 검증: 블로그 `npm test`에서 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 build, 147개 생성 문서와 draft 격리가 통과했다. ssuAI는 Node 20·pnpm 10.34.5에서 lint·typecheck, 30개 파일 187개 test와 production build가 통과했다. 로컬 Chromium의 1440px·390px 한·영 페이지에서 이미지 비율, 캡션, 가로 넘침과 본문 배치를 확인했다.
-- Preview 전달: commit `29c176e`을 draft PR #21로 push했고 GitHub Actions run `29645153082`의 `validate`·`secret-scan`과 Vercel Preview deployment `dpl_C8CyHovNcs5AiDGZuRZdyacxKWPK`가 성공했다. Ready Preview의 한·영 ssu 플랫폼 상세는 200이고 새 이미지 4종, 반응형 이미지 응답, canonical·hreflang과 Preview `noindex`를 확인했다.
-- GitHub 전달: ssuAI PR #255를 rebase commit `934cf4a`로 병합했고 main CI run `29645312734`와 Security run `29645312726`이 성공했다. 같은 SHA의 Vercel deployment `dpl_HuiaERtyREHMDCEBZkuTS8ttN74q`가 Production·Ready이며, GitHub의 한·영 README GFM 렌더와 공개 PNG 4개 응답을 확인했다.
-- Production 전달: PR #21을 squash commit `dd91fec`으로 병합했고 main CI run `29645302830`의 `validate`·`secret-scan`이 성공했다. 같은 SHA의 Vercel deployment `dpl_9jJqYPkJGCvLkKi96gRsFeBCeKBJ`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 Ready deployment `dpl_BEa4Lr2fxzQ4ESsqbCQNukxgH5Xc`에서 새 배포로 전환했다. 공개 한·영 ssu 플랫폼 상세와 새 이미지 4종, 홈·프로젝트 목록·robots·sitemap·RSS, canonical·hreflang·검색 허용·보안 header가 정상이며 이전 고유 배포 URL은 rollback 대상으로 보존했다.
-
-## 2026-07-18 — 프로젝트 기록 전수 감사 기반 기술 글 18편 추가
-
-- 목표: 데스크톱 프로젝트 정리 RTF에 흩어진 트러블슈팅·작업 로그를 실제 저장소의 ADR, source, test와 대조해 설계 판단과 검증 범위를 확인할 수 있는 상세 기술 사례로 공개한다.
-- 감사 범위: 프로젝트 정리 RTF, 로컬에서 식별한 23개 Git root와 본인 GitHub 13개 저장소를 inventory하고, 공개 근거가 있는 프로젝트의 ADR·worklog·troubleshooting·배포 기록·현재 source를 교차 확인했다. 비밀 값과 개인 식별 정보는 외부로 보내거나 글에 옮기지 않았다.
-- 신규 콘텐츠: SSU 플랫폼 10편, Geuneul 4편, Macro 1편, coursework 3편을 한·영 동일 slug로 추가했다. 비동기 confirm 상태 경계, Spring Security chain scoping, 일회용 SSO 교환, fan-out rate limit, Kafka SSE broadcast, read-only root filesystem, Cilium FQDN lab, LangGraph stream routing, LMS capability terminal, GitOps image drift, PostGIS 이중 표현식 index, advisory lock batch, CPU 기반 부하 튜닝, CloudFront origin 격리, Windows SQLite lock, POSIX grader, interpreter와 RISC-V simulator를 다룬다.
-- 프로젝트 연결: ssu 플랫폼·Geuneul·Macro·coursework 한·영 프로젝트 페이지에 원본 ADR·troubleshooting·source 링크를 추가했다. Geuneul의 좌표 저장을 실제 `geometry(Point, 4326)` + `geography(geom)` 함수 index로 교정하고, 2.68초→1.39초 수치를 로컬 ARM emulation이 아닌 Production 4 VU·70초 read-only gentle load 기록으로 바로잡았다.
-- 선별 기준: 이미 발행한 20편과 중복되는 사례는 새 글로 만들지 않았다. HeungMap·YOGI·OSC의 계획 단계 항목과 근거가 약한 아이디어는 기술 성과에서 제외했다. 운영 관측, disposable lab, 과제 당시 기록과 이번 source 감사 결과를 서로 다른 근거 수준으로 표시했다.
-- 사실 검수: approval `ActionAudit`과 reservation intent 상태를 분리하고 실제 `get_library_wait_status`·상태 enum을 사용했다. Spring Security의 네 통합 test, SSO Redis의 `code-key → studentId` 저장, Kafka facade/delegate bean 모호성, Terraform state의 secret 경계, PostGIS `ST_Distance` 반환, selective bounds 실행계획과 readiness의 NotReady 의미처럼 꼬리 질문에서 검증 가능한 세부 표현을 원본과 맞췄다.
-- coursework 재검증: interpreter 현재 source에서 괄호식 9, 상수 재할당 `Syntax Error!`, `1+2*3`의 현재 결과 9와 repeat-until 종료값 1을 직접 확인했다. POSIX grader는 macOS GNU11/pthread syntax compile이 성공했지만 format·return-path·dangling-else warning을 한계로 남겼고, RISC-V simulator는 C11 syntax compile만 통과했으므로 ISA 정확성 전체를 주장하지 않았다.
-- 로컬 검증: `npm test`에서 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 build, 147개 생성 문서와 draft 격리가 통과했다. 새 18개 한·영 route의 code markup을 확인했고, 29개 고유 외부 근거 URL은 모두 HTTP 200이었다. `gitleaks dir src/content --redact --no-banner`와 staged diff 검사는 leak 0건이었다. 기존 Vite 500 kB 초과 chunk warning은 남지만 콘텐츠 변경에서 client bundle code는 추가하지 않았다.
-- 전달: commit `d31291b`을 `agent/add-evidence-backed-case-studies-20260718` branch로 push하고 draft PR #19를 열었다. GitHub Actions run `29637879316`의 `validate`·`secret-scan`과 Vercel Preview deployment `5500276847`가 성공했다. 이 단계에서는 `main` merge, Production deployment와 alias 전환을 수행하지 않는다.
-- Production 전달: 사용자 전체 전달 승인 뒤 PR #19를 squash commit `33913f6`으로 병합했고 main CI run `29638187278`의 `validate`·`secret-scan`이 성공했다. 같은 SHA의 Vercel deployment `5500343804`·`dpl_Gzb6GTgj3M8ABX35tnJuY53kmPEu`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 Ready deployment `dpl_9TLwe3erea169Joa1h9nt6zJfp8r`에서 새 배포로 전환했다. 공개 한·영 신규 글 36개와 연결한 프로젝트 8개는 HTTP 200, 올바른 언어·canonical·hreflang·code markup과 검색 허용 상태를 확인했다. 한·영 홈·글·프로젝트 목록, robots·sitemap·RSS, 보안 header도 정상이고 draft incident는 404였다. 이전 고유 배포 URL은 rollback 대상으로 보존했다.
-
-## 2026-07-17 — 프로젝트 아키텍처 다이어그램 블로그 연결
-
-- 목표: ssuAI·ssuAgent·ssuMCP·그늘의 서비스 경계와 운영 구조를 기술 블로그 한·영 프로젝트 페이지에서 원본 문서와 함께 확인할 수 있게 한다.
-- 변경: 세 ssu 저장소 `main`의 공식 아키텍처 PNG와 그늘의 공식 SVG에서 만든 1480×860 PNG를 프로젝트 자산으로 추가했다. ssu 플랫폼은 요청 흐름에 맞춰 ssuAI → ssuAgent → ssuMCP 순서로, 그늘은 단일 전체 구성도로 배치했다. 각 다이어그램에는 한·영 대체 텍스트·설명과 GitHub 정본 문서 링크를 연결했다.
-- 표시 방식: 제품 화면과 분리한 전체 너비 아키텍처 섹션을 콘텐츠 스키마와 Keystatic에 추가했다. 다이어그램과 기존 제품 화면은 키보드 포커스를 지원하며 선택하면 원본 PNG를 새 탭에서 연다.
-- 공개 범위: 이미지에는 비밀 값이나 개인 식별값이 없고 공개 호스트·namespace와 자격증명 이름·역할만 있다. ssu 3개 PNG는 각 저장소 `origin/main` 원본과 SHA-256이 일치하며, 그늘 PNG는 정본 SVG를 1480×860으로 변환해 직접 확인했다.
-- 검증: `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 빌드, 69개 생성 문서와 draft 격리가 통과했다. 네 원본 PNG와 4단계 반응형 WebP가 생성되고 한·영 ssu 플랫폼·그늘 페이지에 전체 너비 섹션과 원본 링크가 렌더되는 것을 생성 HTML에서 확인했다.
-- 검수 제한: 로컬 브라우저 연결을 사용할 수 없어 실제 뷰포트 상호작용 검수는 수행하지 못했다. 대신 원본 4장을 직접 확인하고 생성 HTML, 원본 링크와 반응형 산출물을 검증했다.
-- Production 전달: 개인정보 모자이크 교체와 함께 PR #16의 exact commit `361b475`를 `main`에 fast-forward했고 main CI run `29574827274`가 성공했다. Vercel deployment `dpl_891mDTdcdNukZqvHbJaEjzAtBf4y`가 project `seongju`, target Production, Ready이며 해당 commit과 연결된 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_G4aHtXiS7PHdKjUEweg6zGd1fpmt`에서 새 배포로 전환했다. 공개 한·영 홈·ssu 플랫폼·그늘, robots·sitemap·RSS, canonical·보안 header, 아키텍처 원본 PNG 4개의 200 응답과 draft 비노출을 확인했고 이전 고유 배포 주소는 rollback 대상으로 보존했다.
-
-## 2026-07-17 — ssuAI 공개 화면의 개인정보 값 모자이크 동기화
-
-- 목표: GitHub README와 기술 블로그가 같은 공개용 ssuAI 화면을 사용하도록 맞추고, 제품 기능은 보존하면서 개인 값 글자만 비식별화한다.
-- 변경: 홈·학사·도서관 이미지 3개를 ssuAI 저장소의 최종 검수본으로 교체했다. 한·영 프로젝트 본문과 이미지 순서, 대체 텍스트는 바꾸지 않았다.
-- 공개 범위: 실명, 개인 학사·재정·대출·수업·좌석 값은 픽셀 모자이크로 읽을 수 없게 하고, 메뉴·라벨·버튼·공개 좌석 현황과 화면 구조는 유지했다. 캠퍼스·서비스 연결·ssuMCP LMS 화면은 개인 값이 없어 그대로 두었다.
-- 검증: 세 원본의 SHA-256이 ssuAI 최종본과 일치한다. `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 정적 빌드, 69개 생성 문서와 draft 격리가 통과했다. 한·영 ssu 플랫폼 상세는 로컬에서 HTTP 200이고 이미지별 4개 반응형 WebP가 생성됐다.
-- 검수 제한: 로컬 브라우저 연결을 사용할 수 없어 실제 뷰포트 상호작용 검수는 수행하지 못했다. 대신 빌드가 만든 최대 해상도 WebP 3장을 직접 확인해 모자이크와 화면 문맥이 유지되는지 검수했다.
-- Preview 전달: commit `c761c25`를 draft PR #16에 push했고 GitHub Actions `validate`·`secret-scan`과 Vercel Preview가 성공했다. 이 단계에서는 별도 승인 전까지 `main` 병합과 Production 전환을 보류했다.
-- 최종 전달: 사용자가 전체 전달을 승인한 뒤 아키텍처 작업과 같은 PR #16으로 exact commit `361b475`까지 `main`에 반영하고 Production alias를 전환했다. 공개 사이트에서 최종 홈·학사·도서관 WebP를 다시 내려받아 개인 값 모자이크와 기능 문맥이 유지되는 것을 직접 확인했다. 상세한 CI·deployment·rollback 정보는 위 아키텍처 작업 항목에 함께 기록했다.
-## 2026-07-17 — 프로젝트 근거 기반 기술 글 20편 보강
-
-- 목표: 프로젝트 정리 RTF와 각 저장소의 작업 로그·ADR·트러블슈팅·테스트 기록을 전수 감사해, 근거와 검증 범위가 분명한 사례만 기술 블로그 글로 만든다.
-- 선별: SSU 플랫폼, Geuneul, Axwar plugin, Cham Domi와 블로그 운영 사례를 한·영 동일 slug로 작성했다. 기존 `semantic-kiosk-automation`과 겹치는 Macro 사례는 중복 발행하지 않았고, HeungMap·YOGI·OSC는 구현 근거가 없어 기술 성과 글에서 제외했다.
-- 콘텐츠: 인증 grant·LMS 부분 실패·내구성 예약 intent·LangGraph HITL·RAG quota·Testcontainers 수명주기·StatefulSet rollout·관측성, 공간 ETL·점수 정책·PostgreSQL NOTIFY·ECS rollback·RDS 암호화·proxy IP 신뢰 경계와 Stable Roommates oracle을 문제-증거-결정-검증-한계 구조로 정리했다.
-- 사실 감사: 공개 PR 6개의 병합 상태와 원문 수치를 재대조했다. Geuneul 지오코딩은 초기 46,897건에서 재실행 시 기존 좌표 전량 재사용·5,437건 추가·총 52,334건으로 갱신했고, ECS 사건은 GitHub Actions 성공이 아니라 `gh run watch | tail`을 사용한 merge 자동화의 exit code 오판으로 교정했다. 팀원 소유 영역, 비공개 URL·원문, 사용자 식별값과 secret-shaped 값은 포함하지 않았다.
-- 검증: 초안 포함 빌드에서 새 한·영 글 40개와 프로젝트 2개가 모두 HTTP 200·올바른 문서 언어·제목·placeholder 없음으로 렌더링됐다. 대표 14페이지의 description·canonical·hreflang과 50개 내부 링크를 검사했다. 인앱 브라우저가 제공되지 않아 실제 viewport 시각 검수는 수행하지 못했다.
-- 전체 게이트: 공개 상태 전환 후 `npm test`가 11개 카테고리와 12개 한·영 프로젝트 관계, Astro 32개 파일 오류·경고·힌트 0건, 111개 생성 문서와 기존 draft 격리를 검증했다. 첫 실행에서 설명용 `sizeBytes=null`이 unresolved-value 방어 규칙에 걸린 문제는 자연어 표현으로 교정한 뒤 재실행해 통과했다. Vite의 기존 500 kB 초과 chunk 경고는 남아 있으나 이번 콘텐츠 변경에서 새 client bundle을 추가하지 않았다.
-- 전달: 최신 `origin/main`의 개인정보 모자이크·아키텍처 다이어그램 변경을 보존해 commit `a0e5c6f`을 draft PR #17로 push했다. GitHub Actions run `29577153752`의 validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 대표 한·영 글과 프로젝트 경로는 HTTP 200, 새 제목·placeholder 없음과 Preview `noindex`·robots 전체 차단을 확인했다. Production merge·배포·기본 alias 전환은 명시적 확인 전까지 수행하지 않는다.
-- Production 전달: 사용자 승인 뒤 PR #17을 squash commit `ea5707d`로 병합했고 main CI run `29583084767`의 validate·secret-scan이 성공했다. 병합 SHA와 일치하는 Vercel deployment `dpl_HisroZdNpnaEYT8PwgL6aVasyvcX`가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_Eoca7zZvJWPVPzwnupcjx4bsSa6A`에서 새 배포로 전환했다. 공개 한·영 홈·글 목록과 새 글 40개를 포함한 46개 경로, canonical·hreflang·보안 header·robots·sitemap·RSS를 검사했고 draft incident 경로는 404였다. 인앱 브라우저 세션이 없어 viewport 시각 검수는 수행하지 못했으며, 실패 시 복구할 이전 고유 배포 주소와 ID는 로컬 운영 기록에 보존했다.
-## 2026-07-17 — 코드 없는 블로그 관리 범위 확장
-
-- 목표: 기존 글 CRUD 중심 Keystatic 관리자를 사이트 브랜딩·홈·메뉴·테마·양언어 카테고리까지 코드 없이 관리할 수 있는 운영 화면으로 확장한다.
-- 변경: `사이트 설정` singleton을 추가해 제목·설명·작성자·연락처·홈 문구·표시 개수, 3개 배경 테마와 4개 강조색, 한·영 상단/하단 메뉴와 드래그 순서를 관리한다. 모든 공개 레이아웃·홈·RSS·프로필 링크가 이 설정을 읽는다.
-- 카테고리: 한·영 이름·설명, 메뉴 노출 여부를 콘텐츠 모델과 CMS에 추가했다. 종류 변경으로 직무 역량/활동 유형 그룹을 이동하고 숫자 순서로 그룹 안 위치를 바꾼다. 영문 화면의 하드코딩 카테고리 사전을 제거했다.
-- 안전: 기존 draft-first, 카테고리·프로젝트 관계 검증을 유지하고 메뉴 링크를 내부 경로·HTTP(S)·메일 링크로 제한했다. 임의 레이아웃 코드와 스크립트 편집은 CMS 범위에서 제외했다.
-- 검증: `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일의 오류·경고·힌트 0건, 69개 생성 문서의 언어·canonical·hreflang·관리형 테마 속성과 draft 격리를 확인했다. `/admin`은 로컬에서 `/keystatic` 307과 `noindex`, `/keystatic`은 HTTP 200을 반환했다. `BASE_PATH=/myBlog npm run build`도 통과했고 관리 메뉴 내부 경로 세 개에 하위 경로가 적용되며 외부 GitHub URL은 바뀌지 않음을 확인했다. 테마·메뉴 속성 추가로 기존 언어 검사 문자열 가정이 한 차례 실패해 속성 순서와 무관한 검사로 교정했다. 인앱 브라우저가 없어 데스크톱·모바일 픽셀 검수는 수행하지 못했다.
-- 운영 준비: 사용자가 생성한 GitHub App의 로컬 환경 변수 4개가 ignored `.env`에 존재하는지 값 노출 없이 확인했다. 서버 재시작 후 GitHub mode 로그인 경로가 `/keystatic/setup`이 아니라 GitHub OAuth로 HTTP 307 이동하고 관리자 UI가 200임을 확인했다. 같은 변수 4개와 Google 소유권 확인 변수는 값을 노출하지 않고 Vercel Preview·Production에 등록했다. 공개 로그인과 실제 저장 commit 검증은 배포 후 확인 대상으로 남겼다.
-- 이미지 확인: 블로그의 ssuAI 화면 5개와 PR #11의 ssuMCP LMS 화면 2개는 각 원본 저장소 `main`의 최신 공개 가림본과 Git blob SHA·크기가 일치했다. 추가 교체 없이 개인정보 위험이 있던 기존 화면 2개를 제거하는 PR 구성을 유지한다.
-- 전달: 안전한 갤러리 정리 작업을 개인정보 포함 commit의 ancestry 없이 PR #12에 합쳤고 PR #11은 대체 종료했다. 최종 GitHub Actions validate·secret-scan과 Vercel Preview가 성공했다. Ready Preview의 한·영 홈·글·ssu 플랫폼 상세와 관리자 UI는 모두 200이고, Google 확인 meta가 존재하며 GitHub 로그인 경로가 OAuth로 307 이동함을 확인했다. Production과 기본 alias 검증은 병합 후 수행한다.
-- Production 전달: PR #12를 squash commit `919cd3a`로 병합했고 main CI run `29570605660`의 validate·secret-scan과 Vercel deployment `dpl_FocvHfoyt3fUNcF3FSaPRWPWiwuZ`가 성공했다. 배포가 project `seongju`, target Production, Ready인 것을 확인한 뒤 `seongju.vercel.app` alias를 이전 deployment `dpl_3QLc7xYEH4PBgwqf6heVB7BGpbG8`에서 새 배포로 전환했다. 공개 한·영 홈·글·ssu 플랫폼 상세, 관리자 UI, robots·sitemap·RSS, canonical·보안 header, Google 확인 meta, GitHub OAuth 이동과 안전한 갤러리를 확인했다. 실패 시 복구할 이전 고유 배포 주소는 보존했다.
-- 검색 등록: Google Search Console은 HTML tag로 소유확인을 완료하고 `sitemap-index.xml`을 제출했다. 제출 직후 sitemap 상태는 `Couldn't fetch`이지만 공개 index·하위 sitemap은 Googlebot 요청에 application/xml·HTTP 200이고 robots 차단이 없으며, 홈페이지 Live Test는 `URL is available to Google`과 색인 가능을 확인했다. 네이버는 인증값을 노출하지 않고 `NAVER_SITE_VERIFICATION` Preview·Production 변수로 등록해 deployment `dpl_A2XMVKkFPGNbDumiU8hVzkNEsZ8J`를 project `seongju`, Production, Ready로 확인한 뒤 기본 alias를 전환했다. 공개 네이버 meta와 Yeti 요청의 홈·sitemap·RSS·robots HTTP 200을 확인했고 사용자가 소유확인과 sitemap·RSS 제출을 완료했다.
-- 남은 외부 확인: Google sitemap 처리 상태와 네이버 수집·색인 리포트는 검색로봇 재방문 후 확인한다. CMS 로그인 경로는 정상이나 실제 GitHub 로그인과 저장 commit은 계정 상호작용이 필요하다.
-
-## 2026-07-17 — 개인정보가 포함된 챗봇 화면 공개 차단
-
-- 목표: draft PR #11과 Vercel Preview에 포함된 실제 ssuAI 챗봇 화면을 개인정보 관점에서 재검토하고,
-  공개 기술 블로그에 불필요한 개인값을 즉시 제거한다.
-- 발견: 새 ssuAI 화면 3장에는 개인 신원·상세 이수 현황과 실제 좌석 식별자·위치·이용시간이
-  포함돼 있었다. 기존 ChatGPT 졸업요건·좌석 예약 화면 2장에도 개인 학사값과 활성 좌석 정보가
-  있었다. draft와 `noindex`는 접근 제어가 아니므로 공개 가능한 증거로 볼 수 없다.
-- 조치: 다섯 PNG와 한·영 프로젝트 갤러리 참조를 branch head에서 제거했다. 인증된 졸업요건
-  조회와 HITL 예약 성공 사실은 개인값을 재노출하지 않는 텍스트 설명과 저장소의 ADR·테스트
-  기록으로만 남긴다.
-- 전달 경계: 노출 커밋의 ancestry는 기본 브랜치에 병합하지 않는다. branch head와 Preview의 현재
-  노출을 먼저 차단한 뒤 PR #11을 닫고, 안전한 LMS 화면 변경만 PR #12의 최신 `main` 기반 commit으로 옮겼다.
-  이미 공개된 커밋 객체의 완전 삭제는 별도 승인된 이력 정리와 호스팅 사업자 조율 없이는 보장하지
-  않는다.
-
-## 2026-07-17 — ChatGPT에서 ssuMCP LMS 강의자료 일괄 내보내기 화면 추가
-
-- 목표: ChatGPT에 연결한 ssuMCP가 전체 수강 과목의 지원 강의자료를 수집하고 비동기 ZIP으로
-  준비해 브라우저 다운로드로 전달한 실제 화면을 프로젝트 저장소와 기술 블로그에서 확인할 수 있게 한다.
-- ssuMCP 문서: 한·영 README의 실제 연동 섹션에 ZIP 준비 결과와 브라우저 다운로드 화면을
-  추가하고, 영상·오디오 제외 경계와 비동기 생성·전체 과목 수집·1회성 다운로드 토큰 ADR을 연결했다.
-- 블로그: 한·영 ssu 플랫폼 프로젝트 갤러리의 ChatGPT + ssuMCP 흐름에 LMS 내보내기 화면 2장과
-  대체 텍스트·설명을 추가했다.
-- 공개 범위: 사용자가 공개를 요청한 원본 화면을 그대로 사용하되, 과목 수·파일 수·용량·식별자와
-  만료 시각을 주변 설명에 반복하지 않는다. 모든 LMS 콘텐츠가 아니라 도구 계약상 지원되는 비영상
-  자료를 대상으로 한 한 번의 성공 세션으로 설명한다.
-- 검증: ssuMCP의 전체 테스트와 JaCoCo report·line coverage verification이 통과했다. 블로그
-  `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, 69개
-  생성 문서와 draft 격리가 통과했다. Ready Preview의 한·영 ssu 플랫폼 상세는 각각 200이며
-  대표 이미지와 갤러리 이미지 6개를 확인했다. LMS 가림본 2개는 존재하고 제거 대상 5개는 렌더되지 않는다.
-- 검수 제한: 인앱 브라우저가 제공되지 않아 실제 데스크톱·모바일 viewport 캡처 검수는 수행하지
-  못했다. 생성 HTML, 반응형 이미지 생성 결과와 로컬 HTTP 응답을 확인했다.
-
-## 2026-07-16 — ChatGPT에서 ssuMCP 도구 연동 화면 추가
-
-- 목표: ChatGPT에 ssuMCP를 연결해 개인 졸업요건을 조회하고 도서관 좌석을 예약한 실제 화면을
-  프로젝트 저장소와 기술 블로그에서 같은 연동 근거로 확인할 수 있게 한다.
-- ssuMCP 문서: 한·영 README에 졸업사정 조회와 좌석 예약 화면을 세로로 배치하고, OAuth 연결
-  ADR과 write 도구 확인 계약 ADR을 연결했다.
-- 블로그: 한·영 ssu 플랫폼 프로젝트 갤러리에 ChatGPT 연동 화면 2장과 대체 텍스트·설명을 추가했다.
-- 공개 범위: 사용자가 공개를 요청한 원본 화면을 그대로 사용하되, 화면 속 개인 학점 수치·좌석 번호·
-  세션 정보를 주변 설명에 반복하지 않는다. 한 번 성공한 실제 연동 근거로만 설명하고 전체 호출의
-  영구적 안정성을 일반화하지 않는다.
-- 검증: ssuMCP 한·영 README를 GitHub API의 GFM으로 렌더해 이미지와 ADR 링크를 확인했다.
-  블로그 `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 31개 파일 진단 0건,
-  69개 생성 문서와 draft 격리가 통과했다. 로컬 한·영 상세는 각각 200이며 대표 이미지와 갤러리
-  6개를 렌더하고, 새 반응형 WebP도 200으로 응답했다. 인앱 브라우저가 제공되지 않아 실제 viewport
-  캡처 검수는 수행하지 못했다.
-- ssuMCP 전달: commit `1c82b27`을 PR #219로 올려 GitHub Actions run `29471796612`의 Gradle
-  테스트·JaCoCo 커버리지와 Security run `29471796627`을 통과한 뒤 main에 fast-forward했다. 기본
-  README의 GFM 렌더와 공개 raw PNG 2개의 200 응답을 확인했다. 문서 경로 제외 규칙에 따라 main
-  백엔드 이미지 빌드·Production 롤아웃은 실행되지 않았고 Security run `29472032468`만 성공했다.
-- 블로그 원격 검증: 최종 commit `7355fce`를 PR #9로 전달했고 GitHub Actions run
-  `29473577376`의 validate·secret-scan을 통과한 뒤 main에 fast-forward했다. Production 전
-  Preview 한·영 상세에서 제품 화면 5개와 ChatGPT 연동 화면 2개, `X-Robots-Tag: noindex`를 확인했다.
-- Production 전달: Vercel deployment `dpl_Ag9wnjt8yGXaXewchLaFQj2hEmg7`가 project `seongju`,
-  main commit `7355fce`, target Production, Ready인 것을 확인하고 `seongju.vercel.app` alias를
-  이전 deployment `dpl_BSDb8qXMWGwsFyBtZAv4CwkLKJHE`에서 새 배포로 전환했다. 공개 한·영 홈·
-  프로젝트·대표 글 경로는 모두 200이고, ssu 플랫폼 상세의 이미지 7개와 실제 이미지 응답, 제거
-  문구 부재, canonical, 검색 허용 상태와 보안 header를 확인했다. 실패 시 복구할 이전 고유 배포
-  주소는 보존했다.
-
-## 2026-07-16 — ssuAI 제품 화면 공개 자료 정리
-
-- 목표: 최신 ssuAI 홈·학사·도서관·캠퍼스·서비스 연결 화면을 기술 블로그와 GitHub 문서에서
-  같은 제품 근거로 확인할 수 있게 정리한다. 챗봇 화면은 최신 캡처를 받은 뒤 별도로 추가한다.
-- 블로그: 홈 화면을 ssu 플랫폼의 대표 이미지로 교체하고, 한·영 프로젝트 레코드에 학사·도서관·
-  캠퍼스·서비스 연결 화면과 대체 텍스트·설명을 추가했다. 프로젝트 화면 배열을 콘텐츠 스키마,
-  Keystatic 편집기, 새 레코드 생성기와 한·영 상세 페이지에 연결해 이후 화면도 데이터로 추가할 수 있다.
-- GitHub 문서: ssuAI 한·영 README의 기존 홈·학사·도서관 이미지를 최신 캡처로 교체하고 캠퍼스와
-  서비스 연결 화면을 추가했다. 프로필에 중복 추가했던 미리보기는 이후 정정 PR에서 제거했다.
-- 검증: 블로그 `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 31개 파일 오류·
-  경고·힌트 0, 69개 생성 문서와 draft 격리가 통과했다. ssuAI는 lint·typecheck·153개 테스트와
-  Next.js production build가 통과했다. GitHub API의 GFM 렌더에서 프로젝트 README 이미지 5개와
-  프로필 이미지 참조 0개를 확인했다.
-- 화면 확인: 로컬 한·영 ssu 플랫폼 상세는 각각 200이며 대표 이미지와 갤러리 4개를 렌더했다.
-  화면이 없는 다른 프로젝트에는 빈 갤러리가 생성되지 않았다. 인앱 브라우저가 제공되지 않아 실제
-  데스크톱·모바일 viewport 캡처 검수는 수행하지 못했다.
-- 원격 검증: 구현 commit `7119b79`를 draft PR #9에 올렸다. GitHub Actions run
-  `29466115059`의 validate·secret-scan과 Vercel Preview deployment `5466904864`가 성공했다.
-  Preview 한·영 상세는 각각 200이며 홈·학사·도서관·캠퍼스·서비스 연결 이미지 5개와
-  `X-Robots-Tag: noindex`를 확인했다.
-- GitHub 전달: ssuAI PR #242는 CI·gitleaks·Vercel Preview 통과 후 commit `d1c6e1d`로 main에
-  병합했다. 공개 raw 경로의 이미지 5개가 모두 200 `image/png`로 응답한다. 제품 화면은 프로젝트
-  README에만 두고, 프로필에 중복 추가했던 이미지 블록은 정정 PR #9의 commit `01b8163`으로 제거했다.
-  GitHub API의 실제 GFM 렌더에서 프로필 이미지 참조 0개와 프로젝트 README 참조 5개를 확인했다.
-- 전달: 블로그는 draft PR #9만 갱신했다. Production 병합·배포와 본진 alias 변경은 명시적 승인
-  전까지 수행하지 않는다.
-
-## 2026-07-16 — 프로젝트 공개 목록 정리
-
-- 목표: Cham Domi에 노출된 과거 내부 식별자를 제거하고, 공개 목록에서 제외 요청된 교육 게임
-  프로젝트와 연결 초안을 현재 블로그에서 완전히 제거한다.
-- 변경: Cham Domi의 한·영 콘텐츠 ID를 `cham-domi`로 바꾸고 요약과 본문에서 과거 식별자 설명을
-  삭제했다. 교육 게임의 한·영 프로젝트 레코드와 연결된 미발행 한국어 글을 삭제하고 프로젝트
-  카탈로그도 현재 목록에 맞췄다.
-- 검증: `npm run verify:content`, `npm run check`, `npm test`가 통과했다. 11개 카테고리와 11개
-  한·영 프로젝트 관계, Astro 30개 파일 오류·경고·힌트 0, 69개 생성 문서와 draft 격리를 확인했다.
-- 경로 확인: 생성 산출물에서 제거 대상 식별자와 이름이 없음을 검색했다. 로컬 HTTP에서 한·영
-  프로젝트 목록과 Cham Domi 상세는 200, 제거한 한·영 프로젝트 경로와 연결 글 경로는 404였다.
-- 검수 제한: 인앱 브라우저가 연결되지 않아 데스크톱·모바일 viewport 시각 검수는 수행하지 못했다.
-  생성 HTML과 로컬 HTTP 응답의 링크·문구·상태까지만 확인했다.
-- 원격 검증: commit `904979b`를 기존 draft PR #9 브랜치에 올렸다. GitHub Actions run
-  `29463784440`의 validate·secret-scan과 Vercel Preview deployment `5466453681`이 성공했다.
-  Ready Preview에서도 한·영 목록·Cham Domi 상세 200, 제거 경로 404와 검색 차단을 확인했다.
-- 전달: draft PR #9만 갱신했다. Production 병합·배포와 본진 alias 변경은 수행하지 않았다.
-
-## 2026-07-15 — RTF 프로젝트 인덱스 기반 근거 중심 블로그 보완
-
-- 목표: 로컬 프로젝트 인덱스를 현재 블로그와 다시 대조하고, 빠진 목록을 늘리는 데 그치지 않고
-  공개 범위·기여 귀속·기술 글의 검증 근거가 실제 화면과 CI에서 확인되게 한다.
-- 조사: RTF의 공식 프로필과 9개 프로젝트 루트가 기존 소개·프로젝트에 모두 대응함을 확인했다.
-  기술 수치와 성과는 RTF가 아니라 각 저장소의 현재 코드, ADR, 작업 로그, troubleshooting과 CI를
-  근거로 다시 감사했다.
-- 콘텐츠: PostGIS 만료 제보 인덱스, ARM64 OCI/GitOps 전달, 세 서비스의 서버 검증 신원 경계,
-  UIA→OCR 폐쇄루프 키오스크 자동화 글 4편을 한·영으로 발행 상태로 작성했다. `ssu-platform`을
-  네 구성요소가 드러나는 캠퍼스 AI 플랫폼으로 교정하고 관련 ADR 원문을 직접 연결했다.
-- 공개 범위와 사실 교정: RTF에서 공개 제외한 학습 아카이브의 한·영 콘텐츠와 카탈로그 행을 현재
-  트리에서 제거했다. 기존 공개 Git 이력은 자동 재작성하지 않았다.
-- 화면과 기록 파이프라인: 프로젝트 상세에 기여·팀·공개 근거 경계를, 글 상세에 직접 역할·근거·검증·
-  일반화하지 않는 범위를 한·영으로 표시했다. 빈 카테고리는 목록에서 숨기고 프로젝트 번호를 1–12로
-  정리했다. 새 project/post 명령은 같은 slug의 한·영 초안 쌍을 만들며, 공개 글은 양 언어가 함께
-  발행돼야 관계 검증을 통과한다. 기존 generator의 필수 schema 필드 누락과 두 번째 파일 생성 실패 시
-  첫 파일이 남는 문제도 수정했다. 빌드 검증은 소스 frontmatter에서 전체 공개·초안 경로를 동적으로 만든다.
-- 원본 검증: Macro 안전 코어 69/69, ssuAI agent proxy 17/17, ssuAgent security 24/24,
-  ssuMCP `McpSelfDogfoodTests` 12/12를 실제 실행해 통과했다. 원본 저장소 작업 트리는 바뀌지 않았으며,
-  기존 ssuMCP 로컬 main의 ahead 2/behind 9 상태도 그대로 보존했다.
-- 블로그 검증: `npm run verify:content`, `npm run check`, `npm test`가 통과했다. 11개 카테고리와
-  12개 한·영 프로젝트 관계, Astro 30개 파일 오류·경고·힌트 0, 71개 생성 문서와 초안 격리를
-  확인했다. 새 generator를 임시 디렉터리에서 실행해 한·영 project/post 4개 파일과 필수 필드를
-  확인하고 두 번째 쓰기 실패 때 첫 파일이 rollback되는 것도 재현했다. `npm audit --omit=dev`는 알려진
-  취약점 0건이었다. 로컬 HTTP에서 한·영 홈·글·프로젝트 7개 경로 200과 근거 섹션·skip link·nav를 확인했다.
-- 독립 검수: 두 차례 diff review에서 인증 principal 소유 thread의 IDOR 보장 범위, PostGIS k6
-  threshold와 수동 EXPLAIN의 책임, 한·영 draft 상태, 생성기 원자성, 전체 경로 검증과 작은 근거
-  label 대비를 교정했다.
-- 검수 제한: 인앱 브라우저가 연결되지 않아 실제 데스크톱·모바일 viewport와 캡처 기반 시각 검수는
-  수행하지 못했다. 반응형 CSS와 생성 HTML의 semantic·keyboard 구조까지만 확인했다.
-- 원격 검증: 구현 commit `d522589`를 올린 draft PR #9에서 CI run `29413730095`의 validate와
-  secret-scan, Vercel Preview `dpl_DZpJAFSFZFs9WVmMTHgoX9GtzD6Y`가 통과했다. Ready preview에서
-  한·영 홈·글·프로젝트 7개 경로, RSS 6/6, 공개 제외 경로 404와 보안 header를 다시 확인했다.
-- 전달: `feat/evidence-first-blog-refresh`를 draft PR #9로 전달했다. Production merge·배포와 본진
-  alias 변경은 명시적 확인 전까지 수행하지 않는다.
-
-## 2026-07-15 — 공개 연락처 이메일 동기화
-
-- 목표: GitHub 프로필과 Astro 본진에서 사용하는 공개 연락처를
-  `seongjuice999@gmail.com`으로 통일한다.
-- 변경: 사이트 metadata/contact 링크와 프로필·정리 문서의 이메일 표시를 새 주소로 맞췄다.
-- 검증: 기존 주소의 공개 문서 잔존 여부를 검색하고, RTF 형식과 새 주소를 확인한다.
-- 전달: GitHub 계정 공개 이메일과 프로필 README 변경을 함께 배포한다.
-
-## 2026-07-15 — 성공한 Production과 오래된 본진 alias 불일치
-
-- 목표: GitHub와 Vercel의 성공 상태뿐 아니라 실제 제출 주소가 최종 콘텐츠를 제공하는지
-  확인하고, 같은 배포 누락이 반복되지 않게 한다.
-- 실제: commit `1d21d01`의 main CI와 Vercel Production은 성공했지만
-  `seongju.vercel.app`은 약 6시간 전 배포를 계속 가리켰다. 공개 페이지에는 그늘이 운영 중,
-  Macro가 좌표 기반 구조로 남아 있었고 최신 Production 고유 URL에는 새 내용이 있었다.
-- 원인: 본진 주소가 Vercel 프로젝트 설정의 자동 production domain이 아니라
-  `vercel alias set`으로 특정 배포에 붙인 수동 `.vercel.app` alias였다.
-- 결정: 짧은 본진 주소를 유지하고, 승인된 최종 Production마다 Ready 배포를 확인한 뒤 alias를
-  명시적으로 승격하고 실제 콘텐츠를 검사한다. GitHub에 Vercel token을 추가하는 자동화는
-  비밀 관리와 운영 복잡성에 비해 배포 빈도가 낮아 선택하지 않았다.
-- 기록: 재현, 증거, 대안, 해결과 회귀 방지를
-  `docs/troubleshooting/vercel-primary-alias-stale.md`에 남겼다.
-- 검증: PR #6의 validate·secret-scan·Vercel Preview와 main CI run
-  `29403084393`이 성공했다. merge commit `346cfff`의 Vercel Production
-  `dpl_2TNKJhzXKHqMPwkik8YmbAtEQT9C`가 Ready임을 확인하고 alias를 승격한 뒤,
-  한·영 홈·Macro·Geuneul 6개 경로의 HTTP 200, 최신 완료 상태, canonical과 HSTS·MIME
-  sniffing 방지·frame 차단·referrer 정책을 실제 본진에서 확인했다.
-- 전달: 운영 절차를 PR #6으로 main에 병합하고 `seongju.vercel.app`을 검증한 Production으로
-  승격했다. 실패 시 되돌릴 이전 deployment URL과 ID도 보존했다.
-
-## 2026-07-15 — CI action Node 24 전환
-
-- 목표: GitHub-hosted runner의 Node 20 폐기 경고를 제거하고 블로그 CI의 공급망 참조를
-  현재 지원되는 action runtime으로 올린다.
-- 근거: PR #3 병합 뒤 main run `29401145044`는 성공했지만 checkout과 gitleaks action이
-  Node 20 강제 실행 경고를 남겼다. 각 공식 저장소의 최신 release와 `action.yml`을 확인했다.
-- 변경: `actions/checkout` 7.0.0, `actions/setup-node` 7.0.0,
-  `gitleaks/gitleaks-action` 3.0.0의 전체 commit SHA를 고정했다. 세 action 모두 Node 24를
-  사용하며 gitleaks v3는 입출력·동작 변경 없이 runtime만 이전하는 release다.
-- 검증: 세 release commit의 `action.yml`이 Node 24를 사용하는 것을 확인했다. workflow YAML
-  parsing과 `npm test`의 관계·Astro·63개 산출물 검사가 통과했다. Pull request #4의 validate,
-  secret-scan과 Vercel Preview가 성공했다. Post-merge run `29401556468`도 두 job이 통과했고
-  양쪽 annotation과 Node 20 경고가 모두 0건이었다.
-- 전달: pull request #4를 `main`에 병합했고 Vercel Production 배포가 성공했다.
-
-## 2026-07-15 — Macro 의미 기반 자동화 완료 반영
-
-- 목표: 좌표 기반 해커톤 아카이브로 남아 있던 프로젝트 설명을 실제 완료된 의미 기반
-  자동화 코드, 안전 경계와 검증 결과에 맞춘다.
-- 변경: 한·영 프로젝트 페이지를 UIA 우선 탐색, OCR와 명시적 좌표 fallback, 동일 창 고정,
-  전이·postcondition·장바구니 delta 검증, SQLite 인계 상태와 결제 정지 경계로 갱신했다.
-  2024 시연 좌표 실패와 YOLO 대안을 현재 설계 결정에 연결하고 법적 동기와 적합성 보장을
-  구분했다.
-- 공개 프로젝트 색인: Macro를 세 번째 대표 프로젝트로 올리고 홈의 진행형 제목을 완료 프로젝트도
-  포괄하는 표현으로 교정했다. 이후 프로젝트 순번은 한·영에서 같은 순서로 이동했다.
-- 기여 경계: Macro 클라이언트와 공개 완성 범위를 개인 근거로 표시하되 Backend·Frontend
-  원구현과 초기 키오스크 구현은 팀원 소유로 유지했다.
-- 검증: `npm test`에서 11개 카테고리와 13개 한·영 프로젝트 관계, Astro 30개 파일
-  오류·경고·힌트 0, 한·영 63개 생성 문서와 draft 격리가 통과했다. 공개 근거 링크와 로컬
-  한·영 페이지는 200, npm audit는 취약점 0건이었다. 독립 리뷰에서 원본 커밋 21개 파일 중
-  `macro_pkg/`가 20개라는 수치 오류를 찾아 교정했고 다른 P0/P1은 없었다.
-- 전달: pull request #3을 `main`에 병합했다. GitHub Actions run `29401145044`의 validate와
-  secret-scan, Vercel Production이 성공했다. 한·영 홈·Macro·Geuneul 여섯 공개 경로와
-  canonical은 200이고 기존 보안 헤더를 유지했다.
-
-## 2026-07-15 — 그늘 완료 상태 정정
-
-- 목표: 완료된 그늘 프로젝트가 공개 프로젝트 색인에서 계속 운영·개선 중인 작업으로 보이는 불일치를
-  바로잡고 한국어·영문 페이지의 상태와 설명을 일치시킨다.
-- 변경: 프로젝트 상태를 `complete`로 전환하고 개발 종료, 공개 데모·저장소의 결과 확인 목적,
-  완료 이후 데이터 최신성과 상시 가용성의 한계를 명시했다. coursework의 대표 프로젝트 설명도
-  운영 중인 ssu 플랫폼과 완료된 그늘을 구분하도록 교정했다.
-- 검증: `npm test`에서 11개 카테고리와 13개 한영 프로젝트 관계, Astro 30개 파일 검사
-  오류·경고·힌트 0, 한영 63개 생성 문서와 draft 격리가 통과했다.
-- 전달: Macro 갱신과 함께 pull request #3으로 병합하고 같은 CI·Production 배포와 한·영
-  Geuneul 공개 경로 200을 확인했다.
-
-## 2026-07-15 — GitHub·블로그 공개 진입점 통합
-
-- 목표: GitHub 프로필과 `seongju.vercel.app` 중 어느 URL을 열어도 같은 대표 작업, 역할 경계, 자격과 연락처를 찾을 수 있게 하고 기존 GitHub Pages 사이트를 대체한다.
-- 결정: GitHub는 짧은 이력서형 색인, 블로그는 문제·설계·검증·한계를 설명하는 사례집, 프로젝트 저장소는 원본 근거로 역할을 나눴다. 변동하는 commit·PR 합계는 성과 지표에서 제거하고 이 결정과 대안을 ADR-0005에 기록했다.
-- 프로필: 소개 페이지에 숭실대학교 컴퓨터학부, 공식 영문명을 병기한 자격 2종, 이메일과 solved.ac를 한·영으로 추가했다. 구조화 데이터에도 같은 교육·자격·연락 채널을 연결하고 일반 페이지가 `ProfilePage`로 표시되던 범위를 실제 About 페이지로 한정했다.
-- 프로젝트: 공개 제외 대상인 비공개 학습 아카이브의 URL을 제거했다. Cham Domi 표기와 역할 경계를 한·영 페이지에 통일했다. Macro는 2024 해커톤 산출물로 교정하고 주문 전체 사전 검증, 실행 직렬화, 긴급 중단 latch, 수동 결제 경계와 테스트·CI를 반영했다.
-- 공개 범위: 기여 귀속이 확인되지 않은 비공개 협업 프로젝트의 초안·이름·원문 링크를 현재 공개 트리에서 제거했다. 기존 Git 이력은 자동 재작성하지 않고, 기존 Pages 사이트는 새 두 진입점의 전달이 끝난 뒤 비활성화·아카이브한다.
-- 검증: `npm test`에서 11개 카테고리와 13개 한영 프로젝트 관계, Astro 30개 파일 검사 오류·경고·힌트 0, 한영 63개 생성 문서와 draft 격리가 통과했다. `npm audit --omit=dev` 취약점은 0건이었다. 인앱 브라우저가 제공되지 않아 이번 변경의 시각 검증은 정적 산출물·HTML 구조 검사로 제한했다.
-- 전달: Macro PR #1·#2와 Cham Domi 팀 문서 PR #3, GitHub 프로필 PR #3, 블로그 PR #1을
-  병합했다. 블로그 `main` CI run `29385816471`의 validate·secret-scan과 Vercel Production이
-  성공했고 `seongju.vercel.app`을 해당 배포에 연결했다. 한·영 홈·소개·Macro 사례·sitemap은
-  200, 공개 제외한 학습 아카이브와 비공개 협업 초안 경로는 404, canonical·hreflang·구조화 데이터·보안
-  헤더를 공개 응답에서 확인했다. 학습 아카이브는 비공개로 전환해 익명 API·웹 요청이 404임을
-  확인했다. 구 Pages 저장소는 은퇴 안내 PR #1을 병합하고 Pages 삭제 응답 204와 기존 사이트
-  404를 확인한 뒤 아카이브했다.
-
-## 2026-07-15 — Keystatic Production 로그인 500 조사와 설정 절차 보완
-
-- 목표: `/admin`의 `Login with GitHub`가 HTTP 500을 반환한 원인을 확인하고 재현 가능한 초기 설정 경로를 만든다.
-- 원인: Production에 `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`이 등록되기 전에 로그인 API가 실행됐다. 공개 정적 페이지에는 영향이 없고 관리자 함수만 실패했다.
-- 추가 실패와 수정: 일회성 로컬 GitHub mode 플래그를 `process.env`로 읽어 설정 화면 hydration이 `process is not defined`로 중단됐다. 비밀이 아닌 플래그만 `PUBLIC_KEYSTATIC_GITHUB_MODE`와 `import.meta.env`로 옮기고 `npm run dev:cms-setup` 명령을 추가했다.
-- 기록: 재현, 함수 로그 근거, 원인, 대안, 해결 절차와 남은 위험을 `docs/troubleshooting/keystatic-production-missing-oauth-config.md`에 기록했다. README에 Keystatic·검색엔진의 남은 수동 설정을 명시했다.
-- 검증: 로컬 `/keystatic/setup` HTTP 200과 기존 hydration 오류 제거를 확인했다. GitHub App 생성과 실제 Production 로그인은 사용자 결정에 따라 다음 세션으로 보류했다.
-- 검증: 로컬 설정 서버를 종료했다. `npm test`에서 관계 검증, Astro 30개 파일 검사 오류·경고 0, 한영 63개 생성 문서와 draft 격리가 통과했고 npm audit 취약점은 0건이었다.
-- 전달: 구현 commit `d9cdc35`를 `main`에 push했고 GitHub Actions run `29383564060`과 Vercel Production이 성공했다. `seongju.vercel.app`을 최신 배포에 연결하고 한국어·영문 홈 200, `/admin`의 Keystatic redirect와 `noindex` 헤더를 확인했다. CMS OAuth는 위 수동 설정을 완료할 때까지 보류 상태다.
-
-## 2026-07-15 — 영문 사이트와 검색 소유권 인증 준비
-
-- 목표: 해외 독자와 채용 담당자가 같은 프로젝트 근거를 읽을 수 있게 하고 Google·네이버 검색 등록을 안전하게 준비한다.
-- 결정: 런타임 자동 번역 대신 `/en/` 별도 정적 원문, self canonical과 한국어·영어·x-default `hreflang`을 채택했다. 결정과 대안은 ADR-0004에 기록했다.
-- 콘텐츠: 공개·초안 상태와 수치·URL·기여 경계를 보존한 14개 프로젝트 영문 원문과 공개 글 2개의 영문 원문을 추가했다. 공개 제외 학습 아카이브와 기여 귀속 미확인 협업 프로젝트는 영어에서도 draft로 격리했다.
-- 기능: 영문 홈·소개·프로젝트·글·카테고리·RSS, 언어 전환, 영어 날짜·분류·상태 문자열을 구현했다. Keystatic에 영어 글·프로젝트 CRUD를 추가했다.
-- 검색: Google과 네이버의 HTML 태그 값을 Vercel 환경 변수로 주입하는 메타 태그를 추가했다. 실제 검색엔진 계정 등록은 인앱 브라우저가 제공되지 않아 소유자 로그인과 확인이 남았다.
-- 검증: 11개 카테고리와 14개 한영 프로젝트 쌍의 관계를 검사했다. `npm test`에서 Astro 30개 파일 검사 오류·경고 0, 한영 63개 생성 문서, canonical·hreflang·문서 언어와 draft 격리가 통과했다.
-- 전달: commit `a7cefb2`를 `main`에 push했고 GitHub Actions CI와 Vercel Production이 성공했다. `seongju.vercel.app` alias를 최신 배포에 연결하고 영문 홈·대표 글·사이트맵 200, 영문 draft 404, canonical·hreflang·보안 헤더를 공개 응답에서 확인했다.
-
-## 2026-07-15 — 기술 블로그 사전 감사와 전체 스펙
-
-- 목표: 프로젝트와 인프라 경험을 근거로 블로그 기술·인프라 스택과 기록 방식을 결정한다.
-- 변경: 작업 루트를 `/Users/seongju/myBlog`로 분리하고 기술 스펙, 인프라 ADR, 프로젝트 카탈로그, 에이전트 콘텐츠 규칙, 로컬 근거 맵을 작성했다.
-- 조사: 로컬 프로젝트 8개 루트와 GitHub에서 접근 가능한 19개 저장소를 읽기 전용으로 감사했다.
-- 결정: Astro 정적 빌드, GitHub Actions CI, Vercel Preview/Production, Git 기반 draft-first 콘텐츠를 선택했다. AWS·k3s·DB·CMS는 V1에서 제외했다.
-- 보안: 공개 학습 저장소 한 곳의 하드코딩 자격증명 형태를 발견해 값 없이 로컬 remediation 문서를 만들고 블로그 수집 대상에서 제외했다. 수정과 회전은 아직 수행하지 않았다.
-- 검증: 공식 Astro, Node.js, Vercel, Cloudflare, GitHub Pages, AWS 정적 호스팅 문서를 대조했다. 사이트 빌드 검증은 아직 시작하지 않았다.
-- 전달: 로컬 문서 단계. Git 초기화, 커밋, 원격 저장소, CI, Preview, Production은 아직 수행하지 않았다.
-- 다음: 프로젝트 콘텐츠 스키마와 초안 생성기를 구현하고, 모든 프로젝트의 공개 프로젝트 엔트리를 만든 뒤 사이트 빌드를 검증한다.
-
-## 2026-07-15 — TypeScript 7 설치 호환성 실패
-
-- 목표: 고정한 Astro 7 도구 체인을 설치해 첫 빌드를 시작한다.
-- 실제: npm이 `typescript@7.0.2`와 `@astrojs/check@0.9.9`의 peer dependency 충돌로 설치를 중단했다.
-- 원인: 검사기의 허용 범위가 `^5.0.0 || ^6.0.0`이고 TypeScript 7은 아직 포함되지 않는다.
-- 결정: `--force`나 `--legacy-peer-deps`를 사용하지 않고 허용 범위의 최신 `typescript@6.0.3`으로 고정했다.
-- 검증: npm registry의 해당 패키지 peer metadata를 확인했다. 재설치와 빌드는 다음 단계에서 수행한다.
-
-## 2026-07-15 — 사이트 V1 구현과 기록 파이프라인
-
-- 목표: 감사한 모든 프로젝트를 기여 경계와 함께 사이트에 연결하고, 새 작업을 곧바로 안전한 기술 글 초안으로 남길 수 있게 한다.
-- 변경: Astro 7 정적 사이트, 프로젝트·글·결정·장애 Content Collections, 14개 프로젝트 엔트리, 프로젝트/글/소개/RSS/sitemap/robots 라우트, 반응형 편집 디자인과 이미지 최적화를 구현했다.
-- 기록: PostGIS 검색, ARM64 GitOps 배포, 결정론적 AI 채점 글 3개와 ARM64 장애 기록 1개를 `draft: true`로 작성했다. 기여 귀속 미확인 협업 프로젝트는 사용자 역할 근거가 부족해 비공개 draft로 유지했다.
-- 자동화: `new-record.mjs`가 네 종류의 기록을 항상 draft로 생성하며 기존 파일을 덮어쓰지 않는다. `verify-build.mjs`는 필수 산출물, canonical, 문서 언어와 draft 격리를 검사한다.
-- 인프라: GitHub Actions에 Node 24 기반 빌드/검증과 gitleaks 검사를 선언했다. Vercel Analytics와 Speed Insights를 연결했지만 원격 저장소와 배포는 아직 만들지 않았다.
-- 디자인: 사이트 팔레트와 시스템·데이터 주제에 맞는 1200×630 소셜 카드 한 장을 생성해 확인하고 기본 Open Graph 이미지로 연결했다.
-- 실제 실패: TypeScript 7 peer 충돌은 6.0.3 고정으로 해결했다. 하위 경로 빌드의 URL 결합 오류는 base 정규화로 해결하고 `docs/troubleshooting/base-path-url-join.md`에 재현과 예방을 남겼다.
-- 검증: npm 설치 감사 0 vulnerabilities. `astro check` 0 errors/0 warnings/0 hints. 프로덕션 17페이지 빌드와 21개 텍스트 산출물 검사, 초안 미리보기 21페이지, `/myBlog` 하위 경로의 링크·canonical·소셜 이미지 검사를 완료했다.
-- 전달: 독립 Git 저장소를 초기화하고 GitHub 로그인 `ghdtjdwn`, 프로필 이름과 계정 ID 기반 noreply 이메일을 저장소 로컬 커밋 신원으로 설정했다. staged diff 검사와 gitleaks에서 노출 0건을 확인한 뒤 초기 로컬 커밋으로 전달한다. 원격 저장소 생성, push, Preview와 Production은 외부 변경이므로 수행하지 않았다.
-
-## 2026-07-15 — GitHub 공개와 Vercel 배포 준비
-
-- 목표: 검증된 사이트를 공개 저장소와 관리형 정적 호스팅에 안전하게 연결한다.
-- 전달: `ghdtjdwn/myBlog` 공개 저장소를 생성하고 `main`을 push했다. Vercel 계정에 `seongju-engineering-notes` 프로젝트를 생성하고 로컬 프로젝트를 연결했다.
-- 변경: Astro 프레임워크, `npm ci`, 정적 `dist` 출력을 `vercel.json`에 명시했다. Preview에는 `noindex, nofollow`와 `robots.txt` 전체 차단을 적용했다.
-- 검증: 프로덕션 빌드와 Preview 빌드를 각각 실행해 Preview 검색 차단, 프로덕션 draft 격리와 21개 정적 문서 검사를 확인했다.
-- 다음: 변경을 commit/push하고 GitHub CI를 확인한 뒤 실제 Production 배포, canonical URL, analytics와 공개 응답을 검증한다.
-
-## 2026-07-15 — Production 배포와 공개 검증
-
-- 목표: Git 기반 자동 배포와 실제 공개 사이트를 연결하고 운영 기준을 확인한다.
-- 전달: Vercel 프로젝트를 `ghdtjdwn/myBlog`에 연결하고 Production을 `https://seongju-engineering-notes.vercel.app`에 배포했다. Web Analytics와 Speed Insights를 실제 프로젝트에서 활성화하고 Production·Preview의 `SITE_URL`을 등록했다.
-- 검증: Vercel 원격 빌드에서 npm 감사 0 vulnerabilities, Astro 검사 0 errors/0 warnings/0 hints, 17페이지 정적 빌드가 성공했다. 공개 주소의 HTTP 200, TLS/HSTS, canonical, Open Graph 이미지, sitemap, robots 허용과 draft URL 404를 직접 확인했다.
-- CI: 최신 `c58b4aa` GitHub Actions의 build와 secret-scan이 모두 성공했다. 최초 push의 gitleaks 실패는 root commit의 존재하지 않는 부모 범위가 원인이었고 `docs/troubleshooting/initial-gitleaks-root-commit.md`에 기록했다.
-- 보안: 모든 응답에 MIME sniffing 방지, frame 차단, referrer 제한과 camera·microphone·geolocation 차단 헤더를 선언했다. CSP는 Analytics endpoint를 정확히 확정하지 않은 상태에서 임의 적용해 관측을 깨뜨리지 않도록 보류했다.
-- 최종 확인: commit `4640f73`의 Git 연결 Production 배포와 GitHub CI가 모두 성공했다. 공개 alias에서 canonical과 네 보안 헤더를 다시 확인했고 저장소에 설명, 홈페이지와 Astro·TypeScript·기술 블로그 토픽을 설정했다.
-- 남은 외부 작업: 개인 도메인 선택·구매와 DNS 연결, Google Search Console과 네이버 서치어드바이저의 소유권 인증은 사용자 확인이 필요하다.
-
-## 2026-07-15 — 글 중심 재설계와 Git 기반 관리자
-
-- 목표: 홍보형 프로젝트 소개 화면을 실제 기술 블로그로 바꾸고, 브라우저에서 글·카테고리·공개 상태를 지속적으로 관리할 수 있게 한다.
-- 조사: 현재 개발 블로그의 글 중심 정보 구조와 Keystatic·Astro·Vercel 공식 문서를 대조했다. CMS 배포 구성과 로컬 프로젝트 미디어의 무결성·공개 가능성·개인정보를 각각 검토했다.
-- 디자인: 대형 랜딩 문구, 수치 강조, CTA와 카드형 마케팅 구성을 제거했다. 날짜·제목·요약 중심 글 목록, 카테고리 탐색, 좁은 읽기 폭, 단순 프로젝트 목록과 시스템 다크 모드로 재구성했다. 대표 프로젝트는 홈에서 세 개만 보인다.
-- 콘텐츠 관리: Keystatic GitHub mode를 추가해 `/admin`에서 글·프로젝트·카테고리·ADR·트러블슈팅 CRUD와 초안 전환이 가능하게 했다. 공개 페이지는 정적 생성하고 관리자와 OAuth API만 Vercel Function으로 분리했다.
-- 데이터 모델: `categories` 컬렉션과 네 개의 초기 카테고리를 추가하고 모든 글에 필수 관계를 연결했다. `verify-content-links.mjs`가 카테고리·프로젝트의 끊어진 참조를 CI 전에 차단한다.
-- 공개 기록: 이번 구현과 실제 배포 검증만을 근거로 첫 글 `기술 블로그를 정적 페이지와 Git 기반 관리자로 나눈 이유`를 작성해 공개했다. 기존 프로젝트 글 세 개는 사실 대조가 남아 있어 계속 초안으로 유지한다.
-- 이미지: 기존 프로젝트 PNG 네 개가 모두 CRC 손상임을 확인했다. 공개 저장소와 사용자 기여가 확인된 그늘·ssuAI 원본만 교체하고, 팀 자산 권리나 공개 승인이 불명확한 이미지는 노출에서 제외했다. 상세 이미지 강제 크롭도 제거했다. 새 1200×630 소셜 카드를 현재 주소와 블로그 제목으로 연결했다.
-- 인프라: `seongju.vercel.app` alias를 확보하고 canonical·환경 설정 기본값을 이 주소로 변경했다. Astro Vercel 어댑터와 관리자 전용 React를 추가했다. `path-to-regexp` 보안 권고는 호환되는 6.3.0 override로 해결해 npm audit 0건을 확인했다.
-- 실제 실패: Vercel 어댑터가 정적 산출물을 `dist/client`로 옮기면서 기존 검증기가 실패했다. 검증 루트를 실제 배포 레이아웃으로 변경하고 `docs/troubleshooting/vercel-adapter-output-layout.md`에 원인과 회귀 방지를 기록했다.
-- 문서: 기술 스펙, README, ADR-0001을 현재 구조와 맞추고 Keystatic 선택 및 대안을 ADR-0002로 기록했다.
-- 검증: 콘텐츠 관계 검증, `astro check`, 정적 페이지·초안 격리 검증과 npm audit가 통과했다. 로컬 `/keystatic`, 홈, 글 목록은 HTTP 200을 확인했다. 독립 CMS 리뷰에서 배포 게이트와 검색 차단 누락을 찾아 Vercel도 `npm test`를 실행하고 관리자·API 응답에 `X-Robots-Tag: noindex, nofollow`를 적용했다. 실제 `vercel build`에서도 재설치, 전체 테스트, 함수 번들링과 정적 자산 복사가 성공했다.
-- 전달: commit `f093d40`을 `main`에 push했고 GitHub Actions CI와 Vercel Production이 성공했다. Vercel 프로젝트를 `seongju`로 정리하고 `https://seongju.vercel.app`을 최신 Production에 연결했다. Deployment Protection이 수동 alias를 SSO로 막은 실제 운영 실패는 보호 설정을 바로잡아 해결하고 troubleshooting 문서에 기록했다. 공개 홈·글·카테고리·OG는 200, draft는 404, `/admin`은 관리자 화면으로 이동하며 `/keystatic`은 200과 `noindex` 응답을 확인했다. GitHub App 최초 인증만 사용자 작업으로 남는다.
-
-## 2026-07-15 — 채용 근거 중심 프로젝트·소개·기록 구조 확장
-
-- 목표: 모든 프로젝트 상세를 진행 상태와 검증 근거가 보이는 사례로 확장하고, 최신 백엔드·AI·플랫폼 채용 공고가 요구하는 역량에 맞춰 소개와 글 탐색 구조를 개선한다.
-- 조사: 14개 프로젝트의 로컬 코드·README·docs·Git 이력을 다시 대조하고, 당근·토스·카카오·네이버 등 공식 채용 원문 10개와 GitHub 공식 문서를 조사했다. 반복 역량은 문제 정의, API·DB·분산 시스템 기본기, 배포·관측·장애 대응, 운영 가능한 AI, 선택·실패·기여를 설명하는 문서화였다.
-- 프로젝트: 14개 엔트리에 활동 유형, 구체적인 현재 상태, 기록 운영 방식과 공개 원문 링크를 추가했다. 각 본문을 문제, 직접 기여, 구조, 검증, 현재 단계, 한계와 다음 작업 중심으로 확장했다. 운영 중·완료·프로토타입·기획·아카이브를 한국어로 명확히 표시한다.
-- 사실 교정: ssu 플랫폼의 변동하는 합산 테스트·ADR 수치를 제거하고 네 번째 `ssu-ai-service` 저장소를 연결했다. Cham Domi의 확인되지 않은 Docker Compose 설명을 제거했다. UNITHON은 사용자 커밋에서 확인되는 `macro_pkg` 20개 파일의 launcher·설정·패키징·통합만 직접 기여로 표시했다. 공개 제외 학습 아카이브와 기여 귀속 미확인 협업 프로젝트는 각각 보안 정리와 기여 귀속 확인 전까지 draft로 격리했다.
-- 카테고리: 직무 역량과 활동 유형을 분리했다. 직무 역량은 백엔드·아키텍처, 인프라·운영, 데이터·성능, AI 시스템, 설계·개발 과정, 트러블슈팅·신뢰성이고 활동 유형은 개인 프로젝트, 공모전·대회, 동아리·연합활동, 팀·학교 프로젝트, 학습·기타다. 글은 주 역량 하나와 선택적 활동 유형 하나를 가진다.
-- 소개: 추상적인 열정 대신 ssu 플랫폼, 그늘과 AI guardrail에서 확인 가능한 백엔드 설계, 운영, 데이터 성능과 AI 책임 경계를 연결했다. 목표 직무를 신입·주니어 백엔드, 플랫폼, AI 백엔드로 명시하고 팀에서 일하는 기준을 근거 중심으로 다시 작성했다.
-- 기록 정책: 저장소의 Issues·Projects, 작업 로그, ADR와 troubleshooting을 원본으로 유지하고 블로그에는 재사용 가능한 기술적 판단을 해설형 글로 선별하며 프로젝트 상세가 두 위치를 색인하는 3단 구조를 채택했다. `docs/ENGINEERING_RECORDS.md`와 ADR-0003에 규칙과 대안을 기록했다.
-- 공개 기록: GitHub와 블로그의 역할을 바로 이해할 수 있도록 `작업 로그는 GitHub에, 해설은 블로그에 남기는 이유`를 근거·한계와 함께 공개 글로 작성했다.
-- 검증: 독립 리뷰에서 비공개 학습 아카이브 격리, UNITHON 기여 범위, 그늘 지표·기록 설명과 coursework 언어 매핑을 교정했다. 11개 카테고리와 14개 프로젝트 관계·종류 검증, Astro 21개 파일 검사에서 오류·경고 0, 33개 생성 문서와 draft 격리, npm audit 0건을 확인했다. Git·CI·Production 전달은 다음 단계에서 진행한다.
+- 목표: 글, 프로젝트, ADR과 트러블슈팅을 정적 페이지로 제공하고 브라우저 편집과 Git 변경 이력을 연결한다.
+- 변경: Astro·TypeScript, Content Collections, Keystatic GitHub mode, 한·영 라우트, RSS·sitemap·robots와 draft 격리를 구현했다. 공개 페이지는 정적 생성하고 관리자와 OAuth API만 Vercel Function으로 분리했다.
+- 검증: 콘텐츠 관계 검사, Astro 진단 0건, production·preview build, draft 비노출과 보안 헤더를 확인했다. Vercel adapter 출력 경로와 수동 alias가 최신 Production을 따르지 않는 문제는 각각 검증기와 release 절차를 수정해 해결했다.
+- 전달: GitHub Actions와 Vercel Production을 연결하고 `seongju.vercel.app`의 한국어·영어 페이지, canonical, sitemap, RSS와 관리자 검색 차단을 확인했다.

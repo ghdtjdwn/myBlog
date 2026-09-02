@@ -16,7 +16,6 @@ validation:
 limitations:
   - "Pattern-based PII detection cannot find every free-form name or contextual identifier"
   - "The design deliberately accepts low recall and never publishes output automatically"
-featured: true
 draft: false
 ---
 

@@ -18,7 +18,6 @@ limitations:
   - "Pre-V17 in-memory credentials cannot be recovered and require one provider reconnection"
   - "Full production E2E for partial grants and focus or JWT rotation remains"
   - "This record does not claim direct ArgoCD or running-Pod verification from the current kube context"
-featured: true
 draft: false
 ---
 

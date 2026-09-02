@@ -20,7 +20,6 @@ limitations:
   - "There was no external outage, so this is not presented as a user-impacting incident"
   - "A delivery case on a single Oracle ARM64 k3s node, not a high-availability cluster test"
   - "Registry, cluster, and credential identifiers remain private"
-featured: true
 draft: false
 ---
 

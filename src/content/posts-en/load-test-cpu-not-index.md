@@ -17,7 +17,6 @@ limitations:
   - "A four-VU gentle test does not establish maximum capacity or performance for all internet users"
   - "The before/after figures describe the production data and Fargate state at that time, not a universal ratio"
   - "Moving from 0.25 to 0.5 vCPU increases compute cost, whose long-term amount depends on actual usage"
-featured: true
 draft: false
 ---
 

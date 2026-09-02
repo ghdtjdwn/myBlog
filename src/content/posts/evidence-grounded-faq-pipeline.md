@@ -16,7 +16,6 @@ validation:
 limitations:
   - "패턴 기반 PII 탐지는 자유 형식 사람 이름과 문맥형 개인정보를 모두 찾지 못함"
   - "낮은 recall을 의도적으로 수용했으며 결과를 자동 게시하지 않음"
-featured: true
 draft: false
 ---
 

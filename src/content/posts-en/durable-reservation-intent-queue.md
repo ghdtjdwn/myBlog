@@ -18,7 +18,6 @@ limitations:
   - "WireMock delays and local absolute latency are not presented as real Pyxis performance"
   - "A successful upstream write followed by failed terminal persistence still requires read-after-uncertainty and operational review"
   - "The Redis seat lock has no fencing and is an efficiency mechanism, not the final correctness authority"
-featured: true
 draft: false
 ---
 

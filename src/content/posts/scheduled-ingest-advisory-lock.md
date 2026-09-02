@@ -18,7 +18,6 @@ limitations:
   - "Universal Target input JSON은 Terraform이 ECS field를 정적으로 type-check하지 못함"
   - "SSM value가 sensitive Terraform variable을 거치므로 state backend 접근 통제도 비밀 경계"
   - "월 1회 저빈도 batch에 맞춘 결정이며 고빈도 job queue를 대신하지 않음"
-featured: true
 draft: false
 ---
 

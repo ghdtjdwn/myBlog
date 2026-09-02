@@ -18,7 +18,6 @@ limitations:
   - "Terraform cannot statically type-check every ECS field inside the Universal Target input JSON"
   - "The SSM value passes through a sensitive Terraform variable, so state-backend access control is part of the secret boundary"
   - "The decision fits a low-frequency monthly batch and is not a substitute for a high-throughput job queue"
-featured: true
 draft: false
 ---
 

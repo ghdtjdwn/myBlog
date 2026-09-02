@@ -17,7 +17,6 @@ limitations:
   - "20/s cluster·8/s user 값은 현재 여섯-room fan-out과 upstream 관측에 맞춘 값"
   - "Redisson rate limiter는 엄격한 공정 순서를 보장하지 않음"
   - "upstream의 장기 quota나 정책 변경에는 별도 재산정이 필요"
-featured: true
 draft: false
 ---
 

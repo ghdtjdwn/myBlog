@@ -17,7 +17,6 @@ limitations:
   - "두 JWT 체계의 현재 claim·issuer 계약을 대상으로 한 사례"
   - "permitAll은 선택된 filter chain의 인증 필터 실행 자체를 건너뛰게 하지 않음"
   - "향후 인증 진입점이 추가되면 matcher 순서와 겹침을 다시 검토해야 함"
-featured: true
 draft: false
 ---
 

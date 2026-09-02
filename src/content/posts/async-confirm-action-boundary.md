@@ -17,7 +17,6 @@ limitations:
   - "비동기 접수는 처리량 경계를 개선하지만 외부 학교 시스템의 성공을 보장하지 않음"
   - "웹·LMS 경로의 owner-wide supersede는 기존 UX 계약 때문에 의도적으로 유지"
   - "처리량 계산은 상한 추정이며 실제 PostgreSQL 경쟁이나 외부 예약 부하 측정값이 아님"
-featured: true
 draft: false
 ---
 

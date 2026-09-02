@@ -25,8 +25,8 @@ const posts = (await getCollection("postsEn", ({ data }) => showDrafts || !data.
       <div class="post-list">{posts.slice(0, settings.home.recentPostCount).map((post) => <PostCard post={post} locale="en" />)}</div>
     </section>
     <section class="home-section">
-      <header class="list-heading"><h2>{settings.home.featuredProjectsLabelEn}</h2><a href={withBase("en/projects/")}>View all</a></header>
-      <div class="project-list">{projects.filter((project) => project.data.featured).slice(0, settings.home.featuredProjectCount).map((project) => <ProjectCard project={project} locale="en" />)}</div>
+      <header class="list-heading"><h2>{settings.home.projectsLabelEn}</h2><a href={withBase("en/projects/")}>View all</a></header>
+      <div class="project-list">{projects.slice(0, settings.home.projectCount).map((project) => <ProjectCard project={project} locale="en" />)}</div>
     </section>
   </div>
 </BaseLayout>

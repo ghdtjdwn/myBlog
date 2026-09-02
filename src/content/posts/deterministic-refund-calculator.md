@@ -16,7 +16,6 @@ validation:
 limitations:
   - "해외여행 패키지 규정만 대상으로 하며 영업일·시간대·복합 프로모션을 계산하지 않음"
   - "공정위 기준은 비교 정보일 뿐 법률 판단이나 실제 사업자 승인 결과가 아님"
-featured: true
 draft: false
 ---
 

@@ -16,7 +16,6 @@ validation:
 limitations:
   - "유상증자와 전환사채만 지원하며 DART 상세 공시 원문 자동 수집은 완성하지 않음"
   - "숫자의 문자열 실존은 문맥상 올바른 필드 선택까지 완전히 증명하지 못함"
-featured: true
 draft: false
 ---
 

@@ -18,7 +18,6 @@ limitations:
   - "V17 이전 JVM 메모리 credential은 복구하지 못해 해당 사용자는 provider를 한 번 다시 연결해야 함"
   - "partial grant와 focus·JWT 회전의 전체 운영 E2E는 남아 있음"
   - "현재 kube context에서 ArgoCD·실행 Pod 상태를 직접 확인했다고 주장하지 않음"
-featured: true
 draft: false
 ---
 

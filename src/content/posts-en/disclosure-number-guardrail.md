@@ -16,7 +16,6 @@ validation:
 limitations:
   - "Only rights issues and convertible bonds are supported, and detailed DART filing retrieval is incomplete"
   - "String existence alone cannot fully establish that the number was selected from the correct context"
-featured: true
 draft: false
 ---
 

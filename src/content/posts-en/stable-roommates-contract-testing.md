@@ -19,7 +19,6 @@ limitations:
   - "Authentication and dormitory eligibility belong to teammates and are outside this implementation scope"
   - "Full two-account mutation E2E and persistence of automatic assignments remain incomplete"
   - "Rules are duplicated rather than generated from one package, so removing contract tests would reintroduce drift risk"
-featured: true
 draft: false
 ---
 

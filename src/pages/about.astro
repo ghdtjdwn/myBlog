@@ -31,78 +31,13 @@ const settings = await getSiteSettings();
       </div>
     </div>
 
-    <section class="about-section profile-section">
-      <p class="intro-label">Profile</p>
-      <h2>기본 정보, 수상과 자격</h2>
-      <dl class="profile-facts">
-        <div>
-          <dt>Education</dt>
-          <dd>{settings.contact.education}</dd>
-        </div>
-        <div>
-          <dt>Award</dt>
-          <dd><a href={withBase("projects/cham-domi/")}>2026학년도 숭실대학교 컴퓨터학부 소프트웨어공모전 은상 — Cham Domi</a></dd>
-        </div>
-        <div>
-          <dt>Credential</dt>
-          <dd>컴퓨터활용능력 2급 (Computer Specialist in Spreadsheet &amp; Database, Level II)</dd>
-        </div>
-        <div>
-          <dt>Credential</dt>
-          <dd>정보처리기능사 (Craftsman Information Processing)</dd>
-        </div>
-        <div>
-          <dt>Contact</dt>
-          <dd><a href={`mailto:${settings.contact.email}`}>{settings.contact.email}</a>{settings.contact.solvedAc && <> · <a href={settings.contact.solvedAc} target="_blank" rel="noreferrer">solved.ac ↗</a></>}</dd>
-        </div>
-      </dl>
-    </section>
-
-    <section class="about-section">
-      <p class="intro-label">What I can demonstrate</p>
-      <h2>말보다 프로젝트로 보여줄 수 있는 역량</h2>
-      <div class="capability-list">
-        <article>
-          <h3>백엔드와 시스템 설계</h3>
-          <p>Spring Boot와 Kotlin·Java, PostgreSQL, Redis, Kafka를 사용해 API와 MCP 도구가 같은 비즈니스 규칙을 공유하도록 설계했습니다. 인증·세션·쓰기 동작의 소유권과 외부 시스템 실패를 서비스 계약으로 분리합니다.</p>
-          <a href={withBase("projects/ssu-platform/")}>ssu 플랫폼 근거 보기 →</a>
-        </article>
-        <article>
-          <h3>배포·관측·장애 대응</h3>
-          <p>ARM64 k3s와 ArgoCD, Prometheus·Grafana·Tempo·Loki를 직접 운영하고, AWS에서는 Terraform으로 ECS·RDS·ElastiCache·CloudFront를 구성했습니다. CI 성공이 아니라 실제 runtime 상태와 사용자 요청까지 확인합니다.</p>
-          <a href={withBase("projects/ssu-platform/")}>운영 구조와 기록 보기 →</a>
-        </article>
-        <article>
-          <h3>데이터와 성능 검증</h3>
-          <p>15만 건 이상의 공공 POI를 멱등 ETL로 수집하고 PostGIS 공간 검색을 구현했습니다. 인덱스를 추가했다는 설명보다 실행계획, 버퍼, k6 꼬리 지연과 결과 동일성을 함께 확인합니다.</p>
-          <a href={withBase("projects/geuneul/")}>그늘 프로젝트 근거 보기 →</a>
-        </article>
-        <article>
-          <h3>운영 가능한 AI 시스템</h3>
-          <p>RAG·Agent·LLM을 제품에 연결하되 금액, 권한, 상태 전이와 게시 판정은 결정론 코드가 소유하게 합니다. provider 실패, mock fallback, 정량 평가와 HITL을 모델 호출과 별도 책임으로 다룹니다.</p>
-          <a href={withBase("projects/axwar-kb/")}>AI 검증 경계 사례 보기 →</a>
-        </article>
-      </div>
-    </section>
-
     <section class="about-section about-principles">
       <p class="intro-label">How I work</p>
-      <h2>함께 일할 때 지키는 기준</h2>
+      <h2>개발할 때 지키는 기준</h2>
       <article><h3>문제와 사용자에서 시작합니다.</h3><p>기술을 먼저 정하지 않고 사용자가 내릴 판단과 실패 비용을 정의한 뒤 가장 작은 검증으로 핵심 위험을 확인합니다.</p></article>
       <article><h3>운영까지를 구현 범위로 봅니다.</h3><p>배포, 모니터링, 보안 경계와 복구 경로가 없으면 완료라고 부르지 않습니다. 진행 중인 작업은 그대로 진행 중이라고 표시합니다.</p></article>
-      <article><h3>기여와 근거를 분리해 기록합니다.</h3><p>팀 프로젝트는 역할을 명시하고, 성능과 장애는 재현 조건과 한계를 함께 남깁니다. 모르는 값이나 확인하지 않은 성과는 채우지 않습니다.</p></article>
-      <article><h3>리뷰 가능한 형태로 협업합니다.</h3><p>작은 PR, API 계약, ADR과 테스트로 판단의 맥락을 공유합니다. 의견이 바뀌었을 때 결과뿐 아니라 바뀐 근거도 팀이 따라갈 수 있게 합니다.</p></article>
-    </section>
-
-    <section class="about-section opportunity-note">
-      <p class="intro-label">What I am looking for</p>
-      <h2>백엔드·플랫폼·AI 백엔드에서 성장하고 싶습니다.</h2>
-      <p>
-        제품 문제를 서버와 데이터 구조로 풀고, 배포와 관측까지 책임지는 신입·주니어 기회를 찾고
-        있습니다. 사용자 피드백과 운영 데이터를 바탕으로 개선하고, 장애와 기술 선택을 팀의 지식으로
-        남기는 환경을 선호합니다. 현재 프로젝트의 한계도 설명하고 다음 검증을 직접 실행할 수 있는
-        개발자가 되겠습니다.
-      </p>
+      <article><h3>검증 가능한 기록을 남깁니다.</h3><p>성능과 장애는 재현 조건과 한계를 함께 남깁니다. 모르는 값이나 확인하지 않은 결과는 채우지 않습니다.</p></article>
+      <article><h3>판단의 맥락을 공유합니다.</h3><p>작은 변경, API 계약, ADR과 테스트로 결정을 기록합니다. 의견이 바뀌었을 때 결과뿐 아니라 바뀐 근거도 따라갈 수 있게 합니다.</p></article>
     </section>
   </div>
 </BaseLayout>

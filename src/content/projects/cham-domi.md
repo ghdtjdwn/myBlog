@@ -28,8 +28,7 @@ infra: ["MySQL", "Transactional Outbox", "k3s", "Helm", "Prometheus"]
 metrics:
   - { label: "Award", value: "은상" }
   - { label: "Latest test records", value: "FE 226 · BE 295" }
-order: 2
-featured: true
+order: 10
 live: "https://chamdomi.vercel.app"
 repositories: []
 recordPlan: "비공개 팀 저장소의 코드·ADR·작업 로그를 원본으로 유지하고, 개인 기여와 공개 가능한 설계·검증·한계만 블로그 사례로 재구성합니다. 인증과 기숙사 도메인을 제 구현으로 주장하지 않습니다."

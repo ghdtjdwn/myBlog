@@ -16,7 +16,6 @@ validation:
 limitations:
   - "After retry, 1,756 legacy or incomplete addresses still could not be resolved"
   - "The pipeline depends on public geocoding quotas and address quality; coordinates were not all field-verified"
-featured: true
 draft: false
 ---
 

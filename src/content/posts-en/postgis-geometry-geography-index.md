@@ -17,7 +17,6 @@ limitations:
   - "The design targets SRID 4326 point searches at city scale"
   - "Maintaining separate geometry and geography GiST indexes adds some write and storage cost"
   - "Display distanceM also comes from database ST_Distance; the application only rounds it"
-featured: true
 draft: false
 ---
 

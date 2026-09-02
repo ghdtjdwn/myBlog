@@ -18,7 +18,6 @@ limitations:
   - "The UI evidence cannot distinguish whether four problematic ZIP files were included or recorded as safe omissions"
   - "Lease heartbeat and download-TTL erosion for builds longer than five minutes remain separate work"
   - "User file URLs, content ids, cookies, and raw exceptions are not published"
-featured: true
 draft: false
 ---
 

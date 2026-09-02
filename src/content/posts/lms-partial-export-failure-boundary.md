@@ -18,7 +18,6 @@ limitations:
   - "화면 증거만으로 문제 ZIP 4개가 archive에 포함됐는지 안전 보고서에 누락됐는지는 구분하지 못함"
   - "5분 이상 build의 lease heartbeat와 다운로드 TTL 잠식은 별도 과제"
   - "사용자 파일 URL, content id, cookie와 원시 예외는 공개하지 않음"
-featured: true
 draft: false
 ---
 

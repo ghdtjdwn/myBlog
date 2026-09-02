@@ -13,8 +13,7 @@ infra: ["Local Windows runtime", "Authenticated HTTP/WebSocket contracts", "SQLi
 metrics:
   - { label: "Safety", value: "Dry-run default" }
   - { label: "Validation", value: "69 tests · Linux/Windows CI" }
-order: 4
-featured: true
+order: 3
 repositories:
   - { label: "Macro", url: "https://github.com/UNITHON24/Macro" }
 recordPlan: "Macro 저장소의 코드, ADR, 작업 로그와 문제해결 기록을 음성·주문·물리 UI 자동화 경계의 원본 근거로 둡니다. 팀의 Backend·Frontend 전체 구현은 개인 기록에 포함하지 않습니다."

@@ -20,12 +20,11 @@ metrics:
   - { label: "Public POI", value: "150k+" }
   - { label: "Radius p95", value: "~1.4s" }
   - { label: "k6 checks", value: "564 / 564" }
-order: 3
-featured: true
+order: 2
 live: "https://geuneul.vercel.app"
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/geuneul" }
-recordPlan: "공개 저장소의 README, architecture, DEPLOY, ADR와 worklog를 완료 산출물의 원본으로 사용합니다. 블로그에는 성능·데이터·운영 사례를 문제와 검증 중심으로 선별해 연결합니다."
+recordPlan: "공개 저장소의 README, architecture, DEPLOY, ADR와 worklog를 완료 산출물의 원본으로 사용합니다. 블로그에는 성능·데이터·운영 사례를 문제와 검증 중심으로 설명합니다."
 recordLinks:
   - { label: "런타임·데이터·배포 아키텍처", url: "https://github.com/ghdtjdwn/geuneul/blob/main/docs/architecture.md" }
   - { label: "Architecture Decision Records", url: "https://github.com/ghdtjdwn/geuneul/tree/main/docs/adr" }

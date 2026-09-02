@@ -16,7 +16,6 @@ limitations:
   - "The repository contains no automated ISA vectors or comparison with a reference emulator"
   - "By assignment specification, LW returns zero and SW is ignored, so there is no real memory subsystem"
   - "The scope is a subset of R/I/load/store/branch instructions and reports only PC and x1 through x5"
-featured: false
 draft: false
 ---
 

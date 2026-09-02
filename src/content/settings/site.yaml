@@ -17,15 +17,13 @@ home:
   summaryEn: I build backend, data, and AI systems. These notes preserve the constraints, failed hypotheses, decisions, and evidence behind the result—not only the finished screen.
   recentPostsLabelKo: 최근 글
   recentPostsLabelEn: Recent writing
-  featuredProjectsLabelKo: 대표 프로젝트
-  featuredProjectsLabelEn: Featured projects
+  projectsLabelKo: 프로젝트
+  projectsLabelEn: Projects
   recentPostCount: 6
-  featuredProjectCount: 3
+  projectCount: 3
 contact:
   email: seongjuice999@gmail.com
   github: https://github.com/ghdtjdwn
-  solvedAc: https://solved.ac/profile/akftjdwn
-  education: Soongsil University — Computer Science & Engineering
 appearance:
   theme: paper
   accent: blue
