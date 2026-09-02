@@ -1,5 +1,13 @@
 # Work log
 
+## 2026-09-03 — Cham Domi 운영 기록과 기본 브랜치 동기화
+
+- 목표: 프로토타입으로 남아 있던 Cham Domi 설명을 확인 가능한 운영 상태, 직접 담당 범위와 현재 한계에 맞춘다.
+- 변경: 한·영 프로젝트 페이지에 룸메이트 추천·채팅·배포 구조, 은상 결과와 팀 소유 경계를 반영하고 관련 채팅·Stable Roommates 기술 글과 공개 이미지를 갱신했다. 최신 `main`의 콘텐츠 분류와 공개 문서 구조도 Draft에 병합했다.
+- 영향 범위: Cham Domi 한·영 프로젝트와 기술 글, 프로젝트 이미지·메타데이터, 콘텐츠 스키마와 공개 문서.
+- 검증: `npm test`에서 11개 카테고리와 10개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 생성 문서 143개와 draft 격리를 확인했다. `npm audit --audit-level=moderate`는 취약점 0건, `npm run check`와 `git diff --check`는 오류 0건이었다.
+- 전달: [Draft pull request #32](https://github.com/ghdtjdwn/myBlog/pull/32)에서 계속 검토하며, 이번 동기화는 Production 배포를 포함하지 않는다.
+
 ## 2026-09-03 — 공개 콘텐츠 모델을 기술 기록 중심으로 정리
 
 - 목표: 공개 화면과 콘텐츠 관리 모델을 글·프로젝트 탐색이라는 현재 사이트 목적에 맞춘다.

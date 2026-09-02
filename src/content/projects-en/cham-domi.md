@@ -1,46 +1,76 @@
 ---
 title: "Cham Domi"
-summary: "A team project for finding eligible dormitories and compatible roommates, where I owned the entire frontend and the roommate backend domain."
-status: prototype
-statusNote: "The frontend and roommate-domain prototypes are complete, but authentication integration, deployment, and operational validation have not yet been completed."
-activity: team
-visibility: private
-role: "Entire frontend and roommate-matching backend"
-teamScope: "Authentication and dormitory eligibility evaluation are owned by teammates"
-contributionEvidence: ["FE 7 commits", "BE 5 commits including merge", "3 PRs", "Shared role and API contract documents"]
-tags: ["Next.js", "Spring Boot", "Stable Roommates", "Contract Testing"]
-infra: ["H2/MySQL persistence", "Mock-to-real API adapter", "No deployment yet"]
+summary: "A Silver Prize winner at the 2026 Soongsil University Computer Science Software Competition, this operating service connects dormitory discovery with explainable roommate matching and chat."
+status: operating
+statusNote: "The public web app and backend health endpoint are operating. I rechecked the public paths on 2026-08-09; full two-account mutation flows and device-level Push delivery remain additional validation work."
+activity: competition
+visibility: mixed
+role: "Frontend, roommate backend, and operating infrastructure"
+teamScope: "Teammates own the core Google/Kakao authentication backend and dormitory search and eligibility logic. I integrated those contracts into the frontend and covered regression and delivery validation."
+contributionEvidence:
+  - "Frontend implementation, Spring Boot domain.roommate, and OpenAPI-based FE/BE contract synchronization"
+  - "Roommate matching and chat tests plus the 2026-07-31 record of 226/226 FE tests and 295 BE tests"
+  - "OCI ARM64 k3s and Helm delivery, backup/restore validation, Prometheus boundaries, and deployment provenance"
+image: "../../assets/projects/chamdomi-matching-flow.png"
+imageAlt: "A flow from eight living habits through database candidate generation, authoritative backend reranking, and Stable Roommates assignment"
+screenshots:
+  - image: "../../assets/projects/chamdomi-match.png"
+    alt: "Cham Domi roommate recommendations showing living-habit tags and compatibility scores of 100 and 89"
+    caption: "Recommendations — the list pairs total scores with living-habit tags, while the detail view exposes each score contribution."
+  - image: "../../assets/projects/chamdomi-filter.png"
+    alt: "Cham Domi filters for sleep, smoking, cleaning, personality, noise, and other living conditions"
+    caption: "Explainable filters — hard dealbreakers are applied separately from the score, while users can adjust each living-habit condition."
+  - image: "../../assets/projects/chamdomi-chat.png"
+    alt: "A Cham Domi one-to-one conversation about roommate living habits"
+    caption: "Chat — MySQL and REST history remain authoritative, STOMP carries real-time delivery, and an ID cursor recovers missed events after reconnect."
+tags: ["Spring Boot", "Next.js", "Stable Roommates", "WebSocket"]
+infra: ["MySQL", "Transactional Outbox", "k3s", "Helm", "Prometheus"]
 metrics:
-  - { label: "FE screens", value: "9+" }
-  - { label: "Owned BE scope", value: "roommate" }
+  - { label: "Award", value: "Silver Prize" }
+  - { label: "Latest test records", value: "FE 226 · BE 295" }
 order: 10
+live: "https://chamdomi.vercel.app"
 repositories: []
-recordPlan: "The team repositories and shared role and API contract documents remain the sources of truth. Blog posts anonymize and cover only the FE and roommate scope I owned. Pre-deployment problems are not presented as production incidents."
+recordPlan: "Private team repositories retain the source code, ADRs, and work logs. Public case studies cover only my contribution and publishable design, validation, and limitations without presenting authentication or dormitory domains as my implementation."
 recordLinks: []
 ---
 
-## Problem to solve
+## Silver Prize and current state
 
-Cham Domi is a team prototype connecting dormitory eligibility with roommate discovery based on compatible living habits. Users enter their circumstances and move through eligible dormitories, matching candidates, posts, and chat in one mobile flow.
+Cham Domi is a three-person team project that connects dormitory eligibility, living-habit-based roommate recommendations, and community features in one mobile web flow. The result notification confirmed its Silver Prize at the 2026 Soongsil University School of Computer Science Software Competition. The public [competition notice](https://cse.ssu.ac.kr/bbs/board.php?bo_table=notice&wr_id=4932) documents the event name, schedule, and award tiers; results were delivered through LMS and direct email to team leads.
 
-## Boundaries for parallel development
+After the initial prototype, the team completed real API and authentication contracts, real-time chat, production delivery, and recovery boundaries. On 2026-08-09, I rechecked the public web app, its BFF, and the public backend health endpoint. This confirms the availability of those public paths, not permanent correctness across every authenticated user flow.
 
-All frontend data access sits behind an API adapter that can switch between mock and real backends. A shared API contract serves as the source of truth for data models, allowing each domain to connect independently.
+## Direct contribution and team boundary
 
-The Next.js 16 frontend covers more than 9 screen flows, including login, profile input, matching, candidate details, chat, and dormitory discovery. Before the backend was ready, it used a mock adapter; the same call sites can switch to the real API adapter. This allowed screen development and domain implementation to proceed in parallel.
+I owned the frontend, Spring Boot's `domain.roommate`, FE/BE API-contract integration, and the dedicated k3s operating infrastructure. My implementation covers living-habit profiles, recommendation and automatic assignment, recruitment posts, one-to-one and group chat, notifications, and the consistency of those data flows.
 
-My backend scope covers the Spring Boot/JPA roommate domain, living-habit scoring, Stable Roommates, posts, and chat. Authentication and dormitory eligibility evaluation belong to teammates and are not presented as my implementation on this page.
+Teammates implemented the core Google/Kakao authentication backend and dormitory notice analysis, search, and eligibility rules. I integrated those contracts into the frontend, synchronized the OpenAPI snapshot and generated types, and verified that teammate changes did not break roommate or delivery boundaries. I keep the product result separate from my individual technical contribution.
 
-## Matching validation
+## Explainable recommendation and stable assignment
 
-Parity tests keep the weighted living-habit score consistent between the frontend and backend. The Stable Roommates implementation was checked against a brute-force oracle on small inputs.
+The recommendation score combines eight living-habit dimensions: sleep, smoking, cleaning, noise, communication, personality, temperature, and sharing. It uses ordinal distance and partial similarity rather than counting only exact matches. Hard constraints such as smoking, sleep, and noise are applied as dealbreakers before scoring. The response includes per-item contributions so users can inspect why a candidate received a score.
 
-The FE and BE use matching 100/89-point cases for the same inputs, while tests also cover dealbreakers and the sum of the weights. Stable Roommates was compared with a small brute-force oracle over 400 random inputs each for `n=4` and `n=6`. Because the scoring rules are duplicated rather than shared through a common package, they could drift if the contract tests disappear.
+To prevent TypeScript and Java rounding differences from changing rank order, each contribution accumulates in integer tenths before positive half-up rounding. MySQL applies filters across the candidate set and returns the top 400. Spring Boot recalculates the same contract and returns an authoritative top 200, with profile ID as a deterministic tie-breaker.
 
-## Current state and limitations
+Automatic multi-person assignment uses Irving's Stable Roommates algorithm. A brute-force oracle enumerates all perfect matchings for small inputs. The implementation was compared with 400 randomized inputs each at `n=4` and `n=6` to validate blocking-pair and no-solution behavior.
 
-The team prototype implements the screens and core matching flow, but there is no real authentication integration, CI, public deployment, or user-operation record. H2 and MySQL dependencies are present, but there is no evidence of Docker Compose operation, so the previous description was removed. The next steps are team API integration, automated validation of the shared contract, and a deployed test environment.
+## Real-time chat on an authoritative database
 
-## Role boundary
+WebSocket is not the source of truth. Messages, read state, and membership are authoritative in MySQL and REST history, while STOMP/WebSocket carries committed state quickly. After a disconnect, the client retrieves messages after its last known ID to recover missed delivery.
 
-Authentication and dormitory eligibility evaluation are teammates' work. This page describes only the screens and roommate domain I directly owned.
+A client UUID and a `(sender_id, client_message_id)` unique constraint prevent retries from storing duplicate messages. Group chat stores message or membership changes and the outbox row in one transaction. Multiple workers divide events with `FOR UPDATE SKIP LOCKED`; claim tokens, a 30-second lease, backoff, and dead-letter handling separate stale workers from repeated delivery failure.
+
+The browser cannot read the REST token. A Next.js BFF retains the HttpOnly session and validates mutation origins. WebSocket avoids putting a long-lived JWT in a URL by sending a 30-second, single-use connection ticket in the STOMP CONNECT header.
+
+## Delivery, recovery, and observability as completion criteria
+
+The frontend runs on Vercel and the backend on a single OCI ARM64 k3s node. Delivery checks the exact Git SHA and OCI digest, requires a fresh backup and restore verification, and then performs the Helm rollout and Flyway migration. A health check fails closed when the installed bundle, chart and runtime digests, or deployed revision drift from the expected source—even if HTTP still responds.
+
+Prometheus records outbox outcomes, oldest pending-event age, and WebSocket capacity without user or room identifiers. The management port is separate from the public application port, and NetworkPolicy admits only selected monitoring Pods. There is no external Alertmanager receiver yet, so loaded rules are not presented as completed external notification delivery.
+
+## Validation and limits
+
+I use separate 2026-07-31 delivery records as the latest snapshot. Frontend PR #45 recorded 226/226 Vitest cases and 8/8 deployment-policy Node tests. A separate BE and infrastructure delivery recorded 295 backend tests with zero failures or errors, generated-type parity across 75 OpenAPI paths, real MySQL V11-to-V19 migrations, Helm and Kubernetes schemas, backup and restore, and deployment boundaries. I do not combine them into one integrated run or present them as newly rerun product tests for this page update.
+
+The backend currently has one replica. Connection tickets, presence, and some rate limits are in memory, so adding replicas without moving those states would be unsafe. Automatic assignment is not persisted, and one-to-one real-time events do not yet use the durable outbox used by group chat. Full two-account login and mutation E2E plus device-level Push permission, receipt, and click flows remain to be validated.
