@@ -17,11 +17,11 @@
 
 모든 기술 선택은 다음 순서로 평가한다.
 
-1. 강한 포트폴리오와 면접 설명력을 만드는가
+1. 방문자가 필요한 정보를 빠르게 찾을 수 있는가
 2. 최신 공식 문서와 현재 실무 관행으로 검증됐는가
 3. 보여주기식 복잡성이 아니라 실제 운영 가치가 있는가
-4. 사용자가 설명, 테스트, 운영, 시연할 수 있는가
-5. 신뢰성, 유지보수성, 보안, 관측성, 성능, 비용, 배포 속도, 가역성의 균형이 맞는가
+4. 구현을 테스트, 운영, 유지보수할 수 있는가
+5. 신뢰성, 유지보수성, 보안, 접근성, 성능, 비용, 배포 속도, 가역성의 균형이 맞는가
 
 ## 3. 애플리케이션 스택
 
@@ -162,7 +162,7 @@ Cloudflare Workers Static Assets는 확장성이 좋은 대안이지만 Worker �
 - `scripts/new-record.mjs`: project/post는 같은 slug의 한·영 초안 쌍, decision/incident는 한국어 초안 생성
 - `config/project-sources.local.json`: 프로젝트별 로컬 근거 경로. Git 제외
 - `config/project-sources.example.json`: 공개 가능한 키 구조
-- `AGENTS.md`: 증거 수집, 기여 경계, 공개 전 검수 규칙
+- `docs/PROJECT_CATALOG.md`: 프로젝트별 공개 범위와 검증 근거
 - draft 전용 목록: 로컬과 Preview에서만 확인
 
 자동화는 글을 발행하지 않는다. 프로젝트의 work log, ADR, troubleshooting, Git diff를 읽어 초안을 만들 수 있지만 `draft: true`를 강제한다. 공개 글은 같은 slug의 한·영 원문이 모두 발행 상태일 때만 검증을 통과하며, 비공개 원문은 공개 저장소에 복사하지 않는다.
