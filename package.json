@@ -27,7 +27,7 @@
     "@keystatic/core": "0.5.51",
     "@vercel/analytics": "2.0.1",
     "@vercel/speed-insights": "2.0.0",
-    "astro": "7.0.9",
+    "astro": "7.2.10",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "sharp": "0.35.3"
@@ -40,5 +40,9 @@
   },
   "overrides": {
     "path-to-regexp": "6.3.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true
   }
 }
