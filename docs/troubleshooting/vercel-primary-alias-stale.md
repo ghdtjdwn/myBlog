@@ -83,7 +83,7 @@ PR #6 merge commit `346cfff`와 연결된 Production
 
 ## 회귀 방지와 남은 위험
 
-README와 프로젝트 `AGENTS.md`의 Production 체크리스트에 alias 승격을 추가했다. 이후에는
+README와 배포 체크리스트에 alias 승격 절차를 추가했다. 이후에는
 Vercel status success를 공개 완료로 간주하지 않고 고유 deployment와 본진 alias를 각각
 inspect한다.
 

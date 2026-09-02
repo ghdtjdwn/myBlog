@@ -8,3 +8,5 @@ dist/
 .vercel/
 docs/private/
 config/project-sources.local.json
+AGENTS.md
+**/AGENTS.md
