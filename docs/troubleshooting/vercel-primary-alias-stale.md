@@ -90,10 +90,3 @@ inspect한다.
 수동 단계는 누락될 수 있다. 배포 빈도가 높아지면 개인 domain을 project settings에 등록해
 자동 Production assignment를 사용하거나, 범위가 제한된 배포 자격증명과 승인 gate로 승격을
 자동화하는 방안을 다시 검토한다.
-
-## 인터뷰에서 설명할 질문
-
-- CI와 hosting status가 모두 성공했는데 사용자는 왜 이전 버전을 봤는가?
-- deployment URL, project domain과 수동 alias는 어떻게 다른가?
-- token 기반 자동화보다 수동 승격을 선택한 기준은 무엇인가?
-- 같은 배포 누락을 어떤 post-deployment check로 막았는가?
