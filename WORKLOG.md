@@ -6,7 +6,7 @@
 - 변경: About를 사이트 목적과 개발 원칙 중심으로 구성했다. 글은 기술 주제와 활동 유형으로 분류하고, 홈은 `order` 기준 프로젝트 목록을 표시한다. 사용하지 않는 콘텐츠 메타데이터와 오래된 기획 문서를 정리하고 한·영 문구를 기술 기록 관점으로 맞췄다.
 - 영향 범위: Astro 페이지, Content Collections, Keystatic 스키마, 콘텐츠 관계 검사기, 한·영 Markdown·설계 문서.
 - 검증: `npm test`에서 11개 카테고리와 11개 한·영 프로젝트 관계, Astro 32개 파일 진단 0건, production build, 생성 문서 143개와 draft 격리를 확인했다. `npm audit --audit-level=moderate`는 취약점 0건, `git diff --check`는 오류 0건이었다.
-- 전달: 변경 전용 pull request에서 GitHub CI와 Vercel Preview를 확인한 뒤 `main`과 Production을 같은 commit으로 검증한다.
+- 전달: [pull request #33](https://github.com/ghdtjdwn/myBlog/pull/33)의 정확한 head commit `577bbb10a61bee6c823664cca90ce6b4937e4ca8`을 `main`에 반영했다. [post-merge CI](https://github.com/ghdtjdwn/myBlog/actions/runs/33676437130)의 `validate`와 `secret-scan`이 통과했고, 같은 commit의 Vercel Production이 `READY`가 된 뒤 `seongju.vercel.app`을 해당 deployment에 연결했다. 한국어·영어 홈과 About, 글 목록, 프로젝트 목록은 모두 HTTP 200을 반환했다.
 
 ## 2026-09-03 — 기본 브랜치와 의존성 보안 설정
 
