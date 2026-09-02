@@ -1,5 +1,13 @@
 # Work log
 
+## 2026-09-02 — 프런트엔드 의존성 보안 갱신
+
+- 목표: 현재 lockfile의 high 7건과 moderate 2건을 제거하고, 같은 수준의 알려진 취약점이 다시 기본 브랜치에 들어오지 않게 한다.
+- 변경: Astro를 `7.0.9`에서 `7.2.10`으로 올리고 transitive dependency를 패치 버전으로 다시 잠갔다. `esbuild@0.28.1`과 `fsevents@2.3.3`의 install script만 버전 고정으로 승인했으며, CI에 `npm audit --audit-level=moderate` 게이트를 추가했다.
+- 영향 범위: `package.json`, `package-lock.json`, GitHub CI만 변경하며 콘텐츠와 route 계약은 바꾸지 않는다.
+- 검증: Node 24와 npm 11에서 clean `npm ci`, audit 취약점 0건, 콘텐츠 관계 검사, Astro 진단 0건, production build, 생성 문서 143개와 draft 격리를 확인했다. 기존 500 kB 초과 chunk 경고는 남아 있으며 이번 dependency 갱신에서 새 오류는 발생하지 않았다.
+- 전달: 전용 pull request에서 GitHub CI와 Vercel Preview를 확인한 뒤 `main`에 반영한다. Production 배포가 같은 commit으로 Ready가 되면 `seongju.vercel.app` alias와 공개 페이지를 다시 확인한다.
+
 ## 2026-09-02 — 공개 문서의 평가 중심 표현 정리
 
 - 목표: 블로그의 공개 목적과 실제 운영 기록은 유지하면서, 기술 선택을 외부 평가나 인터뷰 준비로 설명하는 내부용 표현을 제거한다.
