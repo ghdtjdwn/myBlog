@@ -22,7 +22,7 @@ draft: false
 
 ## What it means to build a blog yourself
 
-I initially focused on building a polished portfolio that presented projects clearly. The result was organized, but it felt more like a product landing page than a technical blog. This site's purpose is not simply to promote outcomes. It is meant to preserve decisions and failures as development happens and connect them to public code and validation results.
+I initially focused on building a polished project showcase that presented projects clearly. The result was organized, but it felt more like a product landing page than a technical blog. This site's purpose is not simply to promote outcomes. It is meant to preserve decisions and failures as development happens and connect them to public code and validation results.
 
 I rewrote the requirements:
 
