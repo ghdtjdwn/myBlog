@@ -27,7 +27,7 @@ export default config({
     navigation: {
       "사이트 관리": ["site"],
       "블로그": ["posts", "postsEn", "categories"],
-      "포트폴리오": ["projects", "projectsEn"],
+      "프로젝트 색인": ["projects", "projectsEn"],
       "엔지니어링 기록": ["decisions", "incidents"],
     },
   },

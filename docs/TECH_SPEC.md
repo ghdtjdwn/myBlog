@@ -157,7 +157,7 @@ Cloudflare Workers Static Assets는 확장성이 좋은 대안이지만 Worker �
 
 ## 8. 즉시 기록할 수 있는 구조
 
-사이트 제작 후 에이전트가 바로 기록할 수 있도록 다음을 제공한다.
+사이트 제작 후 작성자가 바로 기록할 수 있도록 다음을 제공한다.
 
 - `scripts/new-record.mjs`: project/post는 같은 slug의 한·영 초안 쌍, decision/incident는 한국어 초안 생성
 - `config/project-sources.local.json`: 프로젝트별 로컬 근거 경로. Git 제외

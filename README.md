@@ -3,7 +3,7 @@
 [![CI](https://github.com/ghdtjdwn/myBlog/actions/workflows/ci.yml/badge.svg)](https://github.com/ghdtjdwn/myBlog/actions/workflows/ci.yml)
 
 프로젝트의 결과만 나열하지 않고 문제, 선택한 대안, 검증 근거와 남은 한계를 함께 기록하는
-홍성주의 엔지니어링 포트폴리오이자 기술 블로그입니다.
+홍성주의 엔지니어링 기술 블로그입니다.
 
 [한국어 사이트](https://seongju.vercel.app) ·
 [English](https://seongju.vercel.app/en/) ·
@@ -14,7 +14,7 @@
 ## 이 저장소가 해결하는 문제
 
 프로젝트 README와 Git 이력은 구현 사실을 증명하기에는 좋지만, 여러 저장소에 걸친 결정과 실패를
-처음 보는 사람이 따라가기 어렵습니다. 반대로 포트폴리오 글만으로는 주장을 원본 코드와 연결하기
+처음 보는 사람이 따라가기 어렵습니다. 반대로 프로젝트 요약 글만으로는 주장을 원본 코드와 연결하기
 어렵습니다. 이 사이트는 다음 세 층을 한 경로로 연결합니다.
 
 1. 프로젝트 저장소의 코드, 테스트, ADR, 작업 로그와 troubleshooting을 원본 근거로 둡니다.
@@ -64,7 +64,7 @@ flowchart LR
 Astro를 선택한 이유와 Next.js, S3·CloudFront, k3s, GitHub Pages를 제외한 근거는
 [ADR-0001](docs/adr/0001-stack-and-hosting.md)에 기록했습니다. Git 기반 관리자를 선택한 대안 비교는
 [ADR-0002](docs/adr/0002-git-based-cms.md), GitHub와 블로그의 역할 분리는
-[ADR-0005](docs/adr/0005-github-and-blog-portfolio-surfaces.md)에서 확인할 수 있습니다.
+[ADR-0005](docs/adr/0005-github-and-blog-public-surfaces.md)에서 확인할 수 있습니다.
 
 ## 로컬 실행과 검증
 
