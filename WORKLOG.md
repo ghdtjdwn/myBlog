@@ -1,5 +1,21 @@
 # Work log
 
+## 2026-09-02 — 프런트엔드 의존성 보안 갱신
+
+- 목표: 현재 lockfile의 high 7건과 moderate 2건을 제거하고, 같은 수준의 알려진 취약점이 다시 기본 브랜치에 들어오지 않게 한다.
+- 변경: Astro를 `7.0.9`에서 `7.2.10`으로 올리고 transitive dependency를 패치 버전으로 다시 잠갔다. `esbuild@0.28.1`과 `fsevents@2.3.3`의 install script만 버전 고정으로 승인했으며, CI에 `npm audit --audit-level=moderate` 게이트를 추가했다.
+- 영향 범위: `package.json`, `package-lock.json`, GitHub CI만 변경하며 콘텐츠와 route 계약은 바꾸지 않는다.
+- 검증: Node 24와 npm 11에서 clean `npm ci`, audit 취약점 0건, 콘텐츠 관계 검사, Astro 진단 0건, production build, 생성 문서 143개와 draft 격리를 확인했다. 기존 500 kB 초과 chunk 경고는 남아 있으며 이번 dependency 갱신에서 새 오류는 발생하지 않았다.
+- 전달: 전용 pull request에서 GitHub CI와 Vercel Preview를 확인한 뒤 `main`에 반영한다. Production 배포가 같은 commit으로 Ready가 되면 `seongju.vercel.app` alias와 공개 페이지를 다시 확인한다.
+
+## 2026-09-02 — 공개 문서의 기술 근거 정리
+
+- 목표: 블로그의 공개 목적과 실제 운영 기록은 유지하면서, 기술 선택 근거를 제품 동작과 운영 제약에 맞춰 일관되게 정리한다.
+- 변경: 스택·CMS·공개 진입점 ADR의 선택 근거를 동적 기능 필요성, 변경 추적, 정보 일관성, 장애 도메인, 지속 비용과 운영 책임으로 다시 적었다. Vercel alias 장애 기록은 재현·복구·회귀 방지 내용에 집중했고, 블로그 구조 글은 판단과 실패를 공개 코드·검증 결과에 연결하도록 한·영 문장을 맞췄다. 애플리케이션 코드와 콘텐츠 route는 바꾸지 않았다.
+- 결정: 포트폴리오 겸 기술 블로그라는 공개 정체성과 과거 전달 기록은 사실이므로 보존한다. 기술 결정은 사용자 기능, 검증 가능성, 운영 책임으로 설명한다.
+- 검증: 확장 키워드 검사, `git diff --check`, 저장소의 `npm test`와 변경분 secret scan을 실행한다.
+- 전달: 전용 pull request에서 GitHub CI와 Vercel Preview를 확인한 뒤 `main`에 반영하고, 같은 commit의 Production 배포와 `seongju.vercel.app` alias를 다시 확인한다.
+
 ## 2026-08-09 — Cham Domi 은상·운영 전환 포트폴리오 반영
 
 - 목표: 프로토타입으로 남아 있던 Cham Domi 공개 설명을 현재 운영 상태와 최근 컴퓨터학부 소프트웨어공모전 은상 결과에 맞추고, GitHub 프로필과 기술 블로그에서 같은 기여 경계·검증·한계를 보여준다.
@@ -39,7 +55,7 @@
 
 ## 2026-07-18 — 프로젝트 기록 전수 감사 기반 기술 글 18편 추가
 
-- 목표: 데스크톱 프로젝트 정리 RTF에 흩어진 트러블슈팅·작업 로그를 실제 저장소의 ADR, source, test와 대조해 면접에서 설계 판단과 검증 범위를 설명할 수 있는 상세 기술 사례로 공개한다.
+- 목표: 데스크톱 프로젝트 정리 RTF에 흩어진 트러블슈팅·작업 로그를 실제 저장소의 ADR, source, test와 대조해 설계 판단과 검증 범위를 확인할 수 있는 상세 기술 사례로 공개한다.
 - 감사 범위: 프로젝트 정리 RTF, 로컬에서 식별한 23개 Git root와 본인 GitHub 13개 저장소를 inventory하고, 공개 근거가 있는 프로젝트의 ADR·worklog·troubleshooting·배포 기록·현재 source를 교차 확인했다. 비밀 값과 개인 식별 정보는 외부로 보내거나 글에 옮기지 않았다.
 - 신규 콘텐츠: SSU 플랫폼 10편, Geuneul 4편, Macro 1편, coursework 3편을 한·영 동일 slug로 추가했다. 비동기 confirm 상태 경계, Spring Security chain scoping, 일회용 SSO 교환, fan-out rate limit, Kafka SSE broadcast, read-only root filesystem, Cilium FQDN lab, LangGraph stream routing, LMS capability terminal, GitOps image drift, PostGIS 이중 표현식 index, advisory lock batch, CPU 기반 부하 튜닝, CloudFront origin 격리, Windows SQLite lock, POSIX grader, interpreter와 RISC-V simulator를 다룬다.
 - 프로젝트 연결: ssu 플랫폼·Geuneul·Macro·coursework 한·영 프로젝트 페이지에 원본 ADR·troubleshooting·source 링크를 추가했다. Geuneul의 좌표 저장을 실제 `geometry(Point, 4326)` + `geography(geom)` 함수 index로 교정하고, 2.68초→1.39초 수치를 로컬 ARM emulation이 아닌 Production 4 VU·70초 read-only gentle load 기록으로 바로잡았다.
@@ -71,7 +87,7 @@
 - 최종 전달: 사용자가 전체 전달을 승인한 뒤 아키텍처 작업과 같은 PR #16으로 exact commit `361b475`까지 `main`에 반영하고 Production alias를 전환했다. 공개 사이트에서 최종 홈·학사·도서관 WebP를 다시 내려받아 개인 값 모자이크와 기능 문맥이 유지되는 것을 직접 확인했다. 상세한 CI·deployment·rollback 정보는 위 아키텍처 작업 항목에 함께 기록했다.
 ## 2026-07-17 — 프로젝트 근거 기반 기술 글 20편 보강
 
-- 목표: 프로젝트 정리 RTF와 각 저장소의 작업 로그·ADR·트러블슈팅·테스트 기록을 전수 감사해, 면접에서 설계 판단과 검증 범위를 설명할 수 있는 사례만 기술 블로그 글로 만든다.
+- 목표: 프로젝트 정리 RTF와 각 저장소의 작업 로그·ADR·트러블슈팅·테스트 기록을 전수 감사해, 근거와 검증 범위가 분명한 사례만 기술 블로그 글로 만든다.
 - 선별: SSU 플랫폼, Geuneul, Axwar plugin, Cham Domi와 블로그 운영 사례를 한·영 동일 slug로 작성했다. 기존 `semantic-kiosk-automation`과 겹치는 Macro 사례는 중복 발행하지 않았고, HeungMap·YOGI·OSC는 구현 근거가 없어 기술 성과 글에서 제외했다.
 - 콘텐츠: 인증 grant·LMS 부분 실패·내구성 예약 intent·LangGraph HITL·RAG quota·Testcontainers 수명주기·StatefulSet rollout·관측성, 공간 ETL·점수 정책·PostgreSQL NOTIFY·ECS rollback·RDS 암호화·proxy IP 신뢰 경계와 Stable Roommates oracle을 문제-증거-결정-검증-한계 구조로 정리했다.
 - 사실 감사: 공개 PR 6개의 병합 상태와 원문 수치를 재대조했다. Geuneul 지오코딩은 초기 46,897건에서 재실행 시 기존 좌표 전량 재사용·5,437건 추가·총 52,334건으로 갱신했고, ECS 사건은 GitHub Actions 성공이 아니라 `gh run watch | tail`을 사용한 merge 자동화의 exit code 오판으로 교정했다. 팀원 소유 영역, 비공개 URL·원문, 사용자 식별값과 secret-shaped 값은 포함하지 않았다.
@@ -421,6 +437,6 @@
 - 사실 교정: ssu 플랫폼의 변동하는 합산 테스트·ADR 수치를 제거하고 네 번째 `ssu-ai-service` 저장소를 연결했다. Cham Domi의 확인되지 않은 Docker Compose 설명을 제거했다. UNITHON은 사용자 커밋에서 확인되는 `macro_pkg` 20개 파일의 launcher·설정·패키징·통합만 직접 기여로 표시했다. 공개 제외 학습 아카이브와 기여 귀속 미확인 협업 프로젝트는 각각 보안 정리와 기여 귀속 확인 전까지 draft로 격리했다.
 - 카테고리: 직무 역량과 활동 유형을 분리했다. 직무 역량은 백엔드·아키텍처, 인프라·운영, 데이터·성능, AI 시스템, 설계·개발 과정, 트러블슈팅·신뢰성이고 활동 유형은 개인 프로젝트, 공모전·대회, 동아리·연합활동, 팀·학교 프로젝트, 학습·기타다. 글은 주 역량 하나와 선택적 활동 유형 하나를 가진다.
 - 소개: 추상적인 열정 대신 ssu 플랫폼, 그늘과 AI guardrail에서 확인 가능한 백엔드 설계, 운영, 데이터 성능과 AI 책임 경계를 연결했다. 목표 직무를 신입·주니어 백엔드, 플랫폼, AI 백엔드로 명시하고 팀에서 일하는 기준을 근거 중심으로 다시 작성했다.
-- 기록 정책: 저장소의 Issues·Projects, 작업 로그, ADR와 troubleshooting을 원본으로 유지하고 블로그에는 면접 가치가 높은 사례만 해설형 글로 선별하며 프로젝트 상세가 두 위치를 색인하는 3단 구조를 채택했다. `docs/ENGINEERING_RECORDS.md`와 ADR-0003에 규칙과 대안을 기록했다.
+- 기록 정책: 저장소의 Issues·Projects, 작업 로그, ADR와 troubleshooting을 원본으로 유지하고 블로그에는 재사용 가능한 기술적 판단을 해설형 글로 선별하며 프로젝트 상세가 두 위치를 색인하는 3단 구조를 채택했다. `docs/ENGINEERING_RECORDS.md`와 ADR-0003에 규칙과 대안을 기록했다.
 - 공개 기록: GitHub와 블로그의 역할을 바로 이해할 수 있도록 `작업 로그는 GitHub에, 해설은 블로그에 남기는 이유`를 근거·한계와 함께 공개 글로 작성했다.
 - 검증: 독립 리뷰에서 비공개 학습 아카이브 격리, UNITHON 기여 범위, 그늘 지표·기록 설명과 coursework 언어 매핑을 교정했다. 11개 카테고리와 14개 프로젝트 관계·종류 검증, Astro 21개 파일 검사에서 오류·경고 0, 33개 생성 문서와 draft 격리, npm audit 0건을 확인했다. Git·CI·Production 전달은 다음 단계에서 진행한다.

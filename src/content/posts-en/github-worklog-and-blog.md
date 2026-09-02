@@ -42,7 +42,7 @@ docs/
 
 A worklog records the date, objective, important changes, affected scope, validation actually run, and remaining work. An ADR is reserved for decisions such as architecture or infrastructure where reversal is expensive; it preserves rejected alternatives and the conditions for reconsideration as well as the selected option.
 
-A troubleshooting record is not a diary entry saying that an error was fixed. It should contain expected and actual behavior, impact, reproduction, hypotheses, evidence, root cause, alternatives, resolution, post-recovery validation, recurrence prevention, and remaining risk. Routine work is never embellished into an interview-ready incident.
+A troubleshooting record is not a diary entry saying that an error was fixed. It should contain expected and actual behavior, impact, reproduction, hypotheses, evidence, root cause, alternatives, resolution, post-recovery validation, recurrence prevention, and remaining risk. Routine work is never embellished into an incident.
 
 ## The blog rewrites selected problems for readers
 
@@ -61,7 +61,7 @@ The end of the post or the project page links the relevant ADR, Issue, PR, commi
 
 ## An in-progress project should say that it is in progress
 
-An unfinished competition or team project does not need to be hidden. It should instead distinguish `planning and preparation`, `prototype and implementation`, and `operation and improvement`, then state what is currently verified and what will be tested next. Planned Kubernetes infrastructure or an AI model must not be listed as though it were already in use; the portfolio should show the next decision gate, such as a data spike or a Day-1 availability check.
+An unfinished competition or team project does not need to be hidden. It should instead distinguish `planning and preparation`, `prototype and implementation`, and `operation and improvement`, then state what is currently verified and what will be tested next. Planned Kubernetes infrastructure or an AI model must not be listed as though it were already in use; the record should show the next decision gate, such as a data spike or a Day-1 availability check.
 
 For team and private repositories, publication scope comes before source links. Teammates' code, internal URLs, and data are not copied; only the individual's role and publicly shareable contracts and validation are summarized. A collaboration remains unpublished even if it is technically interesting when contribution attribution has not been established.
 
@@ -69,4 +69,4 @@ For team and private repositories, publication scope comes before source links. 
 
 Each project page now includes a `Worklogs and troubleshooting` section alongside its current status, activity type, and direct role. Public ADR or troubleshooting documents are linked to their source repository. If none exists or the repository is private, the page explains the criteria that will govern publication.
 
-New work will first preserve facts and validation in its own repository. Only decisions that I can explain in depth during an interview and reuse across projects will grow into blog posts. The quality criterion is not the number of posts, but whether code, failure, and validation are connected.
+New work will first preserve facts and validation in its own repository. Only decisions that can be reused across projects will grow into blog posts. The quality criterion is not the number of posts, but whether code, failure, and validation are connected.

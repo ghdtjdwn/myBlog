@@ -35,7 +35,7 @@ The C and C++ work covers POSIX file processing, a linked-list-based duplicate-f
 
 The AI assignments use PyTorch to implement and experiment with CNNs, ViT, BERT, and Transformer components. Accuracy figures in the course READMEs apply only to those datasets and course conditions and are not generalized as production-model performance.
 
-## Position in the hiring portfolio
+## Project scope
 
 The flagship projects include the operating ssu platform and the completed Geuneul service, both of which address operations, data, and user problems. This archive serves as supporting evidence for code-level discussion of data structures and execution models. I re-audited the current public source and linked three posts on the POSIX parallel grader, recursive-descent interpreter, and RISC-V simulator. They distinguish historical performance from checks run during this review and disclose the interpreter semantics where documentation and code diverge.
 
