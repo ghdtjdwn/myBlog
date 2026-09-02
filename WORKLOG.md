@@ -1,5 +1,12 @@
 # Work log
 
+## 2026-09-03 — 기본 브랜치와 의존성 보안 설정
+
+- 목표: 운영 사이트의 소스가 검증되지 않은 직접 push나 알려진 의존성 취약점으로 변경되는 경로를 줄인다.
+- 변경: GitHub `main` ruleset에서 브랜치 삭제와 force-push를 차단하고, 모든 변경이 pull request를 거쳐 `validate`와 `secret-scan`을 통과하도록 설정했다. Dependabot 취약점 알림과 자동 보안 수정도 활성화했다.
+- 검증: GitHub rules API에서 `deletion`, `non_fast_forward`, `pull_request`, `required_status_checks` 네 규칙과 두 필수 check를 확인했다. Dependabot alerts API는 활성 상태에서 열린 알림 0건을 반환했다.
+- 전달: 저장소 설정은 적용 완료했다. 이 기록 변경은 별도 pull request에서 CI와 Preview를 확인하며, Production 반영과 `seongju.vercel.app` alias 변경은 수행하지 않는다.
+
 ## 2026-09-02 — 프런트엔드 의존성 보안 갱신
 
 - 목표: 현재 lockfile의 high 7건과 moderate 2건을 제거하고, 같은 수준의 알려진 취약점이 다시 기본 브랜치에 들어오지 않게 한다.
