@@ -17,7 +17,6 @@ limitations:
   - "A real-account full export is write-like and is not executed in automated tests"
   - "If LMS collection itself exceeds the proxy budget, the flow can still terminate before confirmation"
   - "Anyone holding the capability URL can use it before expiry, so it must be redacted from logs and later model history"
-featured: true
 draft: false
 ---
 

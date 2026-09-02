@@ -17,7 +17,6 @@ limitations:
   - "PR 검증에서 발견돼 실제 사용자·주문·결제 영향은 없었음"
   - "실제 Windows UIA와 물리 kiosk end-to-end 검증과는 별도 범위"
   - "SQLite 단일 process queue의 lifecycle 사례이며 다중 host database 동시성을 다루지 않음"
-featured: true
 draft: false
 ---
 

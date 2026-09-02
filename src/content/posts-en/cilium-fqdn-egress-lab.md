@@ -17,7 +17,6 @@ limitations:
   - "This is a disposable-lab result; Cilium is not deployed in the production cluster"
   - "Production is a single flannel node with no failover during a CNI migration"
   - "DoH, DoT, fixed IPs, and CNI-chaining limitations require separate pre-production validation"
-featured: false
 draft: false
 ---
 

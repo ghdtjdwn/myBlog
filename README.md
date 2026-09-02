@@ -9,7 +9,7 @@
 [English](https://seongju.vercel.app/en/) ·
 [GitHub profile](https://github.com/ghdtjdwn)
 
-![시스템과 데이터 흐름을 표현한 seongju.vercel.app 대표 이미지](public/og-card.png)
+![시스템과 데이터 흐름을 표현한 seongju.vercel.app 소셜 카드](public/og-card.png)
 
 ## 이 저장소가 해결하는 문제
 
@@ -63,8 +63,8 @@ flowchart LR
 
 Astro를 선택한 이유와 Next.js, S3·CloudFront, k3s, GitHub Pages를 제외한 근거는
 [ADR-0001](docs/adr/0001-stack-and-hosting.md)에 기록했습니다. Git 기반 관리자를 선택한 대안 비교는
-[ADR-0002](docs/adr/0002-git-based-cms.md), GitHub와 블로그의 역할 분리는
-[ADR-0005](docs/adr/0005-github-and-blog-public-surfaces.md)에서 확인할 수 있습니다.
+[ADR-0002](docs/adr/0002-git-based-cms.md), 콘텐츠 분류 결정은
+[ADR-0003](docs/adr/0003-content-taxonomy.md)에서 확인할 수 있습니다.
 
 ## 로컬 실행과 검증
 
@@ -118,8 +118,6 @@ rollback 값으로 보존합니다.
 ## 문서
 
 - [기술 스펙](docs/TECH_SPEC.md)
-- [프로젝트 공개 범위 카탈로그](docs/PROJECT_CATALOG.md)
-- [엔지니어링 기록 운영 방식](docs/ENGINEERING_RECORDS.md)
 - [Architecture Decision Records](docs/adr/)
 - [Troubleshooting records](docs/troubleshooting/)
 - [실제 작업 로그](WORKLOG.md)

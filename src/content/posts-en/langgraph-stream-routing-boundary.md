@@ -17,7 +17,6 @@ limitations:
   - "The event contract is tied to the installed LangGraph and LangChain versions"
   - "Deterministic pre-routing is deliberately limited to observed, high-confidence library and LMS expressions"
   - "Buffering text until model completion reduces the perception of token-level streaming for final prose"
-featured: true
 draft: false
 ---
 

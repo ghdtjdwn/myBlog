@@ -17,7 +17,6 @@ limitations:
   - "단일 broker·replication factor 1이라 Kafka 자체 고가용성을 제공하지 않음"
   - "새 Pod는 auto.offset.reset=latest이므로 연결 전 과거 이벤트 전체를 재생하지 않음"
   - "실제 예약부터 terminal SSE까지의 현장 E2E는 ADR 작성 시 남은 검증이었음"
-featured: true
 draft: false
 ---
 

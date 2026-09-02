@@ -3,7 +3,7 @@
 - 발생일: 2026-07-15
 - 영향 범위: `https://seongju.vercel.app` 공개 기술 블로그
 - 상태: 해결 및 공개 검증 완료
-- 사용자 영향: 데이터·인증 영향은 없었으나 채용 제출 주소가 오래된 프로젝트 설명을 제공
+- 사용자 영향: 데이터·인증 영향은 없었으나 주 공개 주소가 오래된 프로젝트 설명을 제공
 
 ## 맥락과 기대 동작
 
@@ -47,7 +47,7 @@ alias다. Vercel은 프로젝트 설정의 custom domain을 새 Production에 �
 ## 검토한 대안
 
 - 자동 project domain인 `seongju-engineering-notes.vercel.app`을 본진으로 복귀: 자동 갱신은
-  되지만 이미 프로필·canonical·제출 자료에 통일한 짧은 주소를 포기해야 해 제외했다.
+  되지만 이미 공개 문서와 canonical에 통일한 짧은 주소를 포기해야 해 제외했다.
 - 개인 domain을 구매해 project settings에 연결: 장기적으로 가장 안정적이지만 이름·비용에
   대한 사용자 결정이 필요한 별도 범위다.
 - Vercel token을 GitHub secret으로 등록하고 alias workflow를 추가: 자동화는 가능하지만 낮은

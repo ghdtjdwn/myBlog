@@ -17,7 +17,6 @@ limitations:
   - "인증과 기숙사 자격 판정은 팀원 소유이며 이 글의 구현 범위가 아님"
   - "실제 인증 통합, CI, 공개 배포와 사용자 운영 검증은 아직 없음"
   - "점수 규칙이 공용 package가 아니라 양쪽에 복제돼 contract test가 사라지면 drift할 수 있음"
-featured: true
 draft: false
 ---
 

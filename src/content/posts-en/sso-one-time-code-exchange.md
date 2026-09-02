@@ -18,7 +18,6 @@ limitations:
   - "Authentication fails closed during Redis unavailability, creating an explicit availability cost"
   - "This is a first-party browser SSO flow, not a general-purpose OAuth authorization server"
   - "A complete post-fix production browser exchange is not part of the recorded validation evidence"
-featured: true
 draft: false
 ---
 

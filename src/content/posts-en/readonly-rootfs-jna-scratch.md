@@ -17,7 +17,6 @@ limitations:
   - "The emptyDir mounted at /tmp disappears with the Pod and is not durable storage"
   - "The audit covers the current native library and JVM options and must be repeated when dependencies change"
   - "A read-only root filesystem does not replace capability, seccomp, or network controls"
-featured: false
 draft: false
 ---
 

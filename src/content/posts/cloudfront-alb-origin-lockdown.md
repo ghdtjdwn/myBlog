@@ -17,7 +17,6 @@ limitations:
   - "CloudFront origin-facing prefix list는 모든 CloudFront distribution의 origin server 범위를 허용"
   - "CloudFront에서 ALB origin으로 가는 마지막 hop은 현재 HTTP이며 SG 격리로 노출을 줄임"
   - "캐시 비활성이라 보안 경계 외의 성능 가속 효과는 기대하지 않음"
-featured: false
 draft: false
 ---
 

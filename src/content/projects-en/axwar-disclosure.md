@@ -12,7 +12,6 @@ infra: ["Offline mock", "OPEN DART optional"]
 metrics:
   - { label: "Adversarial", value: "8 / 8" }
 order: 9
-featured: false
 repositories: []
 recordPlan: "Keep disclosure fixtures and adversarial tests as the validation source of truth, and turn the decisions for controlling numbers, notices, and investment solicitation in a financial LLM into a blog case study."
 recordLinks: []

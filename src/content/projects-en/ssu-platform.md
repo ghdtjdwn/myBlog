@@ -59,7 +59,6 @@ metrics:
   - { label: "MCP tools", value: "52" }
   - { label: "Services", value: "4" }
 order: 1
-featured: true
 live: "https://ssuai.vercel.app"
 repositories:
   - { label: "ssuMCP", url: "https://github.com/ghdtjdwn/ssuMCP" }

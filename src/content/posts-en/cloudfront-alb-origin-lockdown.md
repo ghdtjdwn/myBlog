@@ -17,7 +17,6 @@ limitations:
   - "The CloudFront origin-facing prefix list covers origin servers for all CloudFront distributions, not only mine"
   - "The current CloudFront-to-ALB origin hop uses HTTP; security-group isolation reduces its exposure"
   - "Caching is disabled, so this boundary is not intended as an application-performance acceleration"
-featured: false
 draft: false
 ---
 

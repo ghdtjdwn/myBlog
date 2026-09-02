@@ -16,7 +16,6 @@ limitations:
   - "원본 과제 dataset과 채점 환경이 없어 이번 감사에서 5.73초를 재측정하지 않음"
   - "현재 compiler audit에서 format·return-path·dangling-else warning이 남아 있음"
   - "수업용 batch grader이며 untrusted code를 격리하는 production sandbox가 아님"
-featured: false
 draft: false
 ---
 

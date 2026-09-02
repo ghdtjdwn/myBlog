@@ -16,7 +16,6 @@ validation:
 limitations:
   - "LISTEN/NOTIFY is not a durable log; a listener can miss a signal while disconnected"
   - "The choice assumes at most three ECS instances and a low event rate, not a large event stream"
-featured: true
 draft: false
 ---
 

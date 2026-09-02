@@ -17,7 +17,6 @@ validation:
 limitations:
   - "확인한 한도는 당시 provider 계정과 모델의 quota이며 보편적인 임계값이 아님"
   - "217개 문서의 적재 성공은 검색 품질 자체를 증명하지 않음"
-featured: true
 draft: false
 ---
 

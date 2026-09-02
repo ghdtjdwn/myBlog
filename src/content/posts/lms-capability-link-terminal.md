@@ -17,7 +17,6 @@ limitations:
   - "실계정 전체 export는 쓰기 성격이라 자동 테스트에서 실행하지 않음"
   - "외부 LMS 수집 자체가 proxy 시간보다 길면 confirm 이전 단계는 여전히 종료될 수 있음"
   - "capability URL은 만료 전 소유한 사람이 사용할 수 있으므로 로그·history에서 가려야 함"
-featured: true
 draft: false
 ---
 

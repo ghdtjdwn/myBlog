@@ -16,7 +16,6 @@ validation:
 limitations:
   - "in-memory limiter는 인스턴스별 근사치이며 여러 ECS task 사이에 quota를 공유하지 않음"
   - "상한 도달 시 map 정리는 메모리를 지키는 대신 일부 정상 client의 짧은 history를 잃음"
-featured: true
 draft: false
 ---
 

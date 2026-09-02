@@ -16,7 +16,6 @@ validation:
 limitations:
   - "재시도 뒤에도 provider가 해석하지 못한 옛 주소 1,756건은 좌표 없이 남음"
   - "공공 geocoding quota와 주소 품질에 의존하며 전수 위치 정확도를 현장 검증하지 않음"
-featured: true
 draft: false
 ---
 

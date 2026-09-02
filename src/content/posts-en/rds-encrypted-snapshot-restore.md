@@ -16,7 +16,6 @@ validation:
 limitations:
   - "The replacement caused about 15 minutes of database downtime; this was not a zero-downtime migration"
   - "Free-tier constraints limited retention to one day rather than the intended seven"
-featured: true
 draft: false
 ---
 

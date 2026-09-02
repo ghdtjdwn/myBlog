@@ -21,7 +21,6 @@ metrics:
   - { label: "Radius p95", value: "~1.4s" }
   - { label: "k6 checks", value: "564 / 564" }
 order: 2
-featured: true
 live: "https://geuneul.vercel.app"
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/geuneul" }

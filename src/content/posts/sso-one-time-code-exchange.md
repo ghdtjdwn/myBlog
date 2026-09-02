@@ -18,7 +18,6 @@ limitations:
   - "Redis 장애 시 로그인을 fail-closed로 중단하며 별도 가용성 비용이 생김"
   - "브라우저 기반 first-party SSO 흐름을 대상으로 하며 범용 OAuth server 구현은 아님"
   - "수정 후 전체 운영 browser exchange는 기록된 검증 근거에 포함되지 않음"
-featured: true
 draft: false
 ---
 

@@ -17,13 +17,12 @@ validation:
 limitations:
   - "Primary documents from private team repositories are not published"
   - "Existing project documentation is not migrated all at once; the structure applies to new records first"
-featured: true
 draft: false
 ---
 
 ## The problem with putting every record in one place
 
-When deciding to keep project worklogs and troubleshooting records, the first question is not only what to write, but which artifact is the source of truth. Turning every commit into a blog post lets minor changes bury important engineering cases. Keeping everything only on GitHub, however, forces a hiring reviewer to search through multiple repositories and directories.
+When deciding to keep project worklogs and troubleshooting records, the first question is not only what to write, but which artifact is the source of truth. Turning every commit into a blog post lets minor changes bury important engineering cases. Keeping everything only on GitHub, however, forces a reader to search through multiple repositories and directories.
 
 The records also serve different purposes. Active tasks, completed changes, costly-to-reverse decisions, real incidents, and explanations written for other people do not fit one format. I therefore divided the system into three layers: GitHub source records, blog explanations, and an index on each project page.
 
@@ -44,9 +43,9 @@ A worklog records the date, objective, important changes, affected scope, valida
 
 A troubleshooting record is not a diary entry saying that an error was fixed. It should contain expected and actual behavior, impact, reproduction, hypotheses, evidence, root cause, alternatives, resolution, post-recovery validation, recurrence prevention, and remaining risk. Routine work is never embellished into an incident.
 
-## The blog rewrites selected problems for readers
+## The blog explains one technical problem at a time
 
-The blog does not duplicate every worklog. It selects records that can answer one meaningful technical question: narrowing a performance bottleneck with an execution plan and load test, a deployment, authentication, concurrency, or data-consistency failure, a consequential architecture decision, AI evaluation and guardrails, or the central hypothesis of a competition project.
+The blog does not duplicate every worklog. It explains records that answer one meaningful technical question: narrowing a performance bottleneck with an execution plan and load test, a deployment, authentication, concurrency, or data-consistency failure, a consequential architecture decision, or an AI evaluation and guardrail boundary.
 
 Where the source document preserves chronological facts, a blog post reconstructs the context in this order:
 

@@ -48,23 +48,7 @@ const person = {
   name: locale === "ko" ? settings.authorNameKo : settings.authorNameEn,
   url: new URL(withBase(locale === "ko" ? "about/" : "en/about/"), Astro.site).toString(),
   email: `mailto:${settings.contact.email}`,
-  affiliation: {
-    "@type": "EducationalOrganization",
-    name: "Soongsil University",
-  },
-  sameAs: [settings.contact.github, settings.contact.solvedAc].filter(Boolean),
-  hasCredential: [
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "컴퓨터활용능력 2급 (Computer Specialist in Spreadsheet & Database, Level II)",
-      credentialCategory: "certificate",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "정보처리기능사 (Craftsman Information Processing)",
-      credentialCategory: "certificate",
-    },
-  ],
+  sameAs: [settings.contact.github],
 };
 const headerNavigation = settings.navigation.filter((item) => item.showInHeader);
 const footerNavigation = settings.navigation.filter((item) => item.showInFooter);
@@ -77,7 +61,6 @@ const isCurrentNavigation = (href: string) => {
   const current = pathname.replace(/\/$/, "");
   return current === target || (target !== import.meta.env.BASE_URL.replace(/\/$/, "") && current.startsWith(`${target}/`));
 };
-const isProfilePage = /^\/?(?:en\/)?about\/?$/.test(relativePath);
 const jsonLd =
   type === "article"
     ? {
@@ -90,20 +73,14 @@ const jsonLd =
         mainEntityOfPage: canonical.toString(),
         author: person,
       }
-    : isProfilePage
-      ? {
+    : {
         "@context": "https://schema.org",
-        "@type": "ProfilePage",
-        mainEntity: person,
-      }
-      : {
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          name: title,
-          description,
-          url: canonical.toString(),
-          author: person,
-        };
+        "@type": "WebPage",
+        name: title,
+        description,
+        url: canonical.toString(),
+        author: person,
+      };
 ---
 
 <!doctype html>

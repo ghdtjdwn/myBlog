@@ -19,7 +19,6 @@ limitations:
   - "실제 Windows UIA provider·EasyOCR 한국어 모델·마이크·물리 포인터 E2E는 미검증"
   - "새 키오스크마다 profile 작성과 현장 acceptance가 필요하며 범용 지원을 주장하지 않음"
   - "장애 당사자 사용성, 접근성 인증과 법률 적합성을 검증하지 않음"
-featured: true
 draft: false
 ---
 

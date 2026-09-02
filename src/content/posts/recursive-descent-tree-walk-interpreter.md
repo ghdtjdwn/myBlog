@@ -16,7 +16,6 @@ limitations:
   - "저장소에 정형 automated test suite가 없고 이번 확인은 소수의 audit probe"
   - "현재 parser는 +·-·*를 같은 우선순위로 좌결합하며 README의 일반적 우선순위 설명과 다름"
   - "RepeatStmt 종료 조건도 README 예시와 불일치해 과제 명세 원문 대조가 필요"
-featured: false
 draft: false
 ---
 

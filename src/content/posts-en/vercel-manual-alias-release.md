@@ -15,13 +15,12 @@ validation:
 limitations:
   - "Promotion remains manual and can still be omitted"
   - "Automatic Production assignment through a personal domain or scoped credentials is not implemented"
-featured: false
 draft: false
 ---
 
 ## Three green statuses did not deliver the latest page to users
 
-GitHub CI passed for a project-content pull request, and the Vercel Production linked to the main commit was `Ready`. Its unique deployment URL showed the new Korean and English content. The hiring URL, `seongju.vercel.app`, continued to serve the previous version.
+GitHub CI passed for a project-content pull request, and the Vercel Production linked to the main commit was `Ready`. Its unique deployment URL showed the new Korean and English content. The primary public URL, `seongju.vercel.app`, continued to serve the previous version.
 
 CDN cache and an Astro build omission were plausible at first. I compared four distinct states:
 
@@ -56,7 +55,7 @@ I do not select whichever deployment happens to be newest. The immutable URL mus
 
 ## Post-deployment verification ends at the public route
 
-After promotion, the primary alias and final Production returned the same deployment ID. Korean and English homes plus representative projects returned 200 and contained the new content. Canonical metadata pointed to the primary address, and HSTS, MIME-sniffing protection, frame restrictions, and referrer policy remained intact.
+After promotion, the primary alias and final Production returned the same deployment ID. Korean and English homes plus project pages returned 200 and contained the new content. Canonical metadata pointed to the primary address, and HSTS, MIME-sniffing protection, frame restrictions, and referrer policy remained intact.
 
 CI verifies source and build. Hosting status verifies a deployment. The URL users know may be a separate routing object, so the release checklist now includes a content probe on that exact alias.
 

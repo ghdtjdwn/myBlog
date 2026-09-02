@@ -17,7 +17,6 @@ limitations:
   - "emptyDir /tmp는 Pod 재생성 시 사라지며 영속 데이터 용도가 아님"
   - "현재 native library와 JVM 옵션의 쓰기 경로를 대상으로 하며 의존성 변경 시 재감사 필요"
   - "root filesystem read-only는 capability·seccomp·network 정책을 대신하지 않음"
-featured: false
 draft: false
 ---
 

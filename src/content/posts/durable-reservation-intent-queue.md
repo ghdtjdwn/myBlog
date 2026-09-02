@@ -18,7 +18,6 @@ limitations:
   - "WireMock 지연과 로컬 환경의 절대 latency를 실제 Pyxis 성능으로 일반화하지 않음"
   - "upstream write 성공 후 DB terminal 저장 실패는 read-after-uncertainty와 운영 확인이 필요함"
   - "Redis seat lock은 fencing 없는 효율 장치이며 correctness의 최종 근거가 아님"
-featured: true
 draft: false
 ---
 

@@ -6,12 +6,12 @@ import { withBase } from "../../lib/site";
 
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const categories = (await getCollection("categories")).sort((a, b) => a.data.order - b.data.order);
-const competencyCategories = categories.filter((category) => category.data.visible && category.data.kind === "competency");
+const topicCategories = categories.filter((category) => category.data.visible && category.data.kind === "topic");
 const activityCategories = categories.filter((category) => category.data.visible && category.data.kind === "activity");
 const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
-const visibleCompetencies = competencyCategories
+const visibleTopics = topicCategories
   .map((category) => ({ category, count: posts.filter((post) => post.data.category.id === category.id).length }))
   .filter(({ count }) => count > 0);
 const visibleActivities = activityCategories
@@ -27,10 +27,10 @@ const visibleActivities = activityCategories
       <p>직접 겪은 문제와 실패한 가설, 측정 결과, 선택의 이유를 씁니다.</p>
     </header>
     <div class="category-groups">
-      <nav class="category-nav" aria-label="직무 역량별 글">
-        <strong>직무 역량</strong>
+      <nav class="category-nav" aria-label="기술 주제별 글">
+        <strong>기술 주제</strong>
         <a aria-current="page" href={Astro.url.pathname}>전체 <span>{posts.length}</span></a>
-        {visibleCompetencies.map(({ category, count }) => <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>)}
+        {visibleTopics.map(({ category, count }) => <a href={withBase(`writing/category/${category.id}/`)}>{category.data.name} <span>{count}</span></a>)}
       </nav>
       <nav class="category-nav" aria-label="활동 유형별 글">
         <strong>활동 유형</strong>

@@ -16,7 +16,6 @@ validation:
 limitations:
   - "The timings come from one ECS service and a 0.25-vCPU task, not a universal timeout recommendation"
   - "Deployment safety was verified; zero-downtime capacity under heavy load needs separate load testing"
-featured: true
 draft: false
 ---
 

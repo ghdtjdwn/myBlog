@@ -13,7 +13,6 @@ infra: []
 metrics:
   - { label: "Current stage", value: "Data validation" }
 order: 5
-featured: false
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/heungmap" }
 recordPlan: "데이터 스파이크의 가설, 수집 결과와 go/no-go 결정을 저장소에 먼저 기록합니다. 실제 분석 결과가 생기면 실패한 가설까지 블로그의 공모전·데이터 글로 연결합니다."

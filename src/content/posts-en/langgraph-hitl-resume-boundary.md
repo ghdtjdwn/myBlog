@@ -18,7 +18,6 @@ limitations:
   - "The real school write was one controlled reservation during validation, not a general load result"
   - "Provider or LangGraph upgrades require the event and message-shape contracts to be checked again"
   - "Uncertainty after an upstream write but before internal terminal persistence remains a separate recovery boundary"
-featured: true
 draft: false
 ---
 

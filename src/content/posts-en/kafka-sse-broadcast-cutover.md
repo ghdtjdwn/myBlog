@@ -17,7 +17,6 @@ limitations:
   - "A single broker with replication factor one does not provide Kafka high availability"
   - "New Pods use auto.offset.reset=latest and do not replay the entire history from before they joined"
   - "A field E2E from a real reservation through terminal SSE remained outstanding when the ADR was written"
-featured: true
 draft: false
 ---
 

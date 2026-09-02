@@ -17,7 +17,6 @@ limitations:
   - "Authentication and dormitory eligibility belong to teammates and are outside this implementation scope"
   - "Real authentication integration, CI, public deployment, and user operation are not complete"
   - "Rules are duplicated rather than generated from one package, so removing contract tests would reintroduce drift risk"
-featured: true
 draft: false
 ---
 

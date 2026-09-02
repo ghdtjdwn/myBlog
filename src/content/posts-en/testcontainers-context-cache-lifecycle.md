@@ -16,7 +16,6 @@ validation:
 limitations:
   - "This fixes test-environment lifetimes; it is not evidence about production container orchestration"
   - "The tests control known races but do not explore every possible thread interleaving"
-featured: false
 draft: false
 ---
 

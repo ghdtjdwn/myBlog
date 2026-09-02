@@ -16,7 +16,6 @@ validation:
 limitations:
   - "테스트 환경의 수명주기 문제를 해결한 사례이며 운영 container orchestration을 검증한 것은 아님"
   - "동시성 회귀는 결정론적으로 통제했지만 모든 가능한 thread interleaving을 탐색하지는 않음"
-featured: false
 draft: false
 ---
 

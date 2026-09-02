@@ -20,7 +20,6 @@ limitations:
   - "실서비스의 150,000+ 공공 POI와 성능 실험의 300,000건 합성 시드를 구분함"
   - "ARM64 Mac의 2 vCPU 환경에서 AMD64 PostGIS를 에뮬레이션한 상대 비교"
   - "프로덕션 RDS의 절대 성능이나 보편적인 개선 배수로 일반화하지 않음"
-featured: true
 draft: false
 ---
 

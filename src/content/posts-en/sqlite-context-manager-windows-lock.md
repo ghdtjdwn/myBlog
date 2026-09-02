@@ -17,7 +17,6 @@ limitations:
   - "The failure was found during pull-request validation and affected no user, order, or payment"
   - "Real Windows UI Automation and a physical kiosk end-to-end test remain separate"
   - "This is the lifecycle of a single-process SQLite queue, not multi-host database concurrency"
-featured: true
 draft: false
 ---
 

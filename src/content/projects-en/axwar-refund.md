@@ -12,7 +12,6 @@ infra: ["Python standard library"]
 metrics:
   - { label: "Golden tests", value: "10 / 10" }
 order: 8
-featured: false
 repositories: []
 recordPlan: "Keep the original policy-parsing and calculation validation in the deliverable, and selectively document design decisions such as fail-closed calculation and defenses against scope escalation on the blog."
 recordLinks: []

@@ -17,7 +17,6 @@ validation:
 limitations:
   - "The observed limit belongs to that provider account and model at that time; it is not a universal threshold"
   - "Successfully loading 217 documents does not establish retrieval quality"
-featured: true
 draft: false
 ---
 

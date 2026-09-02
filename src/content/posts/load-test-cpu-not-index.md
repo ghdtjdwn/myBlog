@@ -17,7 +17,6 @@ limitations:
   - "4 VU gentle test는 대규모 용량 한계나 인터넷 전체 사용자 성능을 증명하지 않음"
   - "before/after는 당시 production 데이터·Fargate 상태의 관측이며 보편적 비율이 아님"
   - "0.25→0.5 vCPU로 compute 비용이 증가하며 장기 비용은 실제 사용량에 따라 달라짐"
-featured: true
 draft: false
 ---
 

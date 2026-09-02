@@ -13,7 +13,6 @@ infra: []
 metrics:
   - { label: "Current stage", value: "Data validation" }
 order: 5
-featured: false
 repositories:
   - { label: "GitHub", url: "https://github.com/ghdtjdwn/heungmap" }
 recordPlan: "The repository will first record the data-spike hypothesis, collection results, and go/no-go decision. Once analysis results exist, failed hypotheses will also be connected to competition and data posts on the blog."

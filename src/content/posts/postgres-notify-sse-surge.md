@@ -16,7 +16,6 @@ validation:
 limitations:
   - "LISTEN/NOTIFY는 durable event log가 아니며 listener 단절 중 신호가 유실될 수 있음"
   - "최대 3개 ECS 인스턴스와 낮은 event rate를 전제로 한 선택이며 대규모 event stream에 적합하지 않음"
-featured: true
 draft: false
 ---
 

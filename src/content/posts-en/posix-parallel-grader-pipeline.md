@@ -16,7 +16,6 @@ limitations:
   - "The original course dataset and grader environment are unavailable, so this audit did not reproduce 5.73 seconds"
   - "The current compiler audit still reports format, return-path, and dangling-else warnings"
   - "This is a batch coursework grader, not a production sandbox for untrusted code"
-featured: false
 draft: false
 ---
 

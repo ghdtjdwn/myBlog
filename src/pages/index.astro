@@ -9,7 +9,6 @@ import { getSiteSettings } from "../lib/settings";
 const settings = await getSiteSettings();
 const showDrafts = import.meta.env.DEV || import.meta.env.SHOW_DRAFTS === "true";
 const projects = (await getCollection("projects", ({ data }) => showDrafts || !data.draft)).sort((a, b) => a.data.order - b.data.order);
-const featuredProjects = projects.filter((project) => project.data.featured);
 const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
@@ -33,8 +32,8 @@ const posts = (await getCollection("posts", ({ data }) => showDrafts || !data.dr
     </section>
 
     <section class="home-section">
-      <header class="list-heading"><h2>{settings.home.featuredProjectsLabelKo}</h2><a href={withBase("projects/")}>전체 보기</a></header>
-      <div class="project-list">{featuredProjects.slice(0, settings.home.featuredProjectCount).map((project) => <ProjectCard project={project} />)}</div>
+      <header class="list-heading"><h2>{settings.home.projectsLabelKo}</h2><a href={withBase("projects/")}>전체 보기</a></header>
+      <div class="project-list">{projects.slice(0, settings.home.projectCount).map((project) => <ProjectCard project={project} />)}</div>
     </section>
   </div>
 </BaseLayout>

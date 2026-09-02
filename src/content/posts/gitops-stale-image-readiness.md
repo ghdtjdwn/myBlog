@@ -17,7 +17,6 @@ limitations:
   - "RollingUpdate가 이전 Ready Pod를 유지해 외부 중단은 없었던 단일 replica 전환 사례"
   - "stale operation 종료는 최신 Git revision과 새 image 존재를 확인한 뒤에만 수행"
   - "Git repository redirect가 다른 artifact registry 이름까지 바꿔 주지는 않음"
-featured: true
 draft: false
 ---
 

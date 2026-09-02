@@ -14,7 +14,6 @@ metrics:
   - { label: "Safety", value: "Dry-run default" }
   - { label: "Validation", value: "69 tests · Linux/Windows CI" }
 order: 3
-featured: true
 repositories:
   - { label: "Macro", url: "https://github.com/UNITHON24/Macro" }
 recordPlan: "The Macro repository's code, ADRs, work log, and troubleshooting records remain the source evidence for the voice, order, and physical-UI boundaries. I do not include the team's complete Backend or Frontend implementation in my individual record."

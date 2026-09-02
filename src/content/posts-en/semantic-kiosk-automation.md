@@ -19,7 +19,6 @@ limitations:
   - "No end-to-end validation of a real Windows UIA provider, Korean EasyOCR model, microphone, or physical pointer"
   - "Every new kiosk needs a reviewed profile and on-device acceptance; universal support is not claimed"
   - "No disabled-user study, accessibility certification, or legal-compliance assessment"
-featured: true
 draft: false
 ---
 

@@ -5,13 +5,13 @@
 
 ## 1. 목표
 
-이 사이트는 단순 글 목록이 아니라 다음 세 가지를 하나의 증거 체계로 연결한다.
+이 사이트는 단순 글 목록이 아니라 다음 세 가지를 하나의 기술 기록 체계로 연결한다.
 
 1. 프로젝트가 해결한 사용자 문제
 2. 홍성주가 직접 맡은 역할과 기술적 결정
 3. 코드, 테스트, ADR, 장애 기록, 라이브 서비스로 확인 가능한 결과
 
-주 독자는 채용 담당자와 개발자다. 30초 안에 전문 분야를 파악하고, 3분 안에 대표 프로젝트의 역할과 깊이를 확인할 수 있어야 한다.
+독자는 주제별 글과 프로젝트 맥락을 빠르게 찾고, 필요한 경우 원본 코드와 검증 기록까지 따라갈 수 있어야 한다.
 
 ## 2. 선택 기준
 
@@ -51,7 +51,7 @@ V1은 기본 다섯 개 컬렉션과 한국어 원문에 대응하는 `projectsE
 ### site settings
 
 - 작성자 한·영 이름, 사이트 한·영 제목·설명과 헤더·푸터 문구
-- 홈 소개 문구, 목록 제목과 최근 글·대표 프로젝트 표시 개수
+- 홈 소개 문구, 목록 제목과 최근 글·프로젝트 표시 개수
 - 이메일·GitHub·solved.ac·학력 표시
 - 검증된 배경 테마와 강조색 preset
 - 한·영 메뉴 이름·경로, 상단/하단 노출, 새 탭 여부와 배열 순서
@@ -60,8 +60,8 @@ V1은 기본 다섯 개 컬렉션과 한국어 원문에 대응하는 `projectsE
 ### categories
 
 - `name`, `description`, `nameEn`, `descriptionEn`, `kind`, `order`, `visible`
-- `kind`는 직무 역량과 활동 유형을 구분한다.
-- 글은 직무 역량 카테고리 하나를 필수로, 활동 유형 하나를 선택적으로 참조한다.
+- `kind`는 기술 주제와 활동 유형을 구분한다.
+- 글은 기술 주제 카테고리 하나를 필수로, 활동 유형 하나를 선택적으로 참조한다.
 - 관계 검증 스크립트가 삭제·이름 변경으로 생긴 끊어진 참조를 빌드 전에 차단한다.
 - `kind` 변경으로 두 카테고리 그룹 사이를 이동하고 `order`로 같은 그룹의 표시 순서를 바꾼다.
 
@@ -73,14 +73,14 @@ V1은 기본 다섯 개 컬렉션과 한국어 원문에 대응하는 `projectsE
 - `repositories`, `liveUrl`, `liveStatus`
 - `stack`, `infra`, `metrics`
 - `decisions`, `incidents`, `relatedPosts`
-- `featured`, `order`
+- `order`
 
 ### posts
 
 - `title`, `description`, `publishedAt`, `updatedAt`
 - `category`, `activity`, `project`, `role`, `tags`
 - `evidence`, `validation`, `limitations`
-- `draft`, `featured`
+- `draft`
 
 ### decisions
 
@@ -119,7 +119,7 @@ local draft 또는 /admin 편집
   → Vercel Production + CDN
 ```
 
-V1에서는 별도 DB, Kubernetes, Terraform을 사용하지 않는다. Git 기반 Keystatic 관리자와 OAuth 콜백에만 Vercel Function을 사용한다. `ssuAI` 플랫폼에서 k3s·ArgoCD·관측성을, `그늘`에서 AWS ECS·Terraform·RDS·CloudFront를 이미 훨씬 깊게 증명했기 때문에 블로그는 글 전달과 콘텐츠 안정성을 우선한다.
+V1에서는 별도 DB, Kubernetes, Terraform을 사용하지 않는다. Git 기반 Keystatic 관리자와 OAuth 콜백에만 Vercel Function을 사용한다. 다른 서비스에서 k3s·ArgoCD와 AWS 인프라를 각각 운영하므로, 블로그는 글 전달과 콘텐츠 안정성에 필요한 구성만 사용한다.
 
 Cloudflare Workers Static Assets는 확장성이 좋은 대안이지만 Worker 런타임이 필요 없다. GitHub Pages는 충분히 가능하지만 PR별 Preview와 운영 분석이 약하다. AWS S3+CloudFront와 자체 k3s는 기존 역량을 반복하면서 비용과 장애 표면만 늘린다.
 
@@ -131,20 +131,20 @@ Cloudflare Workers Static Assets는 확장성이 좋은 대안이지만 Worker �
 2. Vercel 배포에서도 동일한 전체 테스트와 정적 빌드
 3. 카테고리·프로젝트 참조, 내부 링크, 이미지 경로, canonical, JSON-LD, RSS, sitemap 검사
 4. 공개 문서와 빌드 산출물 secret scan
-5. 대표 라우트와 360px 모바일 smoke test
+5. 주요 라우트와 360px 모바일 smoke test
 
 프로덕션 기준은 다음과 같다.
 
 - Lighthouse Performance, Accessibility, Best Practices, SEO 각 90 이상
 - 깨진 내부 링크 0
 - draft의 프로덕션 노출 0
-- 모든 대표 프로젝트에 역할·근거·한계 표시
+- 모든 공개 프로젝트에 역할·근거·한계 표시
 - Preview에는 검색 색인 방지
 
 ## 7. SEO와 배포 메타데이터
 
 - 각 페이지 canonical URL
-- `BlogPosting`과 `ProfilePage` JSON-LD
+- `BlogPosting`과 `WebPage` JSON-LD
 - 발행일과 실제 수정일 분리
 - Open Graph와 소셜 카드
 - `sitemap.xml`, `rss.xml`, `robots.txt`
@@ -162,7 +162,6 @@ Cloudflare Workers Static Assets는 확장성이 좋은 대안이지만 Worker �
 - `scripts/new-record.mjs`: project/post는 같은 slug의 한·영 초안 쌍, decision/incident는 한국어 초안 생성
 - `config/project-sources.local.json`: 프로젝트별 로컬 근거 경로. Git 제외
 - `config/project-sources.example.json`: 공개 가능한 키 구조
-- `docs/PROJECT_CATALOG.md`: 프로젝트별 공개 범위와 검증 근거
 - draft 전용 목록: 로컬과 Preview에서만 확인
 
 자동화는 글을 발행하지 않는다. 프로젝트의 work log, ADR, troubleshooting, Git diff를 읽어 초안을 만들 수 있지만 `draft: true`를 강제한다. 공개 글은 같은 slug의 한·영 원문이 모두 발행 상태일 때만 검증을 통과하며, 비공개 원문은 공개 저장소에 복사하지 않는다.
@@ -173,7 +172,7 @@ Cloudflare Workers Static Assets는 확장성이 좋은 대안이지만 Worker �
 - 독자 피드백 수요 확인: Giscus 검토
 - GitHub 기반 편집이 실제 병목: 독립 Content Lake형 Headless CMS 검토
 - 상호작용이 필요한 글: 해당 MDX 컴포넌트만 island로 추가
-- 영문 글 확대: 한·영 쌍으로 생성한 초안 중 검수 가능한 대표 글부터 함께 발행
+- 영문 글 확대: 한·영 쌍으로 생성한 초안 중 검수를 마친 글부터 함께 발행
 
 기능은 요구가 검증된 뒤에만 추가한다.
 

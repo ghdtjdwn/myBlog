@@ -17,7 +17,6 @@ limitations:
   - "RollingUpdate retained the previous Ready Pod, so this single-replica transition caused no external outage"
   - "The stale operation was terminated only after the latest Git revision and corrected image were verified"
   - "A Git repository redirect does not rename coordinates in an independent artifact registry"
-featured: true
 draft: false
 ---
 

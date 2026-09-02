@@ -17,7 +17,6 @@ limitations:
   - "Asynchronous acceptance improves the request boundary but cannot guarantee success at the external university system"
   - "Owner-wide supersede remains intentional on the web and LMS paths because their existing UX contracts differ"
   - "The throughput figure is an upper-bound estimate, not a real PostgreSQL contention or external-reservation load test"
-featured: true
 draft: false
 ---
 

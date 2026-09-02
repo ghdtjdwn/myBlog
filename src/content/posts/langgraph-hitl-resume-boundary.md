@@ -18,7 +18,6 @@ limitations:
   - "실제 학교 쓰기는 검증 당시 통제된 좌석 예약 한 건이며 일반 부하 성능을 증명하지 않음"
   - "provider와 LangGraph 버전이 바뀌면 event·message shape 계약을 다시 확인해야 함"
   - "외부 write 성공 후 내부 terminal 저장이 실패하는 불확실성은 별도 복구 경계"
-featured: true
 draft: false
 ---
 

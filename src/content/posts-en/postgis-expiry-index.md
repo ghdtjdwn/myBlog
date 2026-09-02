@@ -20,7 +20,6 @@ limitations:
   - "Separates the service's 150,000+ public POIs from the 300,000-row synthetic performance seed"
   - "Relative comparison on a 2-vCPU ARM64 Mac emulating an AMD64 PostGIS image"
   - "Does not generalize the absolute latency or improvement ratio to production RDS"
-featured: true
 draft: false
 ---
 

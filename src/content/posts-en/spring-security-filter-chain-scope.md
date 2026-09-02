@@ -17,7 +17,6 @@ limitations:
   - "The case covers the current claims and issuer contracts of two JWT systems"
   - "permitAll does not bypass authentication filters that already belong to the selected chain"
   - "New authentication entry points will require another overlap and matcher-order review"
-featured: true
 draft: false
 ---
 

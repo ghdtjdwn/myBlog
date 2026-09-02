@@ -16,7 +16,6 @@ validation:
 limitations:
   - "가중치는 제품 가설이며 사용자 효용을 입증한 실험 결과가 아님"
   - "review가 적은 지역과 지역 단위 weather에서는 개인화·미세 기후를 충분히 반영하지 못함"
-featured: true
 draft: false
 ---
 

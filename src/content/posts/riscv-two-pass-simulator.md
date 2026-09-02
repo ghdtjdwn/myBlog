@@ -16,7 +16,6 @@ limitations:
   - "저장소에 자동화된 ISA test vector나 reference emulator 비교가 없음"
   - "과제 명세에 따라 LW는 0을 반환하고 SW는 무시해 실제 memory subsystem을 구현하지 않음"
   - "RV32I 전체가 아닌 R/I/load/store/branch 일부와 x1~x5 결과 출력 범위"
-featured: false
 draft: false
 ---
 

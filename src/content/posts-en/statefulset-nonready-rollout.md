@@ -16,7 +16,6 @@ validation:
 limitations:
   - "The behavior was observed in one cluster and those specific StatefulSet controller conditions"
   - "Pod replacement followed storage checks and is not presented as a generic fix for stateful workloads"
-featured: true
 draft: false
 ---
 
